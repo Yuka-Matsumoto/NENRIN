@@ -1,0 +1,43 @@
+graph TD
+    %% アクター
+    Senior((シニア))
+    User((利用者))
+
+    %% システム境界
+    subgraph "シニア就業支援システム"
+        subgraph "共通機能"
+            style 共通機能 fill:#e6f3ff,stroke:#4da6ff
+            UC1["アカウント管理"]
+            UC2["プロフィール管理"]
+            UC3["メッセージ管理"]
+            UC4["決済管理"]
+        end
+
+        subgraph "シニア向け機能"
+            style シニア向け機能 fill:#fff0e6,stroke:#ffa64d
+            UC5["求人検索・応募"]
+            UC6["サービス登録・管理"]
+        end
+
+        subgraph "利用者向け機能"
+            style 利用者向け機能 fill:#e6ffe6,stroke:#4dff4d
+            UC7["求人登録・管理"]
+            UC8["サービス検索・依頼"]
+        end
+
+        UC9["仕事管理"]
+        style UC9 fill:#f9f9f9,stroke:#999999
+    end
+
+    %% 関係性
+    Senior --> 共通機能
+    Senior --> シニア向け機能
+    Senior --> UC9
+
+    User --> 共通機能
+    User --> 利用者向け機能
+    User --> UC9
+
+    %% 関連
+    UC5 -.-> UC7
+    UC6 -.-> UC8
