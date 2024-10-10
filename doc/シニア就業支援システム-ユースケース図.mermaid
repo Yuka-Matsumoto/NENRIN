@@ -1,0 +1,58 @@
+graph TD
+    %% アクター
+    Senior((シニア))
+    User((利用者))
+
+    %% システム境界
+    subgraph "シニア就業支援システム"
+        %% 共通ユースケース
+        UC1["アカウント作成"]
+        UC2["ログイン"]
+        UC3["プロフィール管理"]
+
+        %% シニア特有のユースケース
+        UC4["求人検索"]
+        UC5["求人応募"]
+        UC6["サービス登録"]
+        UC7["依頼受付"]
+
+        %% 利用者特有のユースケース
+        UC8["求人登録"]
+        UC9["応募者確認"]
+        UC10["サービス検索"]
+        UC11["仕事依頼"]
+
+        %% 共通ユースケース
+        UC12["メッセージ管理"]
+        UC13["決済管理"]
+        UC14["仕事管理"]
+    end
+
+    %% 関係性
+    Senior --> UC1
+    Senior --> UC2
+    Senior --> UC3
+    Senior --> UC4
+    Senior --> UC5
+    Senior --> UC6
+    Senior --> UC7
+    Senior --> UC12
+    Senior --> UC13
+    Senior --> UC14
+
+    User --> UC1
+    User --> UC2
+    User --> UC3
+    User --> UC8
+    User --> UC9
+    User --> UC10
+    User --> UC11
+    User --> UC12
+    User --> UC13
+    User --> UC14
+
+    %% 関連
+    UC4 -.-> UC5
+    UC10 -.-> UC11
+    UC8 -.-> UC9
+    UC6 -.-> UC7
