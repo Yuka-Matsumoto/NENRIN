@@ -10,15 +10,15 @@ services:
       - /app/node_modules
 
   backend:
-  build:
-    context: .
-    dockerfile: backend/backend.dockerfile
-  ports:
-    - "4000:4000"
-  volumes:
-    - ./backend:/app
-  depends_on:
-    - db
+    build:
+      context: .
+      dockerfile: backend/backend.dockerfile
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
 
   db:
     image: postgres:15
