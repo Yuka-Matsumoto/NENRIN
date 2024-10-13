@@ -1,2 +1,13 @@
 # .gitignoreに追加
 venv/
+
+
+# Python venv, cache
+venv/
+__pycache__/
+
+# Node.js modules
+node_modules/
+
+# Docker関連
+*.log
