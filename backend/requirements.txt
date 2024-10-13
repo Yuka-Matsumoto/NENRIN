@@ -1,26 +1,14 @@
-# シグナルとイベントの管理に使用されるライブラリ
 blinker==1.8.2
-# Pythonでコマンドラインインターフェース（CLI）を作成する
 click==8.1.7
-# シンプルで軽量なPythonのウェブフレームワーク
 Flask==3.0.3
-# 軽量なコルーチン（green threads）を実装するためのライブラリ
+Flask-SQLAlchemy==3.1.1
 greenlet==3.1.1
-# Pythonのパッケージメタデータを取得するためのライブラリ
 importlib_metadata==8.5.0
-# 安全なデータの署名を行うためのライブラリ。Flaskでセッションやトークンの署名に使用されます。
 itsdangerous==2.2.0
-# Pythonのテンプレートエンジン。FlaskでHTMLを動的に生成するために使用
 Jinja2==3.1.4
-# HTMLやXMLで安全なテキストレンダリングを提供するライブラリ
 MarkupSafe==3.0.1
-# PostgreSQLデータベースに接続するためのPythonライブラリ
 psycopg2-binary==2.9.9
-# PythonのORM（オブジェクトリレーショナルマッピング）ライブラリ。データベースの操作をPythonコードで簡単に記述できるようにします
 SQLAlchemy==2.0.35
-#  型ヒントをサポートするためのバックポート
 typing_extensions==4.12.2
-# Flaskの基盤となるWSGIユーティリティライブラリ
 Werkzeug==3.0.4
-#  Pythonの標準ライブラリのzipfileモジュールを補完するライブラリ
 zipp==3.20.2
