@@ -1,8 +1,13 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+
+# CORSを追加
+CORS(app)
 
 # 環境変数から接続情報を取得
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://lastProject_user:lastProject@db/lastProject')
