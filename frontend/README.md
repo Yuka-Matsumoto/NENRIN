@@ -34,3 +34,84 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+/
+├── app/
+│   ├── api/
+│   │   ├── auth/
+│   │   │   └── [...nextauth]/
+│   │   │       └── route.ts
+│   │   ├── jobs/
+│   │   │   └── route.ts
+│   │   ├── payments/
+│   │   │   └── route.ts
+│   │   └── search/
+│   │       └── route.ts
+│   ├── auth/
+│   │   ├── signin/
+│   │   │   └── page.tsx
+│   │   └── signup/
+│   │       └── page.tsx
+│   ├── dashboard/
+│   │   ├── senior/
+│   │   │   └── page.tsx
+│   │   └── union/
+│   │       └── page.tsx
+│   ├── jobs/
+│   │   ├── [id]/
+│   │   │   └── page.tsx
+│   │   └── page.tsx
+│   ├── payments/
+│   │   └── page.tsx
+│   ├── profile/
+│   │   ├── senior/
+│   │   │   └── page.tsx
+│   │   └── union/
+│   │       └── page.tsx
+│   ├── search/
+│   │   └── page.tsx
+│   ├── services/
+│   │   ├── [id]/
+│   │   │   └── page.tsx
+│   │   └── page.tsx
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── auth/
+│   │   ├── SignInForm.tsx
+│   │   └── SignUpForm.tsx
+│   ├── jobs/
+│   │   ├── JobCard.tsx
+│   │   ├── JobList.tsx
+│   │   └── ApplicationForm.tsx
+│   ├── layout/
+│   │   ├── Header.tsx
+│   │   ├── Footer.tsx
+│   │   └── Navigation.tsx
+│   ├── payments/
+│   │   └── PaymentForm.tsx
+│   ├── profile/
+│   │   ├── SeniorProfileForm.tsx
+│   │   └── UnionProfileForm.tsx
+│   ├── search/
+│   │   └── SearchBar.tsx
+│   └── services/
+│       ├── ServiceCard.tsx
+│       └── ServiceList.tsx
+├── lib/
+│   ├── firebase.ts
+│   ├── stripe.ts
+│   └── utils.ts
+├── hooks/
+│   ├── useAuth.ts
+│   ├── useJobs.ts
+│   ├── usePayments.ts
+│   └── useSearch.ts
+├── styles/
+│   └── globals.css
+├── types/
+│   ├── auth.ts
+│   ├── job.ts
+│   ├── payment.ts
+│   └── service.ts
+└── next.config.js
