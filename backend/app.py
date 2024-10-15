@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
@@ -18,6 +18,14 @@ db = SQLAlchemy(app)
 @app.route('/')
 def hello_world():
     return "Hello, World!"
+# モック
+@app.route('/api/mock', methods=['GET'])
+def get_mock_data():
+    data = {
+        "message": "Hello from Flask API!",
+        "status": "success"
+    }
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
