@@ -11,7 +11,7 @@ export default function Home() {
 
   useEffect(() => {
     // フロントエンドからバックエンドAPIへのリクエスト
-    fetch('http://backend:5000/api/mock')
+    fetch('http://backend:4000/api/mock')
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error('Error fetching data:', error));
