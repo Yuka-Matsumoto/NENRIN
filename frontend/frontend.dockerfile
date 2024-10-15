@@ -2,7 +2,7 @@
 FROM node:lts
 
 # ワーキングディレクトリを指定
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # 同一ディレクトリ内のファイルを全てコピー
 COPY . .
