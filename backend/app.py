@@ -17,12 +17,12 @@ db = SQLAlchemy(app)
 # ルート定義
 @app.route('/')
 def hello_world():
-    return "Hello, World!"
+    return "Hello, World!!!!!!!"
 # モック
 @app.route('/api/mock', methods=['GET'])
 def get_mock_data():
     data = {
-        "message": "Hello from Flask API! If this text display, fornt connect API!",
+        "message": "Hello from Flask API! If this text display, front connect API!",
         "status": "success"
     }
     return jsonify(data)
