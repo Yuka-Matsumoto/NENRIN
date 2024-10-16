@@ -22,7 +22,7 @@ def hello_world():
 @app.route('/api/mock', methods=['GET'])
 def get_mock_data():
     data = {
-        "message": "Hello from Flask API! If this text display, front connect API!",
+        "message": "Hello from Flask API! If this text display, front connect to API!",
         "status": "success"
     }
     return jsonify(data)

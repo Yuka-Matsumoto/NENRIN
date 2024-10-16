@@ -1,8 +1,8 @@
-// import Image from "next/image";
+// import Image from "next/image"; TODO:delete
 'use client';  // クライアントコンポーネントとして明示
 
 import { useEffect, useState } from 'react';
-
+import SeniorUseButton from './components/elements/senior_use_button';  // UserButtonコンポーネントをインポート
 
 
 export default function Home() {
@@ -17,11 +17,20 @@ export default function Home() {
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
+  // ボタンがクリックされたときに実行する関数
+  const handleClick = () => {
+    console.log('利用者ボタンがクリックされました');
+    // 必要に応じて、ボタンがクリックされたときに実行する処理を追加
+  };
+
 
   return (
     <div>
       <main>
-        <h1>Contents</h1>
+        <p>シニアの方はこちら</p>
+        {/* SeniorUseButtonコンポーネントを使用 */}
+        <SeniorUseButton onClick={handleClick} />
+        <p>団体、自治体の方はこちら</p>
         {/* APIからデータが取得できたら表示する */}
         {data ? (
           <div>
