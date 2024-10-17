@@ -17,5 +17,3 @@ COPY backend /app
 
 # コンテナの起動時にwait-for-itを使用してdbサービスの準備を待つ
 CMD ["/wait-for-it.sh", "db:5432", "--", "python", "app.py"]
-
-
