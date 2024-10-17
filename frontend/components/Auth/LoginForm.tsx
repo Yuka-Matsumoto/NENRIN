@@ -5,23 +5,23 @@ import { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
 
-const SignInForm = () => {
+const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleSignIn = async (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            console.log('User signed in');
+            console.log('User signed in successfully');
         } catch (err) {
             setError('Failed to sign in');
         }
     };
 
     return (
-        <form onSubmit={handleSignIn}>
+        <form onSubmit={handleLogin}>
             <input
                 type="email"
                 value={email}
@@ -40,4 +40,6 @@ const SignInForm = () => {
     );
 };
 
-export default SignInForm;
+export default LoginForm;
+
+
