@@ -8,6 +8,7 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
+      - ./frontend/package-lock.json:/app/package-lock.json # TODO: ここを追加した（コンフリクト注）
 
   backend:
     build:
