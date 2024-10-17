@@ -1,27 +1,23 @@
-// frontend/components/Auth/SignUpForm.tsx
-'use client';
-
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../lib/firebase';
+import { auth, signInWithEmailAndPassword } from '../../lib/firebase';
 
-const SignupForm = () => {
+const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleSignup = async (e: React.FormEvent) => {
+    const handleSignIn = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            console.log('User signed up successfully');
+            await signInWithEmailAndPassword(auth, email, password);
+            console.log('User signed in');
         } catch (err) {
-            setError('Failed to sign up');
+            setError('Failed to sign in');
         }
     };
 
     return (
-        <form onSubmit={handleSignup}>
+        <form onSubmit={handleSignIn}>
             <input
                 type="email"
                 value={email}
@@ -34,13 +30,10 @@ const SignupForm = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
             />
-            <button type="submit">Sign Up</button>
+            <button type="submit">Sign In</button>
             {error && <p>{error}</p>}
         </form>
     );
 };
 
-export default SignupForm;
-
-
-
+export default LoginForm;

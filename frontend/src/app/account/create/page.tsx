@@ -1,4 +1,6 @@
-import SignupForm from '../../../components/Auth/SignupForm';
+"use client"
+
+import SignupForm from '../../../../components/Auth/SignupForm';
 
 export default function CreateAccountPage() {
     return (

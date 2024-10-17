@@ -1,4 +1,3 @@
-// frontend/hooks/useAuth.ts
 import { useState, useEffect } from 'react';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 import { auth } from '../lib/firebase';
