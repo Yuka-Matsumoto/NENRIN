@@ -1,0 +1,130 @@
+erDiagram
+    senior_users ||--o| senior_profiles : has
+    union_users ||--o| union_profiles : has
+    senior_profiles ||--o{ payments : makes
+    union_profiles ||--o{ jobs : posts
+    senior_profiles ||--o{ applications : submits
+    jobs ||--o{ applications : receives
+    applications ||--o| scoring : has
+    senior_profiles ||--o{ services : offers
+    senior_profiles ||--o{ messages : sends
+    union_profiles ||--o{ messages : sends
+    senior_profiles ||--o{ message_threads : participates
+    union_profiles ||--o{ message_threads : participates
+
+    senior_users {
+        UUID id PK
+        string name
+        string email
+        string password
+        string address
+        string phone_number
+        date date_of_birth
+        string gender
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    senior_profiles {
+        UUID id PK
+        UUID user_id FK
+        string name
+        string address
+        integer age
+        string gender
+        text career
+        text license
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    union_users {
+        UUID id PK
+        string email
+        string password
+        string union_name
+        string dept_name
+        string address
+        string phone_number
+        date date_of_foundation
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    union_profiles {
+        UUID id PK
+        UUID union_id FK
+        string name
+        string address
+        date date_of_foundation
+        text overview
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    payments {
+        UUID id PK
+        UUID senior_profiles_id FK
+        decimal amount
+        string currency
+        string status
+        timestamp created_at
+        string stripe_payment_id
+    }
+
+    jobs {
+        UUID id PK
+        UUID union_profiles_id FK
+        string title
+        text description
+        string location
+        decimal salary
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    services {
+        UUID id PK
+        UUID senior_profiles_id FK
+        string name
+        string category
+        text description
+        decimal price
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    applications {
+        UUID id PK
+        UUID senior_profiles_id FK
+        UUID job_id FK
+        string status
+        timestamp created_at
+    }
+
+    scoring {
+        UUID id PK
+        UUID application_id FK
+        integer score
+        json criteria_met
+        timestamp created_at
+    }
+
+    messages {
+        UUID id PK
+        UUID sender_id FK
+        UUID receiver_id FK
+        string subject
+        text body
+        string status
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    message_threads {
+        UUID id PK
+        UUID sender_id FK
+        UUID receiver_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
