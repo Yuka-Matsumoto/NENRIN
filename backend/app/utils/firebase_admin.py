@@ -1,5 +1,5 @@
 import firebase_admin
-from firebase_admin import credentials, auth
+from firebase_admin import credentials
 
 # Firebaseの認証情報を指定して初期化
 cred = credentials.Certificate('path/to/serviceAccountKey.json')
