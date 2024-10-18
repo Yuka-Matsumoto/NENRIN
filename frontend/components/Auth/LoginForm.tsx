@@ -1,7 +1,8 @@
-'use client'; // クライアントコンポーネントとして動作
+'use client';
 
 import { useState } from 'react';
-import { auth, signInWithEmailAndPassword } from '../../lib/firebase'; // Firebase設定からインポート
+// import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth, signInWithEmailAndPassword } from '../../lib/firebase';
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -11,16 +12,32 @@ const LoginForm = () => {
 
     const handleSignIn = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true); // ローディング状態を有効にする
+        setLoading(true);
+        setError(''); // エラーをリセット
+
         try {
             await signInWithEmailAndPassword(auth, email, password);
             console.log('User signed in');
-            setError(''); // エラーメッセージをクリア
-        } catch (err) {
-            setError('Failed to sign in');
-            console.error('Error during sign in:', err);
+        } catch (err: any) {
+            // Firebaseエラーコードに基づいて適切なメッセージを設定
+            switch (err.code) {
+                case 'auth/invalid-email':
+                    setError('Invalid email address.');
+                    break;
+                case 'auth/user-disabled':
+                    setError('This account has been disabled.');
+                    break;
+                case 'auth/user-not-found':
+                    setError('No user found with this email.');
+                    break;
+                case 'auth/wrong-password':
+                    setError('Incorrect password.');
+                    break;
+                default:
+                    setError('Failed to sign in. Please try again later.');
+            }
         } finally {
-            setLoading(false); // ローディング終了
+            setLoading(false);
         }
     };
 
@@ -49,3 +66,4 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
