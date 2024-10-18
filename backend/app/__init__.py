@@ -10,4 +10,5 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from app.models import user  # モデルのインポート
+# ここで models ディレクトリ内のすべてのモデルをインポート
+from app.models import *
