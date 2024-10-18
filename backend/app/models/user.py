@@ -1,3 +1,5 @@
+# ユーザーモデル（シニアと団体）
+
 from app import db
 import uuid
 from datetime import datetime, timezone
