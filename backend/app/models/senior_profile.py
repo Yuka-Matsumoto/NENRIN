@@ -20,7 +20,7 @@ class SeniorProfile(db.Model):
 
     user = db.relationship('User', backref=db.backref('senior_profiles', lazy=True))
 
-# シードデータを追加する関数
+# シーディング用関数
 def seed_senior_profiles():
     if SeniorProfile.query.count() == 0:
         sample_senior_profile = SeniorProfile(

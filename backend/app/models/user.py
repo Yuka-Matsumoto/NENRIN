@@ -15,9 +15,9 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))  # タイムゾーン対応
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
+# シーディング用関数
 def seed_users():
     if User.query.count() == 0:
-        # サンプルユーザーを追加
         senior_user = User(
             role="senior_user",
             name="Senior Sample User",

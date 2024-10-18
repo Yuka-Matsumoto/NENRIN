@@ -19,9 +19,9 @@ class UnionProfile(db.Model):
 
     user = db.relationship('User', backref=db.backref('union_profiles', lazy=True))
 
+# シーディング用関数
 def seed_union_profiles():
     if UnionProfile.query.count() == 0:
-        # サンプルのUnionProfileを追加
         sample_union_profile = UnionProfile(
             user_id="20c8f5f7-50f8-4203-83e1-a333730d3929",
             union_name="Sample Union",

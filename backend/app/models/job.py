@@ -19,6 +19,7 @@ class Job(db.Model):
 
     union_profile = db.relationship('UnionProfile', backref=db.backref('jobs', lazy=True))
 
+# シーディング用関数
 def seed_jobs():
     if Job.query.count() == 0:
         sample_job = Job(
