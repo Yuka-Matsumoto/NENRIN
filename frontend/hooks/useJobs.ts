@@ -14,7 +14,9 @@ export const useJobs = () => {
       const data = await fetchJobs(query);
       setJobs(data);
     } catch (err) {
-      setError(err.message);
+      // err を Error 型としてキャストし、適切なエラーメッセージを取得
+      const errorMessage = err instanceof Error ? err.message : "Unknown error";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
