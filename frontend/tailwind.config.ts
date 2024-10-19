@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        mint: '#98FF98', // ミントグリーンのカスタムカラーを追加
+        mint: '#CEF9DC', // ミントグリーンのカスタムカラーを追加
       },
     },
   },
