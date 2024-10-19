@@ -1,11 +1,9 @@
-import React from 'react';
+'use client';
 
-type SeniorUseButtonProps = {
-    onClick: () => void;
-};
-
-const SeniorUseButton: React.FC<SeniorUseButtonProps> = ({ onClick }) => {
-    return <button onClick={onClick}>利用する</button>;
-};
-
-export default SeniorUseButton;
+export default function SeniorUseButton({ onClick }: { onClick: () => void }) {
+    return (
+        <button onClick={onClick}>
+            シニアの方はこちら
+        </button>
+    );
+}
