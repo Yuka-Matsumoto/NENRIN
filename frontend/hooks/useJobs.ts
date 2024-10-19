@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { fetchJobs } from "../lib/api";
+import { useState, useEffect } from "react";
+import { fetchJobs, fetchJobById } from "../lib/api";
 
+// 既存の useJobs フック
 export const useJobs = () => {
   const [jobs, setJobs] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -14,7 +15,6 @@ export const useJobs = () => {
       const data = await fetchJobs(query);
       setJobs(data);
     } catch (err) {
-      // err を Error 型としてキャストし、適切なエラーメッセージを取得
       const errorMessage = err instanceof Error ? err.message : "Unknown error";
       setError(errorMessage);
     } finally {
@@ -23,4 +23,33 @@ export const useJobs = () => {
   };
 
   return { jobs, loading, error, searchJobs };
+};
+
+// 新しく追加する useJob フック
+export const useJob = (id: string) => {
+  const [job, setJob] = useState<any | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchJob = async () => {
+      setLoading(true);
+      setError(null); // エラーをクリア
+      try {
+        const data = await fetchJobById(id);
+        setJob(data);
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : "Unknown error";
+        setError(errorMessage);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchJob();
+    }
+  }, [id]);
+
+  return { job, loading, error };
 };

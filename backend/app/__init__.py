@@ -23,6 +23,9 @@ def create_app():
 
     # ルートやBlueprintを登録
     from app.routes.search import search_bp
+    from app.routes.jobs import jobs_bp
+
     app.register_blueprint(search_bp)
+    app.register_blueprint(jobs_bp) 
 
     return app
