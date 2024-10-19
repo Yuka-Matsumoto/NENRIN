@@ -24,8 +24,10 @@ def create_app():
     # ルートやBlueprintを登録
     from app.routes.search import search_bp
     from app.routes.jobs import jobs_bp
+    from app.routes.services import services_bp  # services_bpをインポート
 
     app.register_blueprint(search_bp)
-    app.register_blueprint(jobs_bp) 
+    app.register_blueprint(jobs_bp)
+    app.register_blueprint(services_bp)  # services_bpを登録
 
     return app
