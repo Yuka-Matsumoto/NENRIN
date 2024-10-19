@@ -9,10 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        mint: '#CEF9DC', // ミントグリーンのカスタムカラーを追加（背景色）
+        mint: '#ecf7f2', // ミントグリーンのカスタムカラーを追加（背景色）
         brown: {
           700: '#8B4513', // 茶色のカスタムカラーを追加（N E N R I N）
         },
+        customGreen: '#3c6566', // カスタムグリーンカラーを追加（Footer背景色）
       },
     },
   },
