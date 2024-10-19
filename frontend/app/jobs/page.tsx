@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useJobs } from "../../hooks/useJobs";
 import JobList from "../../components/Jobs/JobList";
 
@@ -9,10 +9,14 @@ const JobsPage = () => {
   const [location, setLocation] = useState("");
   const { jobs, loading, error, searchJobs } = useJobs(); // searchJobs を取得
 
-  // 検索ボタンが押されたときに呼ばれる関数
+  // コンポーネントが初期化されたときに全ての求人を取得する
+  useEffect(() => {
+    searchJobs({ title: "", location: "" }); // 空の検索クエリで全求人を取得
+  }, []); // 初回レンダリング時のみ実行
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // 入力されたタイトルとロケーションで検索実行
+    // 検索クエリに基づいて検索を実行
     searchJobs({ title, location });
   };
 
