@@ -18,7 +18,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-mint">
       <main className="text-center space-y-6">
         <p className="text-xl font-semibold">シニアの方はこちら</p>
         <SeniorUseButton onClick={handleSeniorClick} />
