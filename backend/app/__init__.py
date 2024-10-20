@@ -10,7 +10,3 @@ def create_app():
 
     # Blueprintの登録
     app.register_blueprint(auth_bp)
-
-    # # 他の設定や拡張機能の初期化
-
-    # return app
