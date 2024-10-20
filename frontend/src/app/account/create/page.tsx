@@ -1,12 +1,13 @@
-"use client"
-
 import SignupForm from '../../../../components/Auth/SignupForm';
 
-export default function CreateAccountPage() {
+const SignupPage = () => {
     return (
         <div>
-            <h1>Create Account</h1>
+            <h1>アカウント作成</h1>
             <SignupForm />
         </div>
     );
-}
+};
+
+export default SignupPage;
+

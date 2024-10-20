@@ -1,19 +1,18 @@
 from flask import Blueprint, request, jsonify
-from firebase_admin import auth as firebase_auth
-from .utils.firebase_admin import firebase_admin
+from app.services.auth_service import verify_token
 
 auth_bp = Blueprint('auth', __name__)
 
-@auth_bp.route('/api/auth/verify-token', methods=['POST'])
-def verify_token():
-    id_token = request.json.get('token')
-    if not id_token:
-        return jsonify({'error': 'Token is missing'}), 400
-
+@auth_bp.route('/api/verify-token', methods=['POST'])
+def verify_token_route():
     try:
-        # IDトークンの検証
-        decoded_token = firebase_auth.verify_id_token(id_token)
-        uid = decoded_token['uid']
-        return jsonify({'message': 'Token is valid', 'uid': uid}), 200
+        data = request.get_json()
+        token = data.get('token')
+        user_type = data.get('userType')  # 追加
+
+        result = verify_token(token, user_type)
+        status_code = 200 if result['success'] else 401
+        return jsonify(result), status_code
     except Exception as e:
-        return jsonify({'error': str(e)}), 401
+        return jsonify({'success': False, 'message': str(e)}), 500
+

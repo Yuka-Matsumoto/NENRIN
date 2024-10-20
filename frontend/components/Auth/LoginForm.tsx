@@ -1,48 +1,37 @@
 'use client';
 
 import { useState } from 'react';
-// import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth, signInWithEmailAndPassword } from '../../lib/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../lib/firebase';
+import { verifyToken } from '../../lib/api';
+import { useRouter } from 'next/navigation';
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
 
-    const handleSignIn = async (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-        setError(''); // エラーをリセット
-
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-            console.log('User signed in');
-        } catch (err: any) {
-            // Firebaseエラーコードに基づいて適切なメッセージを設定
-            switch (err.code) {
-                case 'auth/invalid-email':
-                    setError('Invalid email address.');
-                    break;
-                case 'auth/user-disabled':
-                    setError('This account has been disabled.');
-                    break;
-                case 'auth/user-not-found':
-                    setError('No user found with this email.');
-                    break;
-                case 'auth/wrong-password':
-                    setError('Incorrect password.');
-                    break;
-                default:
-                    setError('Failed to sign in. Please try again later.');
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const token = await userCredential.user.getIdToken();
+            const result = await verifyToken(token);
+
+            if (result.success) {
+                // ログイン成功後のリダイレクト
+                router.push('/dashboard/senior');
+            } else {
+                setError('ログインに失敗しました');
             }
-        } finally {
-            setLoading(false);
+        } catch (error: any) {
+            setError(error.message);
         }
     };
 
     return (
-        <form onSubmit={handleSignIn}>
+        <form onSubmit={handleLogin}>
             <input
                 type="email"
                 value={email}
@@ -57,13 +46,10 @@ const LoginForm = () => {
                 placeholder="Password"
                 required
             />
-            <button type="submit" disabled={loading}>
-                {loading ? 'Signing In...' : 'Sign In'}
-            </button>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {error && <p>{error}</p>}
+            <button type="submit">ログイン</button>
         </form>
     );
 };
 
 export default LoginForm;
-

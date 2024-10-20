@@ -1,6 +1,9 @@
 import firebase_admin
 from firebase_admin import credentials
+import os
 
-# Firebaseの認証情報を指定して初期化
-cred = credentials.Certificate('path/to/serviceAccountKey.json')
-firebase_admin.initialize_app(cred)
+def initialize_firebase():
+    if not firebase_admin._apps:
+        cred_path = os.environ.get('FIREBASE_SERVICE_ACCOUNT_KEY_PATH', 'path/to/serviceAccountKey.json')
+        cred = credentials.Certificate(cred_path)
+        firebase_admin.initialize_app(cred)

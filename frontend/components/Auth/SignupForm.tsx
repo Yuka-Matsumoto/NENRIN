@@ -1,45 +1,40 @@
-'use client';
+'use client';  // クライアントコンポーネントとしてマーク
 
 import { useState } from 'react';
-// import { createUserWithEmailAndPassword } from 'firebase/auth';#TODO:delete
-import { auth, createUserWithEmailAndPassword } from '../../lib/firebase';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { auth } from '../../lib/firebase';
+import { verifyToken } from '../../lib/api';
+import { useRouter } from 'next/navigation';  // next/routerの代わりにnext/navigationを使用
 
 const SignupForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [userType, setUserType] = useState('senior'); // 'senior' または 'union'
+    const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
 
-    const handleSignUp = async (e: React.FormEvent) => {
+    const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-        setError(''); // エラーをリセット
-
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            console.log('User signed up');
-        } catch (err: any) {
-            // Firebaseエラーコードに基づいて適切なメッセージを設定
-            switch (err.code) {
-                case 'auth/email-already-in-use':
-                    setError('This email is already in use.');
-                    break;
-                case 'auth/invalid-email':
-                    setError('Invalid email address.');
-                    break;
-                case 'auth/weak-password':
-                    setError('Password is too weak.');
-                    break;
-                default:
-                    setError('Failed to sign up. Please try again later.');
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+            // ユーザータイプをFirestoreまたはカスタムクレームに保存する必要があります
+            const token = await userCredential.user.getIdToken();
+            const result = await verifyToken(token, userType);
+
+            if (result.success) {
+                // サインアップ成功後のリダイレクト
+                router.push('/dashboard/senior');
+            } else {
+                setError('サインアップに失敗しました');
             }
-        } finally {
-            setLoading(false);
+        } catch (error: any) {
+            setError(error.message);
         }
     };
 
     return (
-        <form onSubmit={handleSignUp}>
+        <form onSubmit={handleSignup}>
             <input
                 type="email"
                 value={email}
@@ -54,13 +49,14 @@ const SignupForm = () => {
                 placeholder="Password"
                 required
             />
-            <button type="submit" disabled={loading}>
-                {loading ? 'Signing Up...' : 'Sign Up'}
-            </button>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <select value={userType} onChange={(e) => setUserType(e.target.value)}>
+                <option value="senior">シニア</option>
+                <option value="union">団体</option>
+            </select>
+            {error && <p>{error}</p>}
+            <button type="submit">サインアップ</button>
         </form>
     );
 };
 
 export default SignupForm;
-
