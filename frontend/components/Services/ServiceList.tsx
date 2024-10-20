@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link"; // Link コンポーネントをインポート
 
 interface Service {
   id: number;
@@ -23,7 +24,10 @@ const ServiceList: React.FC<ServiceListProps> = ({ services, loading, error }) =
     <div>
       {services.map((service) => (
         <div key={service.id} className="service-card">
-          <h2>{service.name}</h2>
+          {/* Linkを使ってサービス名をラップ */}
+          <Link href={`/services/${service.id}`}>
+            <h2>{service.name}</h2>
+          </Link>
           <p>Category: {service.category}</p>
           <p>Price: {service.price}</p>
           <p>Status: {service.status}</p>

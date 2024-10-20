@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link"; // Link コンポーネントをインポート
 
 interface Job {
   id: number;
@@ -24,7 +25,10 @@ const JobList: React.FC<JobListProps> = ({ jobs, loading, error }) => {
     <div>
       {jobs.map((job) => (
         <div key={job.id} className="job-card">
-          <h2>{job.title}</h2>
+          {/* Linkを使って求人タイトルをラップ */}
+          <Link href={`/jobs/${job.id}`}>
+            <h2>{job.title}</h2>
+          </Link>
           <p>{job.description}</p>
           <p>勤務地：{job.location}</p>
           <p>給料：時給{job.salary}円</p>
