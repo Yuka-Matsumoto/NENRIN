@@ -1,19 +1,23 @@
 'use client'; //TODO: to consider
 
 // import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import SeniorUseButton from '../components/elements/seniorUseButton';  // UserButtonコンポーネントをインポート
 import UnionUseButton from '../components/elements/unionUseButton';
 
 export default function HomePage() {
+  const router = useRouter();
   // SeniorUseButtonがクリックされたときの関数
   const handleSeniorClick = () => {
     console.log('シニアの利用者ボタンがクリックされました');
+    router.push('/account/create'); // アカウント作成ページに遷移
     // シニアのボタンに対する処理を追加
   };
 
   // UnionUseButtonがクリックされたときの関数
   const handleUnionClick = () => {
     console.log('団体・自治体の利用者ボタンがクリックされました');
+    router.push('/account/create'); // アカウント作成ページに遷移
     // 団体・自治体のボタンに対する処理を追加
   };
 
