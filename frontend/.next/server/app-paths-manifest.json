@@ -1,5 +1,4 @@
 {
-  "/dashboard/senior/page": "app/dashboard/senior/page.js",
   "/account/create/page": "app/account/create/page.js",
   "/account/login/page": "app/account/login/page.js"
 }

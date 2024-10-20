@@ -9,9 +9,13 @@ export const apiClient = axios.create({
 });
 
 // Firebaseトークンをバックエンドで検証するための関数
-export const verifyToken = async (token: string, userData: { userType: string; name: string; address?: string; phoneNumber?: string }) => {
+export const verifyToken = async (token: string, userData?: { [key: string]: any }) => {
     try {
-        const response = await apiClient.post('/api/verify-token', { token, ...userData });
+        const data: any = { token };
+        if (userData) {
+            Object.assign(data, userData);
+        }
+        const response = await apiClient.post('/api/verify-token', data);
         return response.data;
     } catch (error) {
         console.error('Token verification failed', error);
@@ -27,5 +31,6 @@ export const fetchWithAuth = async (url: string, token: string) => {
         },
     });
 };
+
 
 

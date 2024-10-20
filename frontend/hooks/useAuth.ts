@@ -10,11 +10,13 @@ interface UseAuthReturn {
     loading: boolean;
     error: string | null;
     token: string | null;
+    userType: string | null;
 }
 
 export const useAuth = (): UseAuthReturn => {
     const [user, setUser] = useState<User | null>(null);
     const [token, setToken] = useState<string | null>(null);
+    const [userType, setUserType] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
@@ -30,6 +32,7 @@ export const useAuth = (): UseAuthReturn => {
                     if (result.success) {
                         setUser(currentUser);
                         setToken(idToken);
+                        setUserType(result.user_type);
                     } else {
                         setError('トークンの検証に失敗しました');
                         setUser(null);
@@ -51,7 +54,8 @@ export const useAuth = (): UseAuthReturn => {
         return () => unsubscribe();
     }, [router]);
 
-    return { user, loading, error, token };
+    return { user, loading, error, token, userType };
 };
+
 
 

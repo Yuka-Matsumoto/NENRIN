@@ -7,15 +7,15 @@ import { fetchWithAuth } from '../../../../lib/api';
 import { useRouter } from 'next/navigation';
 
 export default function SeniorDashboard() {
-    const { user, loading, token } = useAuth();
+    const { user, loading, token, userType } = useAuth();
     const [backendData, setBackendData] = useState<string | null>(null);
     const router = useRouter();
 
     useEffect(() => {
-        if (!loading && !user) {
+        if (!loading && (!user || userType !== 'senior')) {
             router.push('/account/login');
         }
-    }, [user, loading, router]);
+    }, [user, loading, router, userType]);
 
     useEffect(() => {
         if (token) {
@@ -41,4 +41,5 @@ export default function SeniorDashboard() {
         </div>
     );
 }
+
 

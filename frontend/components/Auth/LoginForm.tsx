@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [userType, setUserType] = useState<'senior' | 'union'>('senior'); // ユーザータイプを選択
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
@@ -20,11 +19,12 @@ const LoginForm = () => {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const token = await userCredential.user.getIdToken();
 
-            // トークンとユーザータイプをバックエンドに送信して検証
-            const result = await verifyToken(token, userType);
+            // トークンをバックエンドに送信して検証
+            const result = await verifyToken(token);
 
             if (result.success) {
-                // ログイン成功後のリダイレクト
+                // バックエンドからユーザータイプを取得してリダイレクト
+                const userType = result.user_type;
                 router.push(userType === 'senior' ? '/dashboard/senior' : '/dashboard/union');
             } else {
                 setError('ログインに失敗しました');
@@ -50,13 +50,6 @@ const LoginForm = () => {
                 placeholder="Password"
                 required
             />
-            <select
-                value={userType}
-                onChange={(e) => setUserType(e.target.value as 'senior' | 'union')}
-            >
-                <option value="senior">シニア</option>
-                <option value="union">団体</option>
-            </select>
             {error && <p>{error}</p>}
             <button type="submit">ログイン</button>
         </form>
@@ -64,4 +57,5 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
 
