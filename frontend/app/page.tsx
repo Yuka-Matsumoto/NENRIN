@@ -29,7 +29,7 @@ export default function HomePage() {
         <p>シニアと団体をつなげることで、退職後も社会と繋がり続けられる新しい機会を提供します。</p>
         <p className="text-xl font-semibold">シニアの方はこちら</p>
         <SeniorUseButton onClick={handleSeniorClick} />
-        <p className="text-xl font-semibold">団体、自治体の方はこちら</p>
+        <p className="text-xl font-semibold">団体、自治体、企業の方はこちら</p>
         <UnionUseButton onClick={handleUnionClick} />
       </main>
     </div>
