@@ -17,7 +17,9 @@ export default function RootLayout({
     <html lang="ja">
       <body>
         <Header />
-        {children}
+        <div className="min-h-screen bg-mint">
+          {children}
+        </div>
         <Footer />
       </body>
     </html>
