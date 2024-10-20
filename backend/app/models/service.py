@@ -1,5 +1,3 @@
-# サービスモデル
-
 from app import db
 import uuid
 from datetime import datetime, timezone
@@ -21,18 +19,25 @@ class Service(db.Model):
 
 # シーディング用関数
 def seed_services():
-    if Service.query.count() == 0:
-        # サンプルサービスデータを追加
-        sample_service = Service(
-            senior_profile_id="5e91334f-4405-4f96-969d-4ede117ed2c3",
-            name="Sample Service",
-            category="Consulting",
-            description="Sample service description.",
-            price=5000,
-            status="available"
-        )
-        db.session.add(sample_service)
-        db.session.commit()
-        print("Servicesのシードデータを挿入しました。")
-    else:
-        print("Servicesのシードデータは既に存在します。")
+    services = [
+        Service(senior_profile_id="b24dba7a-830c-4828-af74-711d6540ca8a", name="プログラミング教室", description="初めてのプログラミングを学ぶための教室です。", price=5000, status="available"),
+        Service(senior_profile_id="9dbdc744-abc0-45cd-a68b-fdd605688cb3", name="英会話レッスン", description="楽しく英会話を学べるプライベートレッスン。", price=7000, status="available"),
+        Service(senior_profile_id="6043a52b-986b-4c6d-ad02-46f88a9b8ca5", name="料理教室", description="家庭料理を学ぶための教室。", price=6000, status="available"),
+        Service(senior_profile_id="0d9602b4-5cce-4fdf-84d1-a3117d8d02f3", name="ガーデニング", description="初心者向けのガーデニングレッスン。", price=4000, status="available"),
+        Service(senior_profile_id="c1c89acc-9989-4cdd-bffd-e0b5c4cff5e2", name="ヨガ教室", description="リラックスとストレッチを中心としたヨガ教室。", price=8000, status="available"),
+        Service(senior_profile_id="b24dba7a-830c-4828-af74-711d6540ca8a", name="ITサポートサービス", description="シニア向けのITサポートを提供します。", price=3000, status="available"),
+        Service(senior_profile_id="9dbdc744-abc0-45cd-a68b-fdd605688cb3", name="音楽レッスン", description="シニア向けの音楽レッスンを行います。", price=4500, status="available"),
+        Service(senior_profile_id="6043a52b-986b-4c6d-ad02-46f88a9b8ca5", name="アートセラピー", description="アートを通じて心の健康を支えます。", price=5000, status="available"),
+        Service(senior_profile_id="0d9602b4-5cce-4fdf-84d1-a3117d8d02f3", name="健康相談", description="シニア向けの健康相談を提供します。", price=2500, status="available"),
+        Service(senior_profile_id="c1c89acc-9989-4cdd-bffd-e0b5c4cff5e2", name="フィットネスレッスン", description="シニア向けのフィットネスレッスンを行います。", price=3500, status="available")
+    ]
+
+    db.session.bulk_save_objects(services)
+    db.session.commit()
+    print("10件のサービスデータを追加しました。")
+
+# アプリケーションコンテキストでシーディングを実行
+if __name__ == "__main__":
+    app = create_app()
+    with app.app_context():
+        seed_services()

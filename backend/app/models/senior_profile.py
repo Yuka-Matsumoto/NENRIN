@@ -1,5 +1,3 @@
-# プロフィールモデル（シニア）
-
 from app import db
 import uuid
 from datetime import datetime, timezone
@@ -22,18 +20,67 @@ class SeniorProfile(db.Model):
 
 # シーディング用関数
 def seed_senior_profiles():
-    if SeniorProfile.query.count() == 0:
-        sample_senior_profile = SeniorProfile(
-            user_id="09887bd5-1e06-4dd5-9ada-85b28d75eb21",
-            name="Sample Senior User",
-            address="123 Senior Street",
-            age=65,
-            gender="Male",
-            career="Retired professional with 40 years of experience in IT",
-            license="Certified Engineer"
-        )
-        db.session.add(sample_senior_profile)
+    try:
+        # サンプルデータを追加
+        senior_profiles = [
+            SeniorProfile(
+                user_id="2b5c9f13-3b59-4d99-adc9-65d68dcebb3c",
+                name="高橋 健一",
+                address="東京都港区南青山1-2-3",
+                age=70,
+                gender="男性",
+                career="30年のソフトウェア開発経験",
+                license="ソフトウェアエンジニア"
+            ),
+            SeniorProfile(
+                user_id="ba59d13d-a222-4b68-8e31-aa2455545e59",
+                name="佐藤 花子",
+                address="神奈川県横浜市中区桜木町4-5-6",
+                age=68,
+                gender="女性",
+                career="20年以上の教育業界経験",
+                license="教員免許（英語）"
+            ),
+            SeniorProfile(
+                user_id="cb43ed76-e22d-4bef-b7f8-7ac1e08baed4",
+                name="鈴木 大輔",
+                address="大阪府大阪市中央区難波7-8-9",
+                age=72,
+                gender="男性",
+                career="40年の建設業界経験",
+                license="一級建築士"
+            ),
+            SeniorProfile(
+                user_id="d85a2b32-4ece-47ec-a83b-d24a136b3b0f",
+                name="中村 美紀",
+                address="愛知県名古屋市中区栄1-2-3",
+                age=65,
+                gender="女性",
+                career="25年のヘルスケア業界経験",
+                license="看護師資格"
+            ),
+            SeniorProfile(
+                user_id="13b82f84-e081-4cca-aad9-271c805364da",
+                name="小林 健二",
+                address="福岡県福岡市中央区天神5-6-7",
+                age=69,
+                gender="男性",
+                career="35年の製造業経験",
+                license="生産管理資格"
+            )
+        ]
+
+        # 新しいデータを挿入
+        db.session.bulk_save_objects(senior_profiles)
         db.session.commit()
-        print("Senior profilesのシードデータを挿入しました。")
-    else:
-        print("Senior profilesのシードデータは既に存在します。")
+        print("新しいシニアプロファイルのシードデータを挿入しました。")
+    
+    except Exception as e:
+        db.session.rollback()  # エラー発生時にロールバック
+        print(f"エラーが発生しました: {e}")
+
+# アプリケーションコンテキストでシーディングを実行
+if __name__ == "__main__":
+    app = create_app()
+    with app.app_context():
+        seed_senior_profiles()
