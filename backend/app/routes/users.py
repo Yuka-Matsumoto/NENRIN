@@ -7,7 +7,7 @@ from datetime import datetime
 users_bp = Blueprint('users', __name__)
 
 # シニアユーザープロフィール
-@users_bp.route('/api/register-senior', methods=['POST'])
+@users_bp.route('/register-senior', methods=['POST'])
 def register_senior():
     data = request.json
     new_senior = SeniorProfile(
@@ -24,16 +24,18 @@ def register_senior():
     return jsonify({"message": "Senior user registered successfully"}), 201 # シニアユーザー登録が成功しました
 
 # ユニオンユーザープロフィール
-@app.route('/api/register-union', methods=['POST'])
+@users_bp.route('/register-union', methods=['POST'])
 def register_union():
     data = request.json
+    print("Recieved data:", data)
+    
     new_union = UnionProfile(
-        user_id=data['user_id'],  # ユーザーIDがフロントエンドから送られてくることを想定
-        union_name=data['unionName'],
-        representative_name=data['representativeName'],
-        address=f"{data['prefecture']} {data['city']}",  # 都道府県と市区町村をまとめて住所に
-        date_of_foundation=datetime.strptime(data['establishmentDate'], '%Y-%m-%d').date(),
-        overview=data['organizationOverview']
+        user_id=data['user_id'],  # フロントから送られてくるユーザーID
+        union_name=data['organizationName'],  # 団体名
+        representative_name=data['representativeName'],  # 代表者名
+        address=data['address'],  # フロントエンドで統合された address をそのまま使用
+        date_of_foundation=datetime.strptime(data['establishmentDate'], '%Y-%m-%d').date(),  # 設立年月日
+        overview=data['organizationOverview']  # 組織概要
     )
     db.session.add(new_union)
     db.session.commit()
