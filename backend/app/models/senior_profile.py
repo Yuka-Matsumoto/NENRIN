@@ -2,10 +2,6 @@ from app import db
 import uuid
 from datetime import datetime, timezone
 
-from app import db
-import uuid
-from datetime import datetime, timezone
-
 class SeniorProfile(db.Model):
     __tablename__ = 'senior_profiles'
     
