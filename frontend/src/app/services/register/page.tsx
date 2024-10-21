@@ -1,18 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { CheckCircle2, AlertCircle } from "lucide-react";
 
 export default function ServiceRegistrationForm() {
   const [formData, setFormData] = useState({
-    serviceName: "",
-    serviceDetails: "",
-    servicePrice: "",
+    senior_profile_id: "", // シニアプロフィールIDを追加
+    name: "", // サービス名
+    category: "", // サービスカテゴリ
+    description: "", // サービス詳細
+    price: "", // サービス価格
   });
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -31,7 +27,7 @@ export default function ServiceRegistrationForm() {
     setStatus("loading");
 
     try {
-      const response = await fetch("http://localhost:5000/api/services", {
+      const response = await fetch("http://localhost:4000/api/services", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,7 +41,13 @@ export default function ServiceRegistrationForm() {
 
       setStatus("success");
       setMessage("サービスが正常に登録されました");
-      setFormData({ serviceName: "", serviceDetails: "", servicePrice: "" });
+      setFormData({
+        senior_profile_id: "",
+        name: "",
+        category: "",
+        description: "",
+        price: "",
+      });
     } catch (error) {
       setStatus("error");
       setMessage("エラーが発生しました。もう一度お試しください。");
@@ -57,34 +59,53 @@ export default function ServiceRegistrationForm() {
       <h1 className="text-2xl font-bold mb-6">シニア向けサービス登録</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <Label htmlFor="serviceName">サービス名</Label>
-          <Input
-            id="serviceName"
-            name="serviceName"
-            value={formData.serviceName}
+          <label htmlFor="senior_profile_id">シニアプロフィールID</label>
+          <input
+            id="senior_profile_id"
+            name="senior_profile_id"
+            value={formData.senior_profile_id}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="name">サービス名</label>
+          <input
+            id="name"
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             required
             maxLength={100}
           />
         </div>
         <div>
-          <Label htmlFor="serviceDetails">サービスの詳細内容</Label>
-          <Textarea
-            id="serviceDetails"
-            name="serviceDetails"
-            value={formData.serviceDetails}
+          <label htmlFor="category">カテゴリ</label>
+          <input
+            id="category"
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="description">サービスの詳細内容</label>
+          <textarea
+            id="description"
+            name="description"
+            value={formData.description}
             onChange={handleChange}
             required
             rows={4}
           />
         </div>
         <div>
-          <Label htmlFor="servicePrice">サービスの価格</Label>
-          <Input
-            id="servicePrice"
-            name="servicePrice"
+          <label htmlFor="price">サービスの価格</label>
+          <input
+            id="price"
+            name="price"
             type="number"
-            value={formData.servicePrice}
+            value={formData.price}
             onChange={handleChange}
             required
             min="0"
@@ -92,23 +113,19 @@ export default function ServiceRegistrationForm() {
             placeholder="円"
           />
         </div>
-        <Button type="submit" disabled={status === "loading"}>
+        <button type="submit" disabled={status === "loading"}>
           {status === "loading" ? "送信中..." : "サービスを登録"}
-        </Button>
+        </button>
       </form>
       {status === "success" && (
-        <Alert className="mt-4">
-          <CheckCircle2 className="h-4 w-4" />
-          <AlertTitle>成功</AlertTitle>
-          <AlertDescription>{message}</AlertDescription>
-        </Alert>
+        <div className="mt-4">
+          <strong>成功:</strong> {message}
+        </div>
       )}
       {status === "error" && (
-        <Alert variant="destructive" className="mt-4">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>エラー</AlertTitle>
-          <AlertDescription>{message}</AlertDescription>
-        </Alert>
+        <div className="mt-4 text-red-500">
+          <strong>エラー:</strong> {message}
+        </div>
       )}
     </div>
   );

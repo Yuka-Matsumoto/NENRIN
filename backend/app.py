@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from app.routes.users import users_bp
 from app.routes.jobs import jobs_bp
+from app.routes.services import services_bp
 
 app = Flask(__name__)
 
@@ -17,6 +18,7 @@ migrate = Migrate(app, db)  # Flask-MigrateとSQLAlchemyを関連付け
 # Blueprintをアプリに登録
 app.register_blueprint(users_bp, url_prefix='/api')  #　/api/resister-seniorエンドポイントが有効になる
 app.register_blueprint(jobs_bp, url_prefix='/api')  # /api/job-posting
+app.register_blueprint(services_bp, url_prefix='/api') #  /api/services
 
 
 # ログ出力で確認
