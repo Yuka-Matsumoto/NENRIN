@@ -1,17 +1,12 @@
-from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
+from flask import Blueprint, jsonify, request
 from app.models.job import Job  # データベースモデルをインポート
+from app import db  # app.py からインポート
 
-app = Flask(__name__)
-CORS(app)
-
-# PostgreSQLデータベースの設定
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/dbname'
-db = SQLAlchemy(app)
+# Blueprintの定義
+jobs_bp = Blueprint('jobs', __name__)
 
 # 求人の登録エンドポイント
-@app.route('/api/job-postings', methods=['POST'])
+@jobs_bp.route('/job-postings', methods=['POST'])
 def create_job_posting():
     data = request.json
     try:
@@ -28,7 +23,3 @@ def create_job_posting():
         return jsonify({"message": "求人が正常に登録されました"}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 400
-
-if __name__ == '__main__':
-    db.create_all()  # テーブルが存在しない場合に作成
-    app.run(debug=True)
