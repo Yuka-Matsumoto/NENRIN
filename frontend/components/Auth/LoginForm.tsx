@@ -1,10 +1,11 @@
+// frontend/components/Auth/LoginForm.tsx
 'use client';
 
 import { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
-import { verifyToken } from '../../lib/api';
 import { useRouter } from 'next/navigation';
+import { apiClient } from '../../lib/api';
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -15,20 +16,15 @@ const LoginForm = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            // Firebaseでのログイン処理
+            // Firebaseでのログイン
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const token = await userCredential.user.getIdToken();
 
-            // トークンをバックエンドに送信して検証
-            const result = await verifyToken(token);
+            // バックエンドにトークンを送信してユーザータイプを取得
+            const response = await apiClient.post('/api/login', { token });
+            const { userType } = response.data;
 
-            if (result.success) {
-                // バックエンドからユーザータイプを取得してリダイレクト
-                const userType = result.user_type;
-                router.push(userType === 'senior' ? '/dashboard/senior' : '/dashboard/union');
-            } else {
-                setError('ログインに失敗しました');
-            }
+            router.push(userType === 'senior' ? '/dashboard/senior' : '/dashboard/union');
         } catch (error: any) {
             setError(error.message);
         }
@@ -36,26 +32,12 @@ const LoginForm = () => {
 
     return (
         <form onSubmit={handleLogin}>
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                required
-            />
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                required
-            />
-            {error && <p>{error}</p>}
-            <button type="submit">ログイン</button>
+            {/* フォームフィールド */}
         </form>
     );
 };
 
 export default LoginForm;
+
 
 

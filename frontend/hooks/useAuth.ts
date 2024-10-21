@@ -1,60 +1,37 @@
-// hooks/useAuth.ts
+// frontend/hooks/useAuth.ts
 import { useEffect, useState } from 'react';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import { useRouter } from 'next/navigation';
-import { verifyToken } from '../lib/api';
+import { apiClient } from '../lib/api';
 
-interface UseAuthReturn {
-    user: User | null;
-    loading: boolean;
-    error: string | null;
-    token: string | null;
-    userType: string | null;
+interface User {
+    firebaseUser: FirebaseUser;
+    userType: string;
 }
 
-export const useAuth = (): UseAuthReturn => {
+export const useAuth = () => {
     const [user, setUser] = useState<User | null>(null);
-    const [token, setToken] = useState<string | null>(null);
-    const [userType, setUserType] = useState<string | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-            if (currentUser) {
-                try {
-                    // ユーザーが存在する場合、トークンを取得してバックエンドに検証をリクエスト
-                    const idToken = await currentUser.getIdToken();
-                    const result = await verifyToken(idToken);
+        const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+            if (firebaseUser) {
+                const token = await firebaseUser.getIdToken();
+                const response = await apiClient.post('/api/get-user-type', { token });
+                const { userType } = response.data;
 
-                    if (result.success) {
-                        setUser(currentUser);
-                        setToken(idToken);
-                        setUserType(result.user_type);
-                    } else {
-                        setError('トークンの検証に失敗しました');
-                        setUser(null);
-                        router.push('/account/login'); // トークン検証に失敗した場合はログインページへリダイレクト
-                    }
-                } catch (err) {
-                    console.error('Error verifying token:', err);
-                    setError('トークンの検証に失敗しました');
-                    setUser(null);
-                    router.push('/account/login');
-                }
+                setUser({ firebaseUser, userType });
             } else {
                 setUser(null);
-                router.push('/account/login'); // ログアウト状態の場合はログインページへリダイレクト
+                router.push('/account/login');
             }
-            setLoading(false);
         });
 
         return () => unsubscribe();
     }, [router]);
 
-    return { user, loading, error, token, userType };
+    return { user };
 };
 
 
