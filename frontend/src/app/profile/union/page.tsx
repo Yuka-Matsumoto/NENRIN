@@ -34,7 +34,7 @@ export default function UnionProfile() {
     });
 
     try {
-      const response = await fetch("http://localhost:400/api/register-union", {
+      const response = await fetch("http://localhost:4000/api/register-union", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
