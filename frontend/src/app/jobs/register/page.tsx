@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export default function JobPostingForm() {
   const [formData, setFormData] = useState({
+    union_profile_id: "",  // union_profile_id を追加
     title: "",
     description: "",
     location: "",
@@ -40,7 +41,7 @@ export default function JobPostingForm() {
 
       setStatus("success");
       setMessage("求人が正常に登録されました");
-      setFormData({ title: "", description: "", location: "", salary: "" });
+      setFormData({ union_profile_id: "", title: "", description: "", location: "", salary: "" });
     } catch (error) {
       setStatus("error");
       setMessage("エラーが発生しました。もう一度お試しください。");
@@ -67,6 +68,27 @@ export default function JobPostingForm() {
         onSubmit={handleSubmit}
         style={{ display: "flex", flexDirection: "column", gap: "16px" }}
       >
+        <div>
+          <label
+            htmlFor="union_profile_id"
+            style={{ display: "block", marginBottom: "8px" }}
+          >
+            団体ID
+          </label>
+          <input
+            id="union_profile_id"
+            name="union_profile_id"
+            value={formData.union_profile_id}
+            onChange={handleChange}
+            required
+            style={{
+              width: "100%",
+              padding: "8px",
+              borderRadius: "4px",
+              border: "1px solid #ccc",
+            }}
+          />
+        </div>
         <div>
           <label
             htmlFor="title"
@@ -181,62 +203,4 @@ export default function JobPostingForm() {
           }}
         >
           <svg
-            style={{ marginRight: "8px" }}
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            width="24"
-            height="24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 12l2 2 4-4m0-4a9 9 0 110 18A9 9 0 010 12a9 9 0 0118 0z"
-            />
-          </svg>
-          <div>
-            <strong>成功</strong>
-            <p>{message}</p>
-          </div>
-        </div>
-      )}
-
-      {status === "error" && (
-        <div
-          style={{
-            marginTop: "16px",
-            padding: "12px",
-            backgroundColor: "#f8d7da",
-            color: "#721c24",
-            borderRadius: "4px",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <svg
-            style={{ marginRight: "8px" }}
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            width="24"
-            height="24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 8v4m0 4h.01M12 16v-6m0-2a9 9 0 100 18 9 9 0 000-18z"
-            />
-          </svg>
-          <div>
-            <strong>エラー</strong>
-            <p>{message}</p>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+            style={{ marginRight: "8
