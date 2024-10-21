@@ -4,11 +4,11 @@ import { useState } from "react";
 
 export default function JobPostingForm() {
   const [formData, setFormData] = useState({
-    union_profile_id: "",  // union_profile_id を追加
+    union_profile_id: "", // union_profile_id を追加
     title: "",
     description: "",
     location: "",
-    salary: "",
+    salary: "", // salary の型は string
   });
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -41,7 +41,13 @@ export default function JobPostingForm() {
 
       setStatus("success");
       setMessage("求人が正常に登録されました");
-      setFormData({ union_profile_id: "", title: "", description: "", location: "", salary: "" });
+      setFormData({
+        union_profile_id: "",
+        title: "",
+        description: "",
+        location: "",
+        salary: "",
+      });
     } catch (error) {
       setStatus("error");
       setMessage("エラーが発生しました。もう一度お試しください。");
@@ -163,6 +169,7 @@ export default function JobPostingForm() {
           <input
             id="salary"
             name="salary"
+            type="number" // salary を数値入力に変更
             value={formData.salary}
             onChange={handleChange}
             required
@@ -202,5 +209,27 @@ export default function JobPostingForm() {
             alignItems: "center",
           }}
         >
-          <svg
-            style={{ marginRight: "8
+          <strong>成功</strong>
+          <p>{message}</p>
+        </div>
+      )}
+
+      {status === "error" && (
+        <div
+          style={{
+            marginTop: "16px",
+            padding: "12px",
+            backgroundColor: "#f8d7da",
+            color: "#721c24",
+            borderRadius: "4px",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <strong>エラー</strong>
+          <p>{message}</p>
+        </div>
+      )}
+    </div>
+  );
+}
