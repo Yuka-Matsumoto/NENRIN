@@ -1,8 +1,10 @@
+# backend/app/__init__.py
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
+from app.utils.firebase_admin import initialize_firebase
 
 # SQLAlchemy と Migrate のインスタンス作成
 db = SQLAlchemy()
@@ -24,5 +26,9 @@ def create_app():
     # ルートやBlueprintを登録
     from app.routes.search import search_bp
     app.register_blueprint(search_bp)
+
+    # Blueprintの登録
+    from app.routes.auth import auth_bp
+    app.register_blueprint(auth_bp)
 
     return app
