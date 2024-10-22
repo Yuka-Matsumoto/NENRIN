@@ -33,3 +33,6 @@ def create_app():
     app.register_blueprint(applications_bp, url_prefix='/applications')  # applications_bpを登録
 
     return app
+
+# アプリケーションのインスタンスを作成
+app = create_app()

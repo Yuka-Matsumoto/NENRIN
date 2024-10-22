@@ -1,4 +1,4 @@
-from app import db
+from app import create_app, db
 import uuid
 from datetime import datetime, timezone
 
@@ -17,34 +17,34 @@ def seed_applications():
         # サンプルデータを追加
         applications = [
             Application(
-                senior_profile_id="b24dba7a-830c-4828-af74-711d6540ca8a",  # 高橋 健一
-                job_id="491e591b-0076-47f3-a9a3-7292c80c0635",  # シニア向けプログラミング教室講師
+                senior_profile_id="ce4ac2ba-bfe9-42de-8b67-3e1c56ce769f",  # 高橋 健一
+                job_id="1465f8df-452c-4291-99c7-c99233e9bc28", 
                 status="選考中",  # 応募ステータス
                 created_at=datetime.now(timezone.utc)  # 現在日時
             ),
             Application(
-                senior_profile_id="9dbdc744-abc0-45cd-a68b-fdd605688cb3",  # 佐藤 花子
-                job_id="09a874d7-57f8-4b8e-b3f7-2620a2963ac6",  # 英会話講師
+                senior_profile_id="6f9adb57-203e-41ec-b0d6-49f4b52fdd9f",  # 佐藤 花子
+                job_id="1e64f11c-6533-4c04-9b99-2ab20efb2d90", 
                 status="合格",  # 応募ステータス
-                created_at=datetime.now(timezone.utc)  # 現在日時
+                created_at=datetime.now(timezone.utc)  
             ),
             Application(
-                senior_profile_id="6043a52b-986b-4c6d-ad02-46f88a9b8ca5",  # 鈴木 大輔
-                job_id="0ebb1f3e-e520-4545-9d9c-53cc26db85f0",  # 料理教室講師
+                senior_profile_id="89373fbc-04df-4918-aceb-debce655337b",  # 鈴木 大輔
+                job_id="28208c0e-5330-490a-b720-62de49d31371",  
                 status="不合格",  # 応募ステータス
-                created_at=datetime.now(timezone.utc)  # 現在日時
+                created_at=datetime.now(timezone.utc)  
             ),
             Application(
-                senior_profile_id="0d9602b4-5cce-4fdf-84d1-a3117d8d02f3",  # 中村 美紀
-                job_id="2b2aa94c-90c5-4f3a-afe4-802ce466961d",  # ガーデニング指導
+                senior_profile_id="0e393f7e-90c3-42f5-a677-5832dc4b62cc",  # 中村 美紀
+                job_id="296896e1-fabf-4ac8-8c8d-4d125aa73c36",  
                 status="選考中",  # 応募ステータス
-                created_at=datetime.now(timezone.utc)  # 現在日時
+                created_at=datetime.now(timezone.utc)  
             ),
             Application(
-                senior_profile_id="c1c89acc-9989-4cdd-bffd-e0b5c4cff5e2",  # 小林 健二
-                job_id="2500736e-2bab-4a20-b73f-09176d4d1b3f",  # ヨガ教室インストラクター
+                senior_profile_id="5d84419e-8986-4b71-9842-b26b87a68fee",  # 小林 健二
+                job_id="2a85de83-d5bf-472c-aaa5-48c972a36013",  
                 status="合格",  # 応募ステータス
-                created_at=datetime.now(timezone.utc)  # 現在日時
+                created_at=datetime.now(timezone.utc)  
             )
         ]
 
@@ -59,6 +59,6 @@ def seed_applications():
 
 # アプリケーションコンテキストでシーディングを実行
 if __name__ == "__main__":
-    app = create_app()
-    with app.app_context():
-        seed_applications()
+    app = create_app()  # アプリケーションインスタンスを作成
+    with app.app_context():  # アプリケーションコンテキストを作成
+        seed_applications()  # シーディングを実行
