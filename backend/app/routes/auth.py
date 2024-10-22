@@ -1,37 +1,26 @@
 # backend/app/routes/auth.py
-from flask import Blueprint, request, jsonify
-from app.services.auth_service import register_user, login_user, get_user_type
+from firebase_admin import auth as firebase_auth
+from app.models.user import User
+from app.utils.db import db_session
 
-auth_bp = Blueprint('auth', __name__)
+def verify_token(token: str, user_type: str = None):
+    try:
+        decoded_token = firebase_auth.verify_id_token(token)
+        uid = decoded_token['uid']
+        email = decoded_token.get('email')
 
-@auth_bp.route('/api/register', methods=['POST'])
-def register():
-    data = request.get_json()
-    token = data.get('token')
-    user_data = data.copy()
-    user_data.pop('token', None)
+        user = db_session.query(User).filter_by(firebase_uid=uid).first()
 
-    result = register_user(token, user_data)
-    status_code = 200 if result['success'] else 400
-    return jsonify(result), status_code
-
-@auth_bp.route('/api/login', methods=['POST'])
-def login():
-    data = request.get_json()
-    token = data.get('token')
-
-    result = login_user(token)
-    status_code = 200 if result['success'] else 401
-    return jsonify(result), status_code
-
-@auth_bp.route('/api/get-user-type', methods=['POST'])
-def get_user_type_route():
-    data = request.get_json()
-    token = data.get('token')
-
-    result = get_user_type(token)
-    status_code = 200 if result['success'] else 401
-    return jsonify(result), status_code
+        if not user:
+            # 新規ユーザーの場合、データベースにユーザーを作成
+            user = User(firebase_uid=uid, email=email, user_type=user_type)
+            db_session.add(user)
+            db_session.commit()
+            return {'success': True, 'user_id': user.id, 'email': user.email, 'new_user': True}
+        else:
+            return {'success': True, 'user_id': user.id, 'email': user.email, 'new_user': False}
+    except Exception as e:
+        return {'success': False, 'message': str(e)}
 
 
 

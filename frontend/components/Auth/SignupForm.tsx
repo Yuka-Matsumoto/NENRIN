@@ -1,40 +1,31 @@
 // frontend/components/Auth/SignupForm.tsx
-'use client';
+'use client';  // クライアントコンポーネントとしてマーク
 
 import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
-import { useRouter } from 'next/navigation';
-import { apiClient } from '../../lib/api';
+import { verifyToken } from '../../lib/api';
+import { useRouter } from 'next/navigation';  // next/routerの代わりにnext/navigationを使用
 
 const SignupForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
-    const [address, setAddress] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [userType, setUserType] = useState<'senior' | 'union'>('senior');
+    const [userType, setUserType] = useState('senior'); // 'senior' または 'union'
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
     const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            // Firebaseでのユーザー作成
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+            // ユーザータイプをFirestoreまたはカスタムクレームに保存する必要があります
             const token = await userCredential.user.getIdToken();
+            const result = await verifyToken(token, userType);
 
-            // バックエンドにユーザー情報を送信
-            const response = await apiClient.post('/api/register', {
-                token,
-                userType,
-                name,
-                address,
-                phoneNumber,
-            });
-
-            if (response.data.success) {
-                router.push(userType === 'senior' ? '/dashboard/senior' : '/dashboard/union');
+            if (result.success) {
+                // サインアップ成功後のリダイレクト
+                router.push('/dashboard/senior');
             } else {
                 setError('サインアップに失敗しました');
             }
@@ -45,7 +36,26 @@ const SignupForm = () => {
 
     return (
         <form onSubmit={handleSignup}>
-            {/* フォームフィールド */}
+            <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                required
+            />
+            <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                required
+            />
+            <select value={userType} onChange={(e) => setUserType(e.target.value)}>
+                <option value="senior">シニア</option>
+                <option value="union">団体</option>
+            </select>
+            {error && <p>{error}</p>}
+            <button type="submit">サインアップ</button>
         </form>
     );
 };
