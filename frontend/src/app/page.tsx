@@ -2,8 +2,8 @@
 
 // import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import SeniorUseButton from '../components/elements/seniorUseButton';  // UserButtonコンポーネントをインポート
-import UnionUseButton from '../components/elements/unionUseButton';
+import SeniorUseButton from '../../components/elements/seniorUseButton';  // UserButtonコンポーネントをインポート
+import UnionUseButton from '../../components/elements/unionUseButton';
 
 export default function HomePage() {
   const router = useRouter();
