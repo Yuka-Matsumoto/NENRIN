@@ -4,6 +4,9 @@ FROM python:3.9-slim
 # 作業ディレクトリを/appに設定
 WORKDIR /app
 
+# PYTHONPATHを設定
+ENV PYTHONPATH=/app
+
 # backendディレクトリ内のrequirements.txtをコピー
 COPY backend/requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
