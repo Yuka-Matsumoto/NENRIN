@@ -38,14 +38,17 @@ const ApplicationDetails = () => {
     <div>
       <h1>応募者詳細情報</h1>
       <p><strong>名前:</strong> {applicationDetails.name}</p>
+      <p><strong>年齢:</strong> {applicationDetails.age}</p>
+      <p><strong>性別:</strong> {applicationDetails.gender}</p>
+      <p><strong>住所:</strong> {applicationDetails.address}</p>
       <p><strong>経験年数:</strong> {applicationDetails.years_of_experience}年</p>
       <p><strong>業種:</strong> {applicationDetails.industry}</p>
       <p><strong>職種:</strong> {applicationDetails.job_title}</p>
-      <p><strong>現在仕事をしていますか:</strong> {applicationDetails.currently_employed ? "はい" : "いいえ"}</p>
+      {/* 表示させない予定<p><strong>現在仕事をしていますか:</strong> {applicationDetails.currently_employed ? "はい" : "いいえ"}</p>
       <p><strong>現在勉強していますか:</strong> {applicationDetails.currently_studying ? "はい" : "いいえ"}</p>
       <p><strong>趣味はありますか:</strong> {applicationDetails.has_hobby ? "はい" : "いいえ"}</p>
       <p><strong>一人暮らしですか:</strong> {applicationDetails.lives_alone ? "はい" : "いいえ"}</p>
-      <p><strong>週1日以上外出しますか:</strong> {applicationDetails.goes_out_once_a_week ? "はい" : "いいえ"}</p>
+      <p><strong>週1日以上外出しますか:</strong> {applicationDetails.goes_out_once_a_week ? "はい" : "いいえ"}</p> */}
     </div>
   );
 };

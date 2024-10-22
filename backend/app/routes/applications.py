@@ -41,12 +41,17 @@ def get_application_details(application_id):
     return jsonify({
         "application_id": application_id,
         "name": senior_profile.name,
-        "years_of_experience": senior_profile.years_of_experience,
+        "age": senior_profile.age,
+        "gender": senior_profile.gender,
+        "address": senior_profile.address,
+        "address": senior_profile.address,
         "industry": senior_profile.industry,
         "job_title": senior_profile.job_title,
-        "currently_employed": senior_profile.currently_employed,
-        "currently_studying": senior_profile.currently_studying,
-        "has_hobby": senior_profile.has_hobby,
-        "lives_alone": senior_profile.lives_alone,
-        "goes_out_once_a_week": senior_profile.goes_out_once_a_week
+        "years_of_experience": senior_profile.years_of_experience,
+        # 以下は表示させない
+        # "currently_employed": senior_profile.currently_employed,
+        # "currently_studying": senior_profile.currently_studying,
+        # "has_hobby": senior_profile.has_hobby,
+        # "lives_alone": senior_profile.lives_alone,
+        # "goes_out_once_a_week": senior_profile.goes_out_once_a_week
     }), 200
