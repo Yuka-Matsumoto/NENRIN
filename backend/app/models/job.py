@@ -35,3 +35,5 @@ def seed_jobs():
         print("jobsテーブルにシードデータを挿入しました。")
     else:
         print("jobsテーブルには既にデータが存在します。")
+
+

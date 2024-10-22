@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import os
 from flask import Flask
 from flask_cors import CORS 
@@ -19,6 +20,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://
 db = SQLAlchemy()  # db =SQLAlchemy(app)を変更した
 migrate = Migrate(app, db)  # Flask-MigrateとSQLAlchemyを関連付け
 
+from app import create_app
+
+app = create_app()
+
 # Blueprintをアプリに登録
 app.register_blueprint(users_bp, url_prefix='/api')  #　/api/resister-seniorエンドポイントが有効になる
 app.register_blueprint(jobs_bp, url_prefix='/api')  # /api/job-posting
@@ -38,4 +43,6 @@ def hello_world():
     return "Hello, World!"
 
 if __name__ == '__main__':
+
     app.run(debug=True, host='0.0.0.0', port=4000)
+
