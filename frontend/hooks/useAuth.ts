@@ -53,4 +53,4 @@ export const useAuth = (): UseAuthReturn => {
 
     return { user, loading, error, token };
 
-
+}
