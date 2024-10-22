@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from flask_cors import CORS 
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from app.routes.users import users_bp
@@ -7,6 +8,9 @@ from app.routes.jobs import jobs_bp
 from app.routes.services import services_bp
 
 app = Flask(__name__)
+
+# CORSを設定してフロントエンドからのリクエストを許可
+CORS(app)
 
 # 環境変数から接続情報を取得
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://lastProject_user:lastProject@db/lastProject')
