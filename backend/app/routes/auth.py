@@ -1,26 +1,21 @@
 # backend/app/routes/auth.py
-from firebase_admin import auth as firebase_auth
-from app.models.user import User
-from app.utils.db import db_session
+from flask import Blueprint, request, jsonify
+from app.services.auth_service import verify_token
 
-def verify_token(token: str, user_type: str = None):
+auth_bp = Blueprint('auth', __name__)
+
+@auth_bp.route('/api/verify-token', methods=['POST'])
+def verify_token_route():
     try:
-        decoded_token = firebase_auth.verify_id_token(token)
-        uid = decoded_token['uid']
-        email = decoded_token.get('email')
+        data = request.get_json()
+        token = data.get('token')
+        user_type = data.get('userType')  # 追加
 
-        user = db_session.query(User).filter_by(firebase_uid=uid).first()
-
-        if not user:
-            # 新規ユーザーの場合、データベースにユーザーを作成
-            user = User(firebase_uid=uid, email=email, user_type=user_type)
-            db_session.add(user)
-            db_session.commit()
-            return {'success': True, 'user_id': user.id, 'email': user.email, 'new_user': True}
-        else:
-            return {'success': True, 'user_id': user.id, 'email': user.email, 'new_user': False}
+        result = verify_token(token, user_type)
+        status_code = 200 if result['success'] else 401
+        return jsonify(result), status_code
     except Exception as e:
-        return {'success': False, 'message': str(e)}
+        return jsonify({'success': False, 'message': str(e)}), 500
 
 
 
