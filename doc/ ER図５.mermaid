@@ -1,0 +1,120 @@
+erDiagram
+    users ||--o| senior_profiles : has
+    users ||--o| union_profiles : has
+    union_profiles ||--o{ payments : receives
+    union_profiles ||--o{ jobs : posts
+    senior_profiles ||--o{ applications : submits
+    jobs ||--o{ applications : receives
+    applications ||--o| scoring : has
+    senior_profiles ||--o{ services : offers
+    senior_profiles ||--o{ messages : sends_or_receives
+    union_profiles ||--o{ messages : sends_or_receives
+    services ||--o{ offers : receives
+    union_profiles ||--o{ offers : sends
+
+    users {
+        UID id PK
+        string role
+        string name
+        string address
+        string phone_number
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    senior_profiles {
+        UID id PK
+        UID user_id FK
+        string name
+        string address
+        integer age
+        string gender
+        text career
+        text license
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    union_profiles {
+        UID id PK
+        UID user_id FK
+        string union_name
+        string representative_name
+        string address
+        date date_of_foundation
+        text overview
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    payments {
+        UID id PK
+        UID union_profile_id FK
+        decimal amount
+        string currency
+        string status
+        timestamp created_at
+        string stripe_payment_id
+    }
+
+    jobs {
+        UID id PK
+        UID union_profile_id FK
+        string title
+        text description
+        string location
+        decimal salary
+        string status
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    services {
+        UID id PK
+        UID senior_profile_id FK
+        string name
+        string category
+        text description
+        decimal price
+        string status
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    offers {
+        UID id PK
+        UID service_id FK
+        UID union_profile_id FK
+        string status
+        decimal offered_price
+        text offer_details
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    applications {
+        UID id PK
+        UID senior_profile_id FK
+        UID job_id FK
+        string status
+        timestamp created_at
+    }
+
+    scoring {
+        UID id PK
+        UID application_id FK
+        integer score
+        json criteria_met
+        timestamp created_at
+    }
+
+    messages {
+        UID id PK
+        UID sender_profile_id FK
+        UID receiver_profile_id FK
+        string subject
+        text body
+        string status
+        timestamp created_at
+        timestamp updated_at
+    }
