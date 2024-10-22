@@ -4,11 +4,11 @@ from app.models.user import seed_users
 from app.models.senior_profile import seed_senior_profiles
 from app.models.union_profile import seed_union_profiles
 from app.models.job import seed_jobs
-from app.models.application import seed_applications
+# from app.models.application import seed_applications
 from app.models.service import seed_services
-from app.models.message import seed_messages
-from app.models.payment import seed_payments
-from app.models.scoring import seed_scoring
+# from app.models.message import seed_messages
+# from app.models.payment import seed_payments
+# from app.models.scoring import seed_scoring
 
 def run_seeding():
     seed_users()
