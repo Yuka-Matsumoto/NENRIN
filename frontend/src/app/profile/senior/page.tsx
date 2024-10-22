@@ -28,18 +28,21 @@ export default function SeniorProfile() {
     const combinedAddress = `${formData.prefecture} ${formData.city}`;
 
     try {
-      const response = await fetch("/api/register-senior", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          address: combinedAddress, // addressとして送信
-          career: formData.background,
-          license: formData.qualifications,
-        }),
-      });
+      const response = await fetch(
+        "http://localhost:4000/api/register-senior",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...formData,
+            address: combinedAddress, // addressとして送信
+            career: formData.background,
+            license: formData.qualifications,
+          }),
+        }
+      );
       if (response.ok) {
         alert("プロフィールが登録されました");
       } else {
