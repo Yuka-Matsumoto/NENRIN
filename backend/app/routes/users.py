@@ -27,7 +27,6 @@ def register_senior():
 @users_bp.route('/register-union', methods=['POST'])
 def register_union():
     data = request.json
-    print("Recieved data:", data)
     
     new_union = UnionProfile(
         user_id=data['user_id'],  # フロントから送られてくるユーザーID

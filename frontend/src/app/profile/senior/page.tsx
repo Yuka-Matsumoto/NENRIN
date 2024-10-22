@@ -1,6 +1,7 @@
 "use client"; // クライアントコンポーネントを指定
 
 import React, { useState } from "react";
+import { fetchSeniorProfile } from "../../../lib/api"; // ここでlibからAPI関数をインポート
 
 export default function SeniorProfile() {
   const [formData, setFormData] = useState({
@@ -27,30 +28,20 @@ export default function SeniorProfile() {
     // 住所を一つのフィールドに統合
     const combinedAddress = `${formData.prefecture} ${formData.city}`;
 
+    const payload = {
+      ...formData,
+      address: combinedAddress, // addressとして送信
+      career: formData.background,
+      license: formData.qualifications,
+      user_id: "some-user-id", // ユーザーIDを適切に設定
+    };
+
     try {
-      const response = await fetch(
-        "http://localhost:4000/api/register-senior",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...formData,
-            address: combinedAddress, // addressとして送信
-            career: formData.background,
-            license: formData.qualifications,
-          }),
-        }
-      );
-      if (response.ok) {
-        alert("プロフィールが登録されました");
-      } else {
-        alert("登録に失敗しました");
-      }
+      const response = await fetchSeniorProfile(payload); // API呼び出しを実行
+      alert("プロフィールが登録されました");
     } catch (error) {
       console.error("Error:", error);
-      alert("エラーが発生しました");
+      alert("登録に失敗しました");
     }
   };
 
