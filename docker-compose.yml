@@ -16,6 +16,8 @@ services:
       dockerfile: backend/backend.dockerfile
     ports:
       - "4000:4000"
+    environment:
+      - PYTHONPATH=/app
     volumes:
       - ./backend:/app
     depends_on:
