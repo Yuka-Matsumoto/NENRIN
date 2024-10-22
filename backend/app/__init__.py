@@ -5,7 +5,7 @@ from app.utils.firebase_admin import initialize_firebase
 
 def create_app():
     app = Flask(__name__)
-    CORS(app)
+    CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
     initialize_firebase()
 
     # Blueprintの登録
