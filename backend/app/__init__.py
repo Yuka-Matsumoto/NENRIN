@@ -5,6 +5,7 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_cors import CORS
 from app.utils.db_config import db
+from app.utils.firebase_admin import initialize_firebase  # 追加
 
 # SQLAlchemy と Migrate のインスタンス作成
 # db = SQLAlchemy()
@@ -12,6 +13,9 @@ migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
+
+    # Firebase Admin SDKの初期化
+    initialize_firebase()  # 追加
 
     # CORSを有効にする
     CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
