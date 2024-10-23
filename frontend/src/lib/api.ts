@@ -33,3 +33,20 @@ export const fetchSeniorProfile = async (data) => {
 
   return response.json();
 };
+
+//ユニオンユーザープロフィールを登録するためのAPI呼び
+export const fetchUnionProfile = async (data) => {
+  const response = await fetch(`${BASE_URL}/register-union`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to register union profile");
+  }
+
+  return response.json();
+};

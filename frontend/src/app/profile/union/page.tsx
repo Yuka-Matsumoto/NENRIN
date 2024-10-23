@@ -1,6 +1,7 @@
 "use client"; // クライアントコンポーネントを指定
 
 import React, { useState } from "react";
+import { fetchUnionProfile } from "../../../lib/api"; // ここでlibからAPI関数をインポート
 
 export default function UnionProfile() {
   const [formData, setFormData] = useState({
@@ -25,6 +26,13 @@ export default function UnionProfile() {
 
     // 住所を一つのフィールドに統合しバックエンドに渡す
     const combinedAddress = `${formData.prefecture} ${formData.city}`;
+    const payload = {
+      ...formData,
+      address: combinedAddress, // addressとして送信
+      career: formData.background,
+      license: formData.qualifications,
+      user_id: "some-user-id", // ユーザーIDを適切に設定
+    };
 
     // デバッグ用ログを追加
     console.log("Combined Adress:", combinedAddress);
@@ -34,24 +42,11 @@ export default function UnionProfile() {
     });
 
     try {
-      const response = await fetch("http://localhost:4000/api/register-union", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          address: combinedAddress, // addressとして送信
-        }),
-      });
-      if (response.ok) {
-        alert("団体プロフィールが登録されました");
-      } else {
-        alert("登録に失敗しました");
-      }
+      const response = await fetchUnionProfile(payload); // API呼び出しを実行
+      alert("プロフィールが登録されました");
     } catch (error) {
       console.error("Error:", error);
-      alert("エラーが発生しました");
+      alert("登録に失敗しました");
     }
   };
 
