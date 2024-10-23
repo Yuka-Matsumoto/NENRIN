@@ -12,6 +12,14 @@ export default function SeniorProfile() {
     gender: "",
     background: "",
     qualifications: "",
+    industry: "", // 業種を追加
+    job_title: "", // 職種を追加
+    years_of_experience: "", // 経験年数を追加
+    currently_employed: "", // 現在仕事をしていますか？を追加
+    currently_studying: "", // 現在勉強をしていますか？を追加
+    has_hobby: "", // 趣味はありますか？を追加
+    lives_alone: "", // 一人暮らしですか？を追加
+    goes_out_once_a_week: "", // 週一日以上外出しますか？を追加
   });
 
   const handleChange = (e) => {
@@ -106,25 +114,109 @@ export default function SeniorProfile() {
             <option value="other">その他</option>
           </select>
         </div>
+
         <div>
-          <label htmlFor="background">経歴</label>
-          <textarea
-            id="background"
-            name="background"
-            value={formData.background}
+          <label htmlFor="industry">業種</label>
+          <input
+            id="industry"
+            name="industry"
+            value={formData.industry}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor="qualifications">資格</label>
-          <textarea
-            id="qualifications"
-            name="qualifications"
-            value={formData.qualifications}
+          <label htmlFor="job_title">職種</label>
+          <input
+            id="job_title"
+            name="job_title"
+            value={formData.job_title}
             onChange={handleChange}
+            required
           />
         </div>
+        <div>
+          <label htmlFor="years_of_experience">経験年数</label>
+          <input
+            id="years_of_experience"
+            name="years_of_experience"
+            type="number"
+            value={formData.years_of_experience}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="currently_employed">現在仕事をしていますか？</label>
+          <select
+            id="currently_employed"
+            name="currently_employed"
+            value={formData.currently_employed}
+            onChange={handleChange}
+            required
+          >
+            <option value="">選択してください</option>
+            <option value="true">はい</option>
+            <option value="false">いいえ</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="currently_studying">現在勉強をしていますか？</label>
+          <select
+            id="currently_studying"
+            name="currently_studying"
+            value={formData.currently_studying}
+            onChange={handleChange}
+            required
+          >
+            <option value="">選択してください</option>
+            <option value="true">はい</option>
+            <option value="false">いいえ</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="has_hobby">趣味はありますか？</label>
+          <select
+            id="has_hobby"
+            name="has_hobby"
+            value={formData.has_hobby}
+            onChange={handleChange}
+            required
+          >
+            <option value="">選択してください</option>
+            <option value="true">はい</option>
+            <option value="false">いいえ</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="lives_alone">一人暮らしですか？</label>
+          <select
+            id="lives_alone"
+            name="lives_alone"
+            value={formData.lives_alone}
+            onChange={handleChange}
+            required
+          >
+            <option value="">選択してください</option>
+            <option value="true">はい</option>
+            <option value="false">いいえ</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="goes_out_once_a_week">週一日以上外出しますか？</label>
+          <select
+            id="goes_out_once_a_week"
+            name="goes_out_once_a_week"
+            value={formData.goes_out_once_a_week}
+            onChange={handleChange}
+            required
+          >
+            <option value="">選択してください</option>
+            <option value="true">はい</option>
+            <option value="false">いいえ</option>
+          </select>
+        </div>
+
         <button type="submit">登録</button>
       </form>
     </>
