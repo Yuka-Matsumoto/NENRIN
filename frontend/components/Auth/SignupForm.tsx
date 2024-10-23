@@ -79,7 +79,7 @@ const SignupForm = () => {
                 <option value="union">団体</option>
             </select>
             {error && <p>{error}</p>}
-            <button type="submit">サインアップ</button>
+            <button type="submit">新規登録</button>
         </form>
     );
 };

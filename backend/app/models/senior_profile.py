@@ -24,7 +24,8 @@ class SeniorProfile(db.Model):
 def seed_senior_profiles():
     if SeniorProfile.query.count() == 0:
         sample_senior_profile = SeniorProfile(
-            user_id="09887bd5-1e06-4dd5-9ada-85b28d75eb21",
+            user_id="b1daedb2-4d67-44ed-bb72-d41cac087bbe",
+            # 09887bd5-1e06-4dd5-9ada-85b28d75eb21
             name="Sample Senior User",
             address="123 Senior Street",
             age=65,
