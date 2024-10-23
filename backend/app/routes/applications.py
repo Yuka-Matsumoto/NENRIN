@@ -13,7 +13,6 @@ def get_ranked_applications(job_id):
     if not applications:
         return jsonify({"error": "該当する応募者が見つかりません"}), 404
 
-
     ranked_applications = []
     for application in applications:
         scoring_entry = db.session.query(Scoring).filter_by(application_id=application.id).first()
@@ -25,8 +24,38 @@ def get_ranked_applications(job_id):
             })
 
     ranked_applications.sort(key=lambda x: x['score'], reverse=True)
-    return jsonify(ranked_applications), 200
+    
+    # UTF-8でJSONを返す
+    response = jsonify(ranked_applications)
+    response.headers["Content-Type"] = "application/json; charset=utf-8"
+    return response, 200
 
+# すべての応募者を取得するエンドポイントを追加
+@applications_bp.route('/all', methods=['GET'])
+def get_all_applications():
+    applications = db.session.query(Application).all()
+    if not applications:
+        return jsonify({"error": "応募者が見つかりません"}), 404
+
+    all_applications = []
+    for application in applications:
+        senior_profile = db.session.query(SeniorProfile).filter_by(id=application.senior_profile_id).first()
+        if senior_profile:
+            all_applications.append({
+                "application_id": application.id,
+                "name": senior_profile.name,
+                "age": senior_profile.age,
+                "gender": senior_profile.gender,
+                "address": senior_profile.address,
+                "industry": senior_profile.industry,
+                "job_title": senior_profile.job_title,
+                "years_of_experience": senior_profile.years_of_experience
+            })
+    
+    # UTF-8でJSONを返す
+    response = jsonify(all_applications)
+    response.headers["Content-Type"] = "application/json; charset=utf-8"
+    return response, 200
 
 @applications_bp.route('/<application_id>/details', methods=['GET'])
 def get_application_details(application_id):
@@ -38,20 +67,16 @@ def get_application_details(application_id):
     if not senior_profile:
         return jsonify({"error": "シニアプロファイルが見つかりません"}), 404
 
-    return jsonify({
+    # UTF-8でJSONを返す
+    response = jsonify({
         "application_id": application_id,
         "name": senior_profile.name,
         "age": senior_profile.age,
         "gender": senior_profile.gender,
         "address": senior_profile.address,
-        "address": senior_profile.address,
         "industry": senior_profile.industry,
         "job_title": senior_profile.job_title,
         "years_of_experience": senior_profile.years_of_experience,
-        # 以下は表示させない
-        # "currently_employed": senior_profile.currently_employed,
-        # "currently_studying": senior_profile.currently_studying,
-        # "has_hobby": senior_profile.has_hobby,
-        # "lives_alone": senior_profile.lives_alone,
-        # "goes_out_once_a_week": senior_profile.goes_out_once_a_week
-    }), 200
+    })
+    response.headers["Content-Type"] = "application/json; charset=utf-8"
+    return response, 200

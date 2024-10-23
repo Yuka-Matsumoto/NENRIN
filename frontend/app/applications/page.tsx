@@ -1,39 +1,39 @@
+// 応募者一覧ページ（特定の企業の全応募者）
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';  // useParamsをインポート
 import ApplicationList from '../../components/Applications/ApplicationList';
 
 const ApplicationsPage = () => {
-  const { jobId } = useParams();  // URLからjobIdを取得
-    // // jobIdが未定義の場合、エラーログを表示
-    // if (!jobId) {
-    //     console.error("jobIdが未定義です");
-    //     return <p>求人IDが見つかりません。</p>;  // エラーメッセージを表示
-    //   }
+  console.log("ApplicationsPageコンポーネントがレンダリングされました");  // コンポーネントのレンダリングを確認
   const [applications, setApplications] = useState([]);
+
+  console.log("ApplicationsPageコンポーネントがロードされました"); // 最初にコンポーネントがロードされた際にログが出るはず
 
   useEffect(() => {
     const fetchApplications = async () => {
-      if (!jobId) {
-        console.error("jobIdが未定義です");
-        return;
-      }
+      console.log("fetchApplicationsが呼び出されました");  // このログが出るか確認
       try {
-        const response = await fetch(`/applications/jobs/${jobId}/ranked-applications`);
-        const data = await response.json();
-        setApplications(data);  // 取得したデータをstateにセット
+        const response = await fetch(`http://localhost:4000/applications/all`);  // 全応募者を取得するエンドポイント
+        console.log("リクエスト送信中...");
+        if (!response.ok) {
+          throw new Error(`HTTPエラー: ${response.status}`);
+        }
+      const data = await response.json();
+      console.log("取得したデータ:", data);  // 取得したデータをコンソールに表示
+      setApplications(data);  // データをstateにセット
       } catch (error) {
         console.error("応募者データの取得中にエラーが発生しました:", error);
       }
     };
 
-    fetchApplications();
-  }, [jobId]);  // jobIdが変更された時のみ再度データを取得
+    fetchApplications();  // 初回レンダリング時に全応募者を取得
+  }, []);
 
   return (
     <div>
-      <h1>応募者一覧ページ</h1>
+      <h1>特定の企業の全求人の応募者一覧ページ</h1>
       <ApplicationList applications={applications} />
     </div>
   );
