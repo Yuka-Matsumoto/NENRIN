@@ -1,6 +1,8 @@
+// frontend/src/app/jobs/register/page.tsx
 "use client";
 
 import { useState } from "react";
+import { fetchJobPosting } from "../../../lib/api"; // API関数をインポート
 
 export default function JobPostingForm() {
   const [formData, setFormData] = useState({
@@ -27,18 +29,8 @@ export default function JobPostingForm() {
     setStatus("loading");
 
     try {
-      const response = await fetch("http://localhost:5000/api/job-postings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error("求人の登録に失敗しました");
-      }
-
+      // API関数を呼び出して求人を登録
+      await fetchJobPosting(formData);
       setStatus("success");
       setMessage("求人が正常に登録されました");
       setFormData({

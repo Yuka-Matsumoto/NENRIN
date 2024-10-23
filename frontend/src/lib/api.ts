@@ -34,7 +34,7 @@ export const fetchSeniorProfile = async (data) => {
   return response.json();
 };
 
-//ユニオンユーザープロフィールを登録するためのAPI呼び
+//ユニオンユーザープロフィールを登録するためのAPI呼び出し
 export const fetchUnionProfile = async (data) => {
   const response = await fetch(`${BASE_URL}/register-union`, {
     method: "POST",
@@ -46,6 +46,40 @@ export const fetchUnionProfile = async (data) => {
 
   if (!response.ok) {
     throw new Error("Failed to register union profile");
+  }
+
+  return response.json();
+};
+
+//シニアサービス登録のAPI呼び出し
+export const fetchServicePosting = async (data) => {
+  const response = await fetch(`${BASE_URL}/services-posting`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error("サービスの登録に失敗しました");
+  }
+
+  return response.json();
+};
+
+// ジョブポストを登録するためのAPI呼び出し
+export const fetchJobPosting = async (data: any) => {
+  const response = await fetch(`${BASE_URL}/job-postings`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to register job posting");
   }
 
   return response.json();

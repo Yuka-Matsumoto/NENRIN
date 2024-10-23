@@ -6,7 +6,7 @@ from app import db  # app.py からインポート
 services_bp = Blueprint('services', __name__)
 
 # サービス登録APIエンドポイント
-@services_bp.route('/services', methods=['POST'])
+@services_bp.route('/services-posting', methods=['POST'])
 def create_service():
     data = request.json
     try:

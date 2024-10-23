@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { fetchServicePosting } from "../../../lib/api"; // ここでlibからAPI関数をインポート
 
-export default function ServiceRegistrationForm() {
+export default function ServicePostingForm() {
   const [formData, setFormData] = useState({
     senior_profile_id: "", // シニアプロフィールIDを追加
     name: "", // サービス名
@@ -27,18 +28,8 @@ export default function ServiceRegistrationForm() {
     setStatus("loading");
 
     try {
-      const response = await fetch("http://localhost:4000/api/services", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error("サービスの登録に失敗しました");
-      }
-
+      // API関数を呼び出し
+      await fetchServicePosting(formData);
       setStatus("success");
       setMessage("サービスが正常に登録されました");
       setFormData({
@@ -56,7 +47,7 @@ export default function ServiceRegistrationForm() {
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-6">シニア向けサービス登録</h1>
+      <h1 className="text-2xl font-bold mb-6">サービス登録</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="senior_profile_id">シニアプロフィールID</label>
