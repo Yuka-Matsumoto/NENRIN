@@ -23,7 +23,7 @@ class UnionProfile(db.Model):
 def seed_union_profiles():
     if UnionProfile.query.count() == 0:
         sample_union_profile = UnionProfile(
-            user_id="20c8f5f7-50f8-4203-83e1-a333730d3929",
+            user_id="52398ad0-7127-4bc7-b0ac-04e4663f34d3",
             union_name="Sample Union",
             representative_name="John Doe",
             address="123 Union St",
