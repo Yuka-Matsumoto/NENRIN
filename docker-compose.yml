@@ -16,14 +16,13 @@ services:
       dockerfile: backend/backend.dockerfile
     env_file:
       # TODO: ここを追加した
-      - .env # TODO: ここを追加した
+      - ./backend/.env # TODO: ここを追加した
     ports:
       - "4000:4000"
     environment:
       - PYTHONPATH=/app # TODO: ここを追加した
     volumes:
       - ./backend:/app
-      - ./backend/app/serviceAccountKey.json:/app/serviceAccountKey.json # TODO: ここを追加した!!
     depends_on:
       - db
 
