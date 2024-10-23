@@ -7,8 +7,11 @@ from datetime import datetime
 users_bp = Blueprint('users', __name__)
 
 # シニアユーザープロフィール
-@users_bp.route('/register-senior', methods=['POST'])
+@users_bp.route('/register-senior', methods=['POST', 'OPTIONS'])
 def register_senior():
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'CORS preflight successful'}), 200  # CORSのプリフライトリクエストを許可
+
     data = request.json
     new_senior = SeniorProfile(
         user_id=data['user_id'],  # フロントから送られてくるデータに合わせて修正
