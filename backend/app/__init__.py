@@ -4,6 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
 
+# backend/app/models/__init__.py
+from .user import User
+from .senior_profile import SeniorProfile
+from .union_profile import UnionProfile
+from .job import Job
+from .service import Service
+
+
 # SQLAlchemy と Migrate のインスタンス作成
 db = SQLAlchemy()
 migrate = Migrate()
