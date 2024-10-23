@@ -11,9 +11,13 @@ const ApplicationList = ({ applications }) => {
     <ul>
       {applications.map((app) => (
         <li key={app.application_id}>
-          <Link href={`/applications/${app.application_id}/details`}>
-              <strong>応募者ID:</strong> {app.application_id}, <strong>スコア:</strong> {app.score}
-          </Link>
+          <div>
+            <strong>応募者ID:</strong> {app.application_id}, <strong>スコア:</strong> {app.score}
+            {/* 詳細ページへのリンクを追加 */}
+            <Link href={`/applications/${app.job_id}/${app.application_id}`}>
+              <button>詳細を見る</button>
+            </Link>
+          </div>
         </li>
       ))}
     </ul>
