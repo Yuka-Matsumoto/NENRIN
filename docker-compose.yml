@@ -23,6 +23,7 @@ services:
       - PYTHONPATH=/app # TODO: ここを追加した
     volumes:
       - ./backend:/app
+      - ./backend/app/serviceAccountKey.json:/app/serviceAccountKey.json # TODO: ここを追加した!!
     depends_on:
       - db
 

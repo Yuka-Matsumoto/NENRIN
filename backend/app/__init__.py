@@ -9,7 +9,7 @@ from app.utils.firebase_admin import initialize_firebase  # 追加
 
 # SQLAlchemy と Migrate のインスタンス作成
 # db = SQLAlchemy()
-migrate = Migrate()
+
 
 def create_app():
     app = Flask(__name__)
@@ -24,6 +24,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://lastProject_user:lastProject@db/lastProject')
 
     # SQLAlchemyとFlask-Migrateをアプリに初期化
+    migrate = Migrate()
     db.init_app(app)
     migrate.init_app(app, db)
 

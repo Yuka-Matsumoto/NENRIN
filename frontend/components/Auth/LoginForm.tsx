@@ -1,11 +1,12 @@
 // frontend/components/Auth/LoginForm.tsx
+
 'use client';
 
 import { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
-import { verifyToken } from '../../lib/api';
 import { useRouter } from 'next/navigation';
+import { apiClient } from '../../lib/api';
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -16,16 +17,16 @@ const LoginForm = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
+            // Firebaseでログイン
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const token = await userCredential.user.getIdToken();
-            const result = await verifyToken(token);
 
-            if (result.success) {
-                // ログイン成功後のリダイレクト
-                router.push('/dashboard/senior');
-            } else {
-                setError('ログインに失敗しました');
-            }
+            // バックエンドからユーザータイプを取得
+            const response = await apiClient.post('/api/get-user-type', { token });
+            const userType = response.data.userType;
+
+            // ユーザータイプに応じてリダイレクト
+            router.push(userType === 'senior' ? '/dashboard/senior' : '/dashboard/union');
         } catch (error: any) {
             setError(error.message);
         }
@@ -37,14 +38,14 @@ const LoginForm = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
+                placeholder="メールアドレス"
                 required
             />
             <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
+                placeholder="パスワード"
                 required
             />
             {error && <p>{error}</p>}
@@ -54,6 +55,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-
-

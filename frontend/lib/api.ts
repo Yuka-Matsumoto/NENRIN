@@ -1,4 +1,8 @@
 // kino
+// 
+
+// frontend/lib/api.ts
+
 import axios from 'axios';
 
 export const apiClient = axios.create({
@@ -8,25 +12,16 @@ export const apiClient = axios.create({
     },
 });
 
-// Firebaseトークンをバックエンドで検証するための関数
-export const verifyToken = async (token: string, userType?: string) => {
-    try {
-        const response = await apiClient.post('/api/verify-token', { token, userType });
-        return response.data;
-    } catch (error) {
-        console.error('Token verification failed', error);
-        return { success: false, message: 'Token verification failed' };
-    }
-};
-
 // 認証トークンを付与してリクエストを行うヘルパー関数
-export const fetchWithAuth = async (url: string, token: string) => {
+export const fetchWithAuth = async (url: string, token: string, options = {}) => {
     return apiClient.get(url, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
+        ...options,
     });
 };
+
 
 // ---------------------------------------------------------------------------------
 
