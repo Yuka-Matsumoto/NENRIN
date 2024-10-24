@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { fetchSeniorProfile } from "../../../lib/api"; // ここでlibからAPI関数をインポート
+import ProfileForm from "@/components/Jobs/Profile/ProfileForm";
 
 export default function SeniorProfile() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,14 @@ export default function SeniorProfile() {
     gender: "",
     background: "",
     qualifications: "",
+    industry: "", // 業種を追加
+    job_title: "", // 職種を追加
+    years_of_experience: "", // 経験年数を追加
+    currently_employed: "", // 現在仕事をしていますか？を追加
+    currently_studying: "", // 現在勉強をしていますか？を追加
+    has_hobby: "", // 趣味はありますか？を追加
+    lives_alone: "", // 一人暮らしですか？を追加
+    goes_out_once_a_week: "", // 週一日以上外出しますか？を追加
   });
 
   const handleChange = (e) => {
@@ -48,85 +57,11 @@ export default function SeniorProfile() {
   return (
     <>
       <h1>プロフィール登録</h1>
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="name">名前</label>
-          <input
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="prefecture">都道府県</label>
-          <input
-            id="prefecture"
-            name="prefecture"
-            value={formData.prefecture}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="city">市区町村</label>
-          <input
-            id="city"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="age">年齢</label>
-          <input
-            id="age"
-            name="age"
-            type="number"
-            value={formData.age}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="gender">性別</label>
-          <select
-            id="gender"
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            required
-          >
-            <option value="">選択してください</option>
-            <option value="male">男性</option>
-            <option value="female">女性</option>
-            <option value="other">その他</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="background">経歴</label>
-          <textarea
-            id="background"
-            name="background"
-            value={formData.background}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="qualifications">資格</label>
-          <textarea
-            id="qualifications"
-            name="qualifications"
-            value={formData.qualifications}
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit">登録</button>
-      </form>
+      <ProfileForm
+        formData={formData}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
     </>
   );
 }

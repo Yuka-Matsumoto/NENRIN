@@ -10,21 +10,27 @@ users_bp = Blueprint('users', __name__)
 @users_bp.route('/register-senior', methods=['POST', 'OPTIONS'])
 def register_senior():
     if request.method == 'OPTIONS':
-        return jsonify({'message': 'CORS preflight successful'}), 200  # CORSのプリフライトリクエストを許可
+        return jsonify({'message': 'CORS preflight successful'}), 200
 
     data = request.json
     new_senior = SeniorProfile(
         user_id=data['user_id'],  # フロントから送られてくるデータに合わせて修正
         name=data['name'],
-        address=data['address'],  # prefecture と city が統合された address
+        address=data['address'],
         age=int(data['age']),
         gender=data['gender'],
-        career=data['career'],  # フロントエンドの "background" がバックエンドの "career" にマップ
-        license=data['license']  # フロントエンドの "qualifications" がバックエンドの "license" にマップ
+        industry=data['industry'],  # 業種を追加
+        job_title=data['job_title'],  # 職種を追加
+        years_of_experience=int(data['years_of_experience']),  # 経験年数を追加
+        currently_employed=data['currently_employed'],  # 現在仕事をしていますか？
+        currently_studying=data['currently_studying'],  # 現在勉強をしていますか？
+        has_hobby=data['has_hobby'],  # 趣味はありますか？
+        lives_alone=data['lives_alone'],  # 一人暮らしですか？
+        goes_out_once_a_week=data['goes_out_once_a_week'],  # 週一日以上外出しますか？
     )
     db.session.add(new_senior)
     db.session.commit()
-    return jsonify({"message": "Senior user registered successfully"}), 201 # シニアユーザー登録が成功しました
+    return jsonify({"message": "Senior user registered successfully"}), 201
 
 # ユニオンユーザープロフィール
 @users_bp.route('/register-union', methods=['POST'])
