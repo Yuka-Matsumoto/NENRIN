@@ -39,3 +39,4 @@ const JobList: React.FC<JobListProps> = ({ jobs, loading, error }) => {
 };
 
 export default JobList;
+

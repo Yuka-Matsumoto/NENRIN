@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from "react";
-import { useServices } from "../../hooks/useServices";
-import ServiceList from "../../components/Services/ServiceList";
+import { useServices } from "../../../hooks/useServices";
+import ServiceList from "../../../components/Services/ServiceList";
 
 const ServicesPage = () => {
   const [name, setName] = useState("");

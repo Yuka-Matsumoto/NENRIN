@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import ApplicationList from '../../components/Applications/ApplicationList';
+import ApplicationList from '../../../components/Applications/ApplicationList';
 
 const ApplicationsPage = () => {
   console.log("ApplicationsPageコンポーネントがレンダリングされました");  // コンポーネントのレンダリングを確認

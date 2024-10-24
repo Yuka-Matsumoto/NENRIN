@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import ApplicationList from '../../../components/Applications/ApplicationList';
+import ApplicationList from '../../../../components/Applications/ApplicationList';
 
 const JobApplicationsPage = () => {
   const { jobId } = useParams();  // URLからjobIdを取得

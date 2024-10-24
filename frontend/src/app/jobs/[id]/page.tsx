@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useParams } from "next/navigation"; // useParams をインポート
-import { useJob } from "../../../hooks/useJobs"; // useJob フックをインポート
+import { useJob } from "../../../../hooks/useJobs"; // useJob フックをインポート
 
 const JobDetailPage = () => {
   const { id } = useParams(); // useParams で ID を取得

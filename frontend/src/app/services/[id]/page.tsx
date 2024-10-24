@@ -1,7 +1,7 @@
 'use client';
 
 import React from "react";
-import { useService } from "../../../hooks/useServices";
+import { useService } from "../../../../hooks/useServices";
 
 // ページコンポーネントの params を使用して id を取得
 const ServiceDetailPage = ({ params }: { params: { id: string } }) => {
