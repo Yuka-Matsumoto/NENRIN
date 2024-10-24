@@ -21,8 +21,16 @@ const LoginForm = () => {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const token = await userCredential.user.getIdToken();
 
-            // バックエンドからユーザータイプを取得
-            const response = await apiClient.post('/api/get-user-type', { token });
+            // バックエンドからユーザータイプを取得（トークンをヘッダーに含める）
+            const response = await apiClient.post(
+                '/api/get-user-type',
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
             const userType = response.data.userType;
 
             // ユーザータイプに応じてリダイレクト

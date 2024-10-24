@@ -8,7 +8,7 @@
 #     try:
 #         # 必要になった時点でインポート
 #         db_session = get_db_session()
-        
+
 #         # Firebaseトークンの検証
 #         decoded_token = firebase_auth.verify_id_token(token)
 #         uid = decoded_token['uid']
@@ -98,28 +98,34 @@
 
 # ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 # backend/app/services/auth_service.py
-
 from firebase_admin import auth as firebase_auth
 from app.models.user import User
-from app.utils.db import db_session
+from app import db
 from datetime import datetime, timezone
 import logging
 
-def register_user(token: str, user_data: dict):
+# from flask_sqlalchemy import SQLAlchemy
+
+# db = SQLAlchemy()
+
+# token: str,
+def register_user(user_data: dict):
     try:
         # Firebaseトークンの検証
-        decoded_token = firebase_auth.verify_id_token(token)
-        uid = decoded_token['uid']
-        email = decoded_token.get('email')
+        # decoded_token = firebase_auth.verify_id_token(token)
+        # uid = decoded_token['uid']
+        # email = decoded_token.get('email')
 
-        # データベースでユーザーを検索
-        user = User.query.filter_by(id=uid).first()
-        if user:
-            return {'success': False, 'message': 'User already exists'}
+        # データベース操作
+        # with db_session() as session:
+            # データベースでユーザーを検索
+            # user = session.query(User).filter_by(id=uid).first()
+            # if user:
+            #     return {'success': False, 'message': 'User already exists'}
 
         # 新規ユーザーの作成
-        user = User(
-            id=uid,
+        new_user  = User(
+            id=user_data.get('uid'),
             role=user_data.get('userType'),
             name=user_data.get('name'),
             address=user_data.get('address', ''),
@@ -127,8 +133,13 @@ def register_user(token: str, user_data: dict):
             created_at=datetime.now(timezone.utc),
             updated_at=datetime.now(timezone.utc)
         )
-        db_session.add(user)
-        db_session.commit()
+        # 新規ユーザーをセッションに追加してコミット　10/24 10:15
+        db.session.add(new_user)
+        db.session.commit()
+        
+        # db_session.add(user)
+        # db_session.commit()
+        
         return {'success': True}
     except Exception as e:
         logging.error(f"Error in register_user: {e}")
@@ -140,10 +151,12 @@ def get_user_type(token: str):
         decoded_token = firebase_auth.verify_id_token(token)
         uid = decoded_token['uid']
 
-        # データベースからユーザーを取得
-        user = User.query.filter_by(id=uid).first()
-        if not user:
-            return {'success': False, 'message': 'User not found'}
+        # データベース操作
+        with db_session() as session:
+            # データベースでユーザーを検索
+            user = session.query(User).filter_by(id=uid).first()
+            if not user:
+                return {'success': False, 'message': 'User not found'}
 
         return {'success': True, 'userType': user.role}
     except Exception as e:

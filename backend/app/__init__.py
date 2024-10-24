@@ -1,17 +1,20 @@
 # backend/app/__init__.py
 import os
 from flask import Flask
-# from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
-from app.utils.db_config import db
+# from app.utils.db_config import db
 from app.utils.firebase_admin import initialize_firebase  # 追加
+from dotenv import load_dotenv
 
 # SQLAlchemy と Migrate のインスタンス作成
-# db = SQLAlchemy()
-
+# app = Flask(__name__)
+db = SQLAlchemy()
+migrate = Migrate()
 
 def create_app():
+    load_dotenv()
     app = Flask(__name__)
 
     # Firebase Admin SDKの初期化
@@ -24,7 +27,6 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://lastProject_user:lastProject@db/lastProject')
 
     # SQLAlchemyとFlask-Migrateをアプリに初期化
-    migrate = Migrate()
     db.init_app(app)
     migrate.init_app(app, db)
 

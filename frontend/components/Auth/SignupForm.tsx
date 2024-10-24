@@ -1,5 +1,4 @@
 // frontend/components/Auth/SignupForm.tsx
-
 'use client';
 
 import { useState } from 'react';
@@ -22,16 +21,24 @@ const SignupForm = () => {
             // Firebaseでユーザー作成
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const token = await userCredential.user.getIdToken();
-
-            // バックエンドにユーザー情報を送信
-            await apiClient.post('/api/register', {
-                token,
-                userType,
-                name,
-            });
+            const uid = await userCredential.user.uid
+            // バックエンドにユーザー情報を送信（トークンをヘッダーに含める）
+            await apiClient.post(
+                '/api/register',
+                {
+                    userType,
+                    name,
+                    uid
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
 
             // ユーザータイプに応じてリダイレクト
-            router.push(userType === 'senior' ? '/dashboard/senior' : '/dashboard/union');
+            router.push(userType === 'senior' ? '/profile/senior' : '/profile/union');
         } catch (error: any) {
             setError(error.message);
         }
