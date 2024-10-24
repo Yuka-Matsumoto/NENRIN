@@ -84,3 +84,12 @@ export const fetchJobPosting = async (data: any) => {
 
   return response.json();
 };
+
+// ユーザーサービス取得エンドポイントにGETリクエスト
+export const fetchUserServices = async (userId: string) => {
+  const response = await fetch(`/services/user/${userId}`);
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json();
+};

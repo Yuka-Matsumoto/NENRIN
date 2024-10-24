@@ -41,11 +41,12 @@ def create_service():
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
-
-# サービス一覧取得APIエンドポイント
-@services_bp.route('/services', methods=['GET'])
-def get_services():
-    services = Service.query.all()
+    
+    
+    # 特定のユーザー（サービスを登録したユーザー）が見られる登録済みサービス一覧
+ @services_bp.route('/services/user/<user_id>', methods=['GET'])
+def get_services_by_user(user_id):
+    services = Service.query.filter_by(senior_profile_id=user_id).all()
     services_list = [
         {
             "id": service.id,
@@ -58,4 +59,23 @@ def get_services():
         for service in services
     ]
     return jsonify(services_list), 200
+
+
+
+# サービス一覧取得APIエンドポイント  使用しないかも
+# @services_bp.route('/services', methods=['GET'])
+# def get_services():
+#     services = Service.query.all()
+#     services_list = [
+#         {
+#             "id": service.id,
+#             "name": service.name,
+#             "category": service.category,
+#             "description": service.description,
+#             "price": str(service.price),
+#             "status": service.status
+#         }
+#         for service in services
+#     ]
+#     return jsonify(services_list), 200
 
