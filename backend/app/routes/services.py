@@ -1,11 +1,28 @@
-from flask import Blueprint, jsonify, request
-from app.models.service import Service  # データベースモデルをインポート
+from flask import Blueprint, jsonify
+from app.models.service import Service
 from app import db  # app.py からインポート
 
-# Blueprintの定義
+# Blueprintの作成
 services_bp = Blueprint('services', __name__)
 
-# サービス登録APIエンドポイント
+# 個別サービス情報取得エンドポイント
+@services_bp.route('/services/<service_id>', methods=['GET'])
+def get_service(service_id):
+    service = Service.query.filter_by(id=service_id).first()
+    if service:
+        return jsonify({
+            'id': service.id,
+            'name': service.name,
+            'category': service.category,
+            'description': service.description,
+            'price': service.price,
+            'status': service.status,
+            'created_at': service.created_at,
+            'updated_at': service.updated_at,
+        }), 200
+    return jsonify({'message': 'Service not found'}), 404
+  
+  # サービス登録APIエンドポイント
 @services_bp.route('/services-posting', methods=['POST'])
 def create_service():
     data = request.json
@@ -41,3 +58,4 @@ def get_services():
         for service in services
     ]
     return jsonify(services_list), 200
+
