@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { fetchServicePosting } from "../../../lib/api"; // ここでlibからAPI関数をインポート
+import { fetchServicePosting } from "../../../../lib/api";
 
 export default function ServicePostingForm() {
   const [formData, setFormData] = useState({

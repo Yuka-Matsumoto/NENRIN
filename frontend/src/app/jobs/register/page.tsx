@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { fetchJobPosting } from "../../../lib/api"; // API関数をインポート
+import { fetchJobPosting } from "../../../../lib/api";
 
 export default function JobPostingForm() {
   const [formData, setFormData] = useState({

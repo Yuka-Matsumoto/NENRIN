@@ -1,8 +1,8 @@
 "use client"; // クライアントコンポーネントを指定
 
 import React, { useState } from "react";
-import { fetchSeniorProfile } from "../../../lib/api"; // ここでlibからAPI関数をインポート
-import ProfileForm from "@/components/Jobs/Profile/ProfileForm";
+import ProfileForm from "../../../../components/Profile/ProfileForm";
+import { fetchSeniorProfile } from "../../../../lib/api";
 
 export default function SeniorProfile() {
   const [formData, setFormData] = useState({
