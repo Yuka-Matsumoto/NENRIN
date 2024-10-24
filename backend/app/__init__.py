@@ -23,6 +23,16 @@ def create_app():
 
     # ルートやBlueprintを登録
     from app.routes.search import search_bp
+    from app.routes.jobs import jobs_bp
+    from app.routes.services import services_bp  # services_bpをインポート
+    from app.routes.applications import applications_bp  # applications_bpをインポート
+
     app.register_blueprint(search_bp)
+    app.register_blueprint(jobs_bp)
+    app.register_blueprint(services_bp)  # services_bpを登録
+    app.register_blueprint(applications_bp, url_prefix='/applications')  # applications_bpを登録
 
     return app
+
+# アプリケーションのインスタンスを作成
+app = create_app()
