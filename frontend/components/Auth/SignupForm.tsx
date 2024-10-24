@@ -11,7 +11,9 @@ const SignupForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
-    const [userType, setUserType] = useState<'senior' | 'union'>('senior');
+    const [address, setAddress] = useState(''); // 追加
+    const [phoneNumber, setPhoneNumber] = useState(''); // 追加
+    const [userType, setUserType] = useState<'senior_user' | 'union_user'>('senior_user');
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
@@ -28,6 +30,8 @@ const SignupForm = () => {
                 {
                     userType,
                     name,
+                    address,
+                    phoneNumber,
                     uid
                 },
                 {
@@ -38,7 +42,7 @@ const SignupForm = () => {
             );
 
             // ユーザータイプに応じてリダイレクト
-            router.push(userType === 'senior' ? '/profile/senior' : '/profile/union');
+            router.push(userType === 'senior_user' ? '/profile/senior' : '/profile/union');
         } catch (error: any) {
             setError(error.message);
         }
@@ -46,6 +50,27 @@ const SignupForm = () => {
 
     return (
         <form onSubmit={handleSignup}>
+            <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="名前"
+                required
+            />
+            <input
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="住所"
+                required
+            />
+            <input
+                type="text"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                placeholder="電話番号"
+                required
+            />
             <input
                 type="email"
                 value={email}
@@ -60,14 +85,7 @@ const SignupForm = () => {
                 placeholder="パスワード"
                 required
             />
-            <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="名前"
-                required
-            />
-            <select value={userType} onChange={(e) => setUserType(e.target.value as 'senior' | 'union')}>
+            <select value={userType} onChange={(e) => setUserType(e.target.value as 'senior_user' | 'union_user')}>
                 <option value="senior">シニア</option>
                 <option value="union">団体</option>
             </select>
