@@ -40,3 +40,20 @@ def get_job(job_id):
             'updated_at': job.updated_at,
         }), 200
     return jsonify({'message': 'Job not found'}), 404
+
+# ユーザーの求人情報を取得するエンドポイント
+@jobs_bp.route('/jobs/user/<user_id>', methods=['GET'])
+def get_user_jobs(user_id):
+    jobs = Job.query.filter_by(union_profile_id=user_id).all()  # union_profile_idでフィルタリング
+    jobs_list = [
+        {
+            "id": job.id,
+            "title": job.title,
+            "description": job.description,
+            "location": job.location,
+            "salary": str(job.salary),  # 数値を文字列に変換
+            "status": job.status
+        }
+        for job in jobs
+    ]
+    return jsonify(jobs_list), 200
