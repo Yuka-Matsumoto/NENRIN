@@ -1,7 +1,7 @@
 "use client"; // クライアントコンポーネントを指定
 
 import React, { useState } from "react";
-import { fetchUnionProfile } from "../../../lib/api"; // ここでlibからAPI関数をインポート
+import { fetchUnionProfile } from "../../../../lib/api";
 
 export default function UnionProfile() {
   const [formData, setFormData] = useState({
