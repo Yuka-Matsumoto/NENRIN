@@ -94,6 +94,8 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
         </select>
       </div>
 
+      <p>アピールしたい職種と業種を選択してください</p>
+
       <div>
         <label htmlFor="industry">業種</label>
         <select
@@ -111,7 +113,6 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
           ))}
         </select>
       </div>
-
       <div>
         <label htmlFor="job_title">職種</label>
         <select
@@ -129,7 +130,6 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
           ))}
         </select>
       </div>
-
       <div>
         <label htmlFor="years_of_experience">経験年数</label>
         <input
@@ -211,7 +211,6 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
           <option value="false">いいえ</option>
         </select>
       </div>
-
       <button type="submit">登録</button>
     </form>
   );
