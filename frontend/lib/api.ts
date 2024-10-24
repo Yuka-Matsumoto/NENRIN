@@ -54,8 +54,6 @@ export const fetchServiceById = async (id: string) => {
 
   if (!response.ok) {
     throw new Error("Failed to fetch service");
-
-    throw new Error("Failed to fetch jobs");
   }
 
   return response.json();
@@ -78,7 +76,7 @@ export const fetchSeniorProfile = async (data) => {
   return response.json();
 };
 
-//ユニオンユーザープロフィールを登録するためのAPI呼び出し
+// ユニオンユーザープロフィールを登録するためのAPI呼び出し
 export const fetchUnionProfile = async (data) => {
   const response = await fetch(`${BASE_URL}/register-union`, {
     method: "POST",
@@ -95,7 +93,7 @@ export const fetchUnionProfile = async (data) => {
   return response.json();
 };
 
-//シニアサービス登録のAPI呼び出し
+// シニアサービス登録のAPI呼び出し
 export const fetchServicePosting = async (data) => {
   const response = await fetch(`${BASE_URL}/services-posting`, {
     method: "POST",
@@ -135,5 +133,19 @@ export const fetchUserServices = async (userId: string) => {
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
+  return response.json();
+};
+
+// 応募データを送信するためのAPI呼び出し
+export const submitApplication = async (formData: FormData) => {
+  const response = await fetch(`${BASE_URL}/applications/apply`, {
+    method: 'POST',
+    body: formData, // フォームデータをそのまま送信
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to submit application");
+  }
+
   return response.json();
 };
