@@ -6,6 +6,7 @@ export const fetchJobs = async (query: { title?: string, location?: string }) =>
     const url = new URL(`${BASE_URL}/search/jobs`);
     if (query.title) url.searchParams.append("title", query.title);
     if (query.location) url.searchParams.append("location", query.location);
+
   
     const response = await fetch(url.toString());
   
@@ -33,9 +34,11 @@ export const fetchServices = async (query: { name?: string, category?: string })
     if (query.name) url.searchParams.append("name", query.name);
     if (query.category) url.searchParams.append("category", query.category);
 
+
     const response = await fetch(url.toString());
 
     if (!response.ok) {
+
       throw new Error('Failed to fetch services');
     }
 
@@ -48,6 +51,9 @@ export const fetchServiceById = async (id: string) => {
 
     if (!response.ok) {
       throw new Error('Failed to fetch service');
+
+        throw new Error('Failed to fetch jobs');
+
     }
 
     return response.json();
