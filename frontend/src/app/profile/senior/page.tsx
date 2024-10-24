@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { fetchSeniorProfile } from "../../../lib/api"; // ここでlibからAPI関数をインポート
-import ProfileForm from "@/components/Jobs/Profile/ProfileForm";
+import ProfileForm from "../../../../components/Profile/ProfileForm";
 
 export default function SeniorProfile() {
   const [formData, setFormData] = useState({
