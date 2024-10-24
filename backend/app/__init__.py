@@ -6,6 +6,7 @@ from flask_cors import CORS
 
 
 
+
 # SQLAlchemy と Migrate のインスタンス作成
 db = SQLAlchemy()
 migrate = Migrate()

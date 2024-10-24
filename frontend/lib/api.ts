@@ -54,8 +54,6 @@ export const fetchServiceById = async (id: string) => {
 
   if (!response.ok) {
     throw new Error("Failed to fetch service");
-
-    throw new Error("Failed to fetch jobs");
   }
 
   return response.json();
@@ -136,4 +134,13 @@ export const fetchUserServices = async (userId: string) => {
     throw new Error("Network response was not ok");
   }
   return response.json();
+};
+
+// ユーザー求人取得エンドポイント（求人Aが自分で登録した求人を見る）
+export const fetchUserJobs = async (userId: string) => {
+  const response = await fetch(`/jobs/user/${userId}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch jobs");
+  }
+  return await response.json();
 };
