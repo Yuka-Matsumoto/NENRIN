@@ -14,3 +14,4 @@ Werkzeug==3.0.4
 zipp==3.20.2
 Flask-Migrate==4.0.7
 flask-cors
+

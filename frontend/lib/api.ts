@@ -56,5 +56,22 @@ export const fetchServiceById = async (id: string) => {
 
     }
 
-    return response.json();
+  return response.json();
+};
+
+// シニアユーザープロフィールを登録するためのAPI呼び出し
+export const fetchSeniorProfile = async (data) => {
+  const response = await fetch(`${BASE_URL}/api/register-senior`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to register senior profile");
+  }
+
+  return response.json();
 };
