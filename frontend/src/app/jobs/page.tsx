@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { useJobs } from "../../../hooks/useJobs";
@@ -44,7 +44,3 @@ const JobsPage = () => {
 };
 
 export default JobsPage;
-<<<<<<< HEAD
-=======
-
->>>>>>> 43e74bb38f07930771065a3bcfa1181d5dca3615
