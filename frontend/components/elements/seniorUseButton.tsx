@@ -17,7 +17,7 @@ type SeniorUseButtonProps = {
 const SeniorUseButton: React.FC<SeniorUseButtonProps> = ({ onClick }) => {
     return (
         <button
-            className="px-4 py-2 bg-blue-500 text-white rounded"
+            className="bg-[#5fbea0] hover:bg-[#4ca389] text-white font-semibold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105"
             onClick={onClick}
         >
             利用する
