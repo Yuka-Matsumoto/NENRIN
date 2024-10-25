@@ -1,16 +1,21 @@
-// src/app/senior-applications/page.tsx
+// src/app/senior-applications/[id]/page.tsx
 'use client';
 
-import React from 'react';
-import SeniorApplicationForm from '../../../components/Jobs/SeniorApplicationForm'; // 正しいパスに修正
+import { useRouter } from 'next/router';
+import SeniorApplicationForm from '../../../components/Jobs/SeniorApplicationForm';
 
 const Page = () => {
-  const jobId = '1465f8df-452c-4291-99c7-c99233e9bc28'; // 適切な jobId を使用
+  const router = useRouter();
+  const { id: jobId } = router.query;  // URLパラメータから jobId を取得
 
   return (
     <div>
       <h1>応募フォーム</h1>
-      <SeniorApplicationForm jobId={jobId} />
+      {jobId ? (
+        <SeniorApplicationForm jobId={jobId} />
+      ) : (
+        <p>ジョブIDが見つかりません。</p>
+      )}
     </div>
   );
 };

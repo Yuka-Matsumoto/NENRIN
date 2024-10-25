@@ -60,7 +60,7 @@ export default function JobPostingForm() {
       <h1
         style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "24px" }}
       >
-        シニア向け求人登録
+        団体向け求人登録
       </h1>
       <form
         onSubmit={handleSubmit}
@@ -225,3 +225,4 @@ export default function JobPostingForm() {
     </div>
   );
 }
+

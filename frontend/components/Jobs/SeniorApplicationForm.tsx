@@ -1,144 +1,107 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const SeniorApplicationForm = ({ jobId }) => {
-  const [profile, setProfile] = useState(null);
-  const [jobRequirements, setJobRequirements] = useState(null);
-  const [formValues, setFormValues] = useState({
-    resume: null,
-    workHistory: null,
-    photo: null,
+  const [formData, setFormData] = useState({
     name: '',
     address: '',
     age: '',
     gender: '',
     industry: '',
     job_title: '',
-    years_of_experience: ''
+    years_of_experience: '',
+    resume: null,
+    work_history: null,
+    photo: null,
   });
 
-  useEffect(() => {
-    const fetchApplicationData = async () => {
-      if (!jobId) {
-        console.error('Job ID is undefined');
-        return; // jobId が未定義の場合はリクエストをスキップ
-      }
+  const [job, setJob] = useState(null);  // ジョブデータの状態
+  const [loading, setLoading] = useState(true);
 
-      console.log(`Fetching application data for jobId: ${jobId}`);
+  // useEffectでシニアプロフィール情報をAPIから取得し、フォームデータをセット
+  useEffect(() => {
+    fetch('/api/senior-profile')
+      .then((res) => res.json())
+      .then((data) => setFormData({
+        ...formData,
+        name: data.name || '',
+        address: data.address || '',
+        age: data.age || '',
+        gender: data.gender || '',
+        industry: data.industry || '',
+        job_title: data.job_title || '',
+        years_of_experience: data.years_of_experience || '',
+      }))
+      .catch((err) => console.error('プロフィール情報の取得に失敗しました', err));
+  }, []);
+
+  // jobIdを使ってジョブデータを取得
+  useEffect(() => {
+    const fetchJobData = async () => {
       try {
-        const response = await fetch(`applications/apply/${jobId}`);
-        console.log('Response Status:', response.status); // レスポンスのステータスコードを表示
+        const response = await fetch(`/api/jobs/${jobId}`);
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log('Fetched data:', data); // 取得したデータを表示
-
-        setProfile(data.senior_profile);
-        setJobRequirements(data.application_conditions);
-        setFormValues(prevValues => ({
-          ...prevValues,
-          name: data.senior_profile.name,
-          address: data.senior_profile.address,
-          age: data.senior_profile.age,
-          gender: data.senior_profile.gender,
-          industry: data.senior_profile.industry,
-          job_title: data.senior_profile.job_title,
-          years_of_experience: data.senior_profile.years_of_experience
-        }));
+        setJob(data);  // ジョブデータをセット
       } catch (error) {
-        console.error('Error fetching application data', error);
+        console.error('ジョブデータの取得に失敗しました', error);
+      } finally {
+        setLoading(false);  // ローディング完了
       }
     };
 
-    fetchApplicationData();
+    fetchJobData();
   }, [jobId]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleFileChange = (e) => {
-    const { name, files } = e.target;
-    setFormValues({ ...formValues, [name]: files[0] });
+    const { name } = e.target;
+    const file = e.target.files[0];
+    setFormData({ ...formData, [name]: file });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    Object.keys(formValues).forEach(key => {
-      formData.append(key, formValues[key]);
+    // 応募データを送信するAPI呼び出し
+    const response = await fetch('/api/apply', {
+      method: 'POST',
+      body: JSON.stringify(formData),
     });
-
-    console.log('Submitting application with values:', formValues); // 送信するデータを表示
-
-    try {
-      const response = await fetch('/apply', {
-        method: 'POST',
-        body: formData,
-      });
-
-      console.log('Response Status:', response.status); // レスポンスのステータスコードを表示
-      if (response.ok) {
-        console.log('Application submitted successfully');
-      } else {
-        console.error('Error submitting application');
-      }
-    } catch (error) {
-      console.error('Error submitting application', error);
+    if (response.ok) {
+      alert('応募が完了しました');
+    } else {
+      alert('応募に失敗しました');
     }
   };
 
-  // プロフィールまたは求人要件がまだロードされていない場合
-  if (!profile || !jobRequirements) return <div>Loading...</div>;
+  if (loading) {
+    return <p>読み込み中...</p>;
+  }
+
+  if (!job) {
+    return <p>ジョブデータが見つかりません。</p>;
+  }
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>Name</label>
-      <input type="text" name="name" value={formValues.name} onChange={handleInputChange} />
+      <input type="text" name="name" value={formData.name} onChange={handleInputChange} />
+      <input type="text" name="address" value={formData.address} onChange={handleInputChange} />
+      <input type="number" name="age" value={formData.age} onChange={handleInputChange} />
+      <input type="text" name="gender" value={formData.gender} onChange={handleInputChange} />
+      <input type="text" name="industry" value={formData.industry} onChange={handleInputChange} />
+      <input type="text" name="job_title" value={formData.job_title} onChange={handleInputChange} />
+      <input type="number" name="years_of_experience" value={formData.years_of_experience} onChange={handleInputChange} />
 
-      <label>Address</label>
-      <input type="text" name="address" value={formValues.address} onChange={handleInputChange} />
+      {job.requireResume && <input type="file" name="resume" onChange={handleFileChange} />}
+      {job.requireWorkHistory && <input type="file" name="work_history" onChange={handleFileChange} />}
+      {job.requirePhoto && <input type="file" name="photo" onChange={handleFileChange} />}
 
-      <label>Age</label>
-      <input type="number" name="age" value={formValues.age} onChange={handleInputChange} />
-
-      <label>Gender</label>
-      <input type="text" name="gender" value={formValues.gender} onChange={handleInputChange} />
-
-      <label>Industry</label>
-      <input type="text" name="industry" value={formValues.industry} onChange={handleInputChange} />
-
-      <label>Job Title</label>
-      <input type="text" name="job_title" value={formValues.job_title} onChange={handleInputChange} />
-
-      <label>Years of Experience</label>
-      <input type="number" name="years_of_experience" value={formValues.years_of_experience} onChange={handleInputChange} />
-
-      {jobRequirements.is_resume_required && (
-        <label>
-          Resume (required):
-          <input type="file" name="resume" onChange={handleFileChange} required />
-        </label>
-      )}
-
-      {jobRequirements.is_work_history_required && (
-        <label>
-          Work History (required):
-          <input type="file" name="workHistory" onChange={handleFileChange} required />
-        </label>
-      )}
-
-      {jobRequirements.is_photo_required && (
-        <label>
-          Photo (required):
-          <input type="file" name="photo" onChange={handleFileChange} required />
-        </label>
-      )}
-
-      <button type="submit">Submit Application</button>
+      <button type="submit">応募する</button>
     </form>
   );
 };

@@ -45,9 +45,17 @@ export default function SeniorProfile() {
       user_id: "some-user-id", // ユーザーIDを適切に設定
     };
 
+    console.log("Payload to be sent:", payload); // デバッグ用ログ
+
     try {
-      const response = await fetchSeniorProfile(payload); // API呼び出しを実行
-      alert("プロフィールが登録されました");
+      const result = await fetchSeniorProfile(payload); // JSONをそのまま取得
+      console.log("Response from API:", result); // 取得したデータをログに出力
+
+      if (response.ok) {
+        alert("プロフィールが登録されました");
+      } else {
+        alert("登録に失敗しました");
+      }
     } catch (error) {
       console.error("Error:", error);
       alert("登録に失敗しました");
