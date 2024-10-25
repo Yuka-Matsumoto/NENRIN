@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter, useParams } from 'next/navigation'; // 団体IDを取得
+import { useParams } from 'next/navigation'; // useParamsをインポート
 import Link from 'next/link';
 
 const UnionJobsPage = () => {
-  const { id: unionId } = useParams();  // 動的な団体IDを取得
+  const { id: unionId } = useParams();  // URLから動的な団体IDを取得
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -44,6 +44,7 @@ const UnionJobsPage = () => {
             <p>{job.description}</p>
             <p>給与: {job.salary}</p>
             <p>勤務地: {job.location}</p>
+            {/* 応募者一覧ページへのリンク */}
             <Link href={`/applications/${job.id}`}>
               <button>この求人の応募者を確認する</button>
             </Link>
