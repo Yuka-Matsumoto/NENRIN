@@ -29,6 +29,7 @@ def create_app():
     from app.routes.services import services_bp  # services_bpをインポート
     from app.routes.applications import applications_bp  # applications_bpをインポート
     from app.routes.apply import apply_bp  # apply_bpをインポート
+    from app.routes.unions import unions_bp
 
     app.register_blueprint(search_bp)
     app.register_blueprint(users_bp)
@@ -36,7 +37,7 @@ def create_app():
     app.register_blueprint(services_bp)  # services_bpを登録
     app.register_blueprint(applications_bp, url_prefix='/applications')  # applications_bpを登録
     app.register_blueprint(apply_bp, url_prefix='/apply')  # apply_bpを登録
-    
+    app.register_blueprint(unions_bp, url_prefix='/unions')
 
     return app
 
