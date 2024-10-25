@@ -22,7 +22,7 @@ def seed_union_profiles():
     try:
         union_profiles = [
             UnionProfile(
-                user_id="fec7972c-db3d-4e05-933f-3be989d4ba0c",
+                user_id="9364e5b5-811e-45b1-93c4-d0341758ab0",
                 union_name="テック企業A",
                 representative_name="佐々木 亮太",
                 address="東京都渋谷区代々木3-4-5",
@@ -30,7 +30,7 @@ def seed_union_profiles():
                 overview="テクノロジーサービスを提供する企業です。"
             ),
             UnionProfile(
-                user_id="ba9cf802-8866-44a8-97bb-c705fc0c1400",
+                user_id="cc162cb-aa3e-4026-8acb-92f467282c1f",
                 union_name="デザインスタジオB",
                 representative_name="松本 美咲",
                 address="大阪府大阪市北区梅田4-5-6",
@@ -38,7 +38,7 @@ def seed_union_profiles():
                 overview="デジタルとグラフィックデザインを専門としています。"
             ),
             UnionProfile(
-                user_id="29fab106-aeea-4dec-92d5-b22f392fd62b",
+                user_id="bfe1e07f-1cc5-43c9-b583-3dfa2497728a",
                 union_name="マーケティング会社C",
                 representative_name="渡辺 翔太",
                 address="愛知県名古屋市中村区名駅2-3-4",
@@ -46,7 +46,7 @@ def seed_union_profiles():
                 overview="マーケティングリサーチとコンサルティングを行っています。"
             ),
             UnionProfile(
-                user_id="387da7c0-e76d-4bc1-9b73-8692e5923816",
+                user_id="9454949d-1f5c-40f7-bacf-96fb6e147dcc",
                 union_name="飲食店チェーンD",
                 representative_name="藤本 裕子",
                 address="福岡県福岡市博多区博多駅前3-4-5",
@@ -54,7 +54,7 @@ def seed_union_profiles():
                 overview="全国に店舗展開する飲食店チェーンです。"
             ),
             UnionProfile(
-                user_id="38f04ca1-3d1b-4953-80e5-007ebf421c9b",
+                user_id="7c427eab-61f9-4801-a8fa-5dd6adc59c97",
                 union_name="教育機関E",
                 representative_name="石井 隆志",
                 address="北海道札幌市北区北7条西3-4-5",

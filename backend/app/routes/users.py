@@ -48,3 +48,14 @@ def register_union():
     db.session.add(new_union)
     db.session.commit()
     return jsonify({"message": "Union user registered successfully"}), 201  # ユニオンユーザー登録が成功しました
+
+@users_bp.route('/user', methods=['GET'])
+def get_user():
+    if current_user.is_authenticated:  # 認証されたユーザーか確認
+        user_data = {
+            'id': current_user.id,
+            'name': current_user.name,
+            'role': current_user.role
+        }
+        return jsonify(user_data), 200
+    return jsonify({'error': 'Unauthorized'}), 401

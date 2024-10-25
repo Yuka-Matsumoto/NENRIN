@@ -1,12 +1,11 @@
-// frontend/src/app/jobs/register/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchJobPosting } from "../../../../lib/api";
 
 export default function JobPostingForm() {
   const [formData, setFormData] = useState({
-    union_profile_id: "", // union_profile_id を追加
+    union_profile_id: "", // union_profile_id を自動取得するための状態
     title: "",
     description: "",
     location: "",
@@ -16,6 +15,20 @@ export default function JobPostingForm() {
     "idle" | "loading" | "success" | "error"
   >("idle");
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const fetchUnionProfileId = async () => {
+      try {
+        const response = await fetch("/api/union-profile"); // APIエンドポイントを適切に設定
+        const data = await response.json();
+        setFormData((prev) => ({ ...prev, union_profile_id: data.id })); // 取得したIDをフォームデータにセット
+      } catch (err) {
+        setMessage("ユニオンプロフィールIDの取得中にエラーが発生しました。");
+      }
+    };
+
+    fetchUnionProfileId();
+  }, []); // コンポーネントの初回マウント時にプロフィールIDを取得
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -29,8 +42,7 @@ export default function JobPostingForm() {
     setStatus("loading");
 
     try {
-      // API関数を呼び出して求人を登録
-      await fetchJobPosting(formData);
+      await fetchJobPosting(formData); // API関数を呼び出して求人を登録
       setStatus("success");
       setMessage("求人が正常に登録されました");
       setFormData({
@@ -66,27 +78,6 @@ export default function JobPostingForm() {
         onSubmit={handleSubmit}
         style={{ display: "flex", flexDirection: "column", gap: "16px" }}
       >
-        <div>
-          <label
-            htmlFor="union_profile_id"
-            style={{ display: "block", marginBottom: "8px" }}
-          >
-            団体ID
-          </label>
-          <input
-            id="union_profile_id"
-            name="union_profile_id"
-            value={formData.union_profile_id}
-            onChange={handleChange}
-            required
-            style={{
-              width: "100%",
-              padding: "8px",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-            }}
-          />
-        </div>
         <div>
           <label
             htmlFor="title"
@@ -161,7 +152,7 @@ export default function JobPostingForm() {
           <input
             id="salary"
             name="salary"
-            type="number" // salary を数値入力に変更
+            type="number"
             value={formData.salary}
             onChange={handleChange}
             required
@@ -197,8 +188,6 @@ export default function JobPostingForm() {
             backgroundColor: "#d4edda",
             color: "#155724",
             borderRadius: "4px",
-            display: "flex",
-            alignItems: "center",
           }}
         >
           <strong>成功</strong>
@@ -214,8 +203,6 @@ export default function JobPostingForm() {
             backgroundColor: "#f8d7da",
             color: "#721c24",
             borderRadius: "4px",
-            display: "flex",
-            alignItems: "center",
           }}
         >
           <strong>エラー</strong>

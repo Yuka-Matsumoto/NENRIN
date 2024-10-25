@@ -8,14 +8,29 @@ export default function JobList() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  // ユーザーIDを取得するロジックを追加
-  const userId = "取得したユーザーのID"; // 実際には適切な方法でユーザーIDを取得します
+  const [profileId, setProfileId] = useState(""); // プロフィールIDを管理する状態を追加
 
   useEffect(() => {
+    const fetchProfileId = async () => {
+      try {
+        // プロフィールIDを取得するAPIを呼び出し
+        const response = await fetch("/union-profile"); // 適切なAPIエンドポイントを指定
+        const data = await response.json();
+        setProfileId(data.id); // 取得したプロフィールIDを状態にセット
+      } catch (err) {
+        setError("プロフィールIDの取得中にエラーが発生しました。");
+      }
+    };
+
+    fetchProfileId();
+  }, []);
+
+  useEffect(() => {
+    if (!profileId) return; // プロフィールIDがない場合は早期リターン
+
     const fetchJobData = async () => {
       try {
-        const response = await fetchUserJobs(userId); // ユーザーIDを使って求人を取得
+        const response = await fetchUserJobs(profileId); // プロフィールIDを使って求人を取得
         setJobs(response);
       } catch (err) {
         setError("求人の取得中にエラーが発生しました。");
@@ -25,7 +40,7 @@ export default function JobList() {
     };
 
     fetchJobData();
-  }, [userId]);
+  }, [profileId]); // profileIdが変更されたときに求人を取得
 
   if (loading) return <div>ロード中...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
