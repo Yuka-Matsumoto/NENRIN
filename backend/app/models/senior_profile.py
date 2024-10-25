@@ -27,6 +27,7 @@ class SeniorProfile(db.Model):
 
 # シーディング用関数
 def seed_senior_profiles():
+
     try:
         # サンプルデータを追加
         senior_profiles = [
@@ -109,6 +110,7 @@ def seed_senior_profiles():
 
         # 新しいデータを挿入
         db.session.bulk_save_objects(senior_profiles)
+
         db.session.commit()
         print("新しいシニアプロファイルのシードデータを挿入しました。")
     

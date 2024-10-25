@@ -1,17 +1,26 @@
+# backend/app/__init__.py
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
+# from app.utils.db_config import db
+from app.utils.firebase_admin import initialize_firebase  # 追加
+from dotenv import load_dotenv
 
 
 
 # SQLAlchemy と Migrate のインスタンス作成
+# app = Flask(__name__)
 db = SQLAlchemy()
 migrate = Migrate()
 
 def create_app():
+    load_dotenv()
     app = Flask(__name__)
+
+    # Firebase Admin SDKの初期化
+    initialize_firebase()  # 追加
 
     # CORSを有効にする
     CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
@@ -38,6 +47,10 @@ def create_app():
     app.register_blueprint(services_bp)  # services_bpを登録
     app.register_blueprint(applications_bp, url_prefix='/applications')  # applications_bpを登録
 
+
+    # Blueprintの登録
+    from app.routes.auth import auth_bp
+    app.register_blueprint(auth_bp)
 
     return app
 

@@ -1,3 +1,4 @@
+
 // BASE_URL の定義
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
@@ -136,4 +137,30 @@ export const fetchUserServices = async (userId: string) => {
     throw new Error("Network response was not ok");
   }
   return response.json();
+
+// kino
+// 
+
+// frontend/lib/api.ts
+
+import axios from 'axios';
+
+export const apiClient = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:4000',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+// 認証トークンを付与してリクエストを行うヘルパー関数
+export const fetchWithAuth = async (url: string, token: string, options = {}) => {
+    return apiClient.get(url, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        ...options,
+    });
+};
+
+s
 };

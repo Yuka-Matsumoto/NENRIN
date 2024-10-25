@@ -8,15 +8,22 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
+      - ./frontend/package-lock.json:/app/package-lock.json # TODO: ここを追加した（コンフリクト注）
 
   backend:
     build:
       context: .
       dockerfile: backend/backend.dockerfile
+    # env_file:
+    #   # TODO: ここを追加した
+    #   - ./backend/.env # TODO: ここを追加した
     ports:
       - "4000:4000"
+    # environment:
+    #   - PYTHONPATH=/app # TODO: ここを追加した
     volumes:
       - ./backend:/app
+      # - ./backend/app/serviceAccountKey.json:/app/serviceAccountKey.json
     depends_on:
       - db
 
