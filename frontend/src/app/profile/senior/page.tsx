@@ -37,12 +37,15 @@ export default function SeniorProfile() {
     // 住所を一つのフィールドに統合
     const combinedAddress = `${formData.prefecture} ${formData.city}`;
 
+    //　FirebaseからのユーザーIDを取得する方法を記述
+    const userId = await getCurrentUserId();
+
     const payload = {
       ...formData,
       address: combinedAddress, // addressとして送信
       career: formData.background,
       license: formData.qualifications,
-      user_id: "some-user-id", // ユーザーIDを適切に設定
+      user_id: userId,
     };
 
     try {
