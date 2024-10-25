@@ -6,6 +6,7 @@ import Footer from "../../components/layout/Footer";
 export const metadata = {
   title: "N E N R I N",
   description: "A platform that connects individuals and organizations, fostering community and purpose after retirement.",
+
 }
 
 export default function RootLayout({
@@ -14,6 +15,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+
     <html lang="ja">
       <body>
         <Header />
@@ -25,3 +27,4 @@ export default function RootLayout({
     </html>
   )
 }
+

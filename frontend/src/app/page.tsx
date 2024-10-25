@@ -1,3 +1,6 @@
+
+  
+
 'use client'; //TODO: to consider
 
 // import { useEffect, useState } from 'react';
@@ -38,3 +41,4 @@ export default function HomePage() {
     </div>
   );
 }
+
