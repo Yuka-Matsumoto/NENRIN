@@ -21,8 +21,8 @@ def get_service(service_id):
             'updated_at': service.updated_at,
         }), 200
     return jsonify({'message': 'Service not found'}), 404
-  
-  # サービス登録APIエンドポイント
+
+# サービス登録APIエンドポイント
 @services_bp.route('/services-posting', methods=['POST'])
 def create_service():
     data = request.json
@@ -44,7 +44,7 @@ def create_service():
     
     
     # 特定のユーザー（サービスを登録したユーザー）が見られる登録済みサービス一覧
- @services_bp.route('/services/user/<user_id>', methods=['GET'])
+@services_bp.route('/services/user/<user_id>', methods=['GET'])
 def get_services_by_user(user_id):
     services = Service.query.filter_by(senior_profile_id=user_id).all()
     services_list = [
