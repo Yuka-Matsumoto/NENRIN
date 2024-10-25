@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, request, jsonify
 from app.models.service import Service
 from app import db  # app.py からインポート
 
