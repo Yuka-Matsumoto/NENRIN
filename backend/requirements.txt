@@ -17,6 +17,4 @@ firebase-admin==6.5.0
 flask-cors==5.0.0
 
 Flask-Migrate==4.0.7
-
 python-dotenv
-
