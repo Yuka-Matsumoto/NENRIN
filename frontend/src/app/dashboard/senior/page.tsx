@@ -57,7 +57,7 @@ export default function Dashboard() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                         {[
-                            { icon: FileTextIcon, text: "サービス登録", path: "/services/create" },
+                            { icon: FileTextIcon, text: "サービス登録", path: "/services/register" }, // 修正済み
                             { icon: BriefcaseIcon, text: "求人を見る", path: "/jobs" },
                             { icon: UserIcon, text: "プロフィール", path: "/profile" },
                             { icon: ListIcon, text: "サービス依頼の一覧", path: "/services/requests" },
@@ -74,6 +74,7 @@ export default function Dashboard() {
                         ))}
                     </div>
 
+                    {/* サービス検索窓 */}
                     <div className="relative">
                         <input
                             type="text"
