@@ -16,6 +16,11 @@ class Job(db.Model):
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
     industry = db.Column(db.String(50), nullable=True)  # NULLを許容する
+    
+    # 新しいフィールドの追加
+    is_resume_required = db.Column(db.Boolean, default=False, nullable=True)  # 履歴書が必要か
+    is_work_history_required = db.Column(db.Boolean, default=False, nullable=True)  # 職務経歴書が必要か
+    is_photo_required = db.Column(db.Boolean, default=False, nullable=True)  # 顔写真が必要か
 
     union_profile = db.relationship('UnionProfile', backref=db.backref('jobs', lazy=True))
 
@@ -40,16 +45,16 @@ def fill_job_title_for_null_or_empty_jobs():
 # サンプルの求人データを追加する関数
 def seed_jobs():
     jobs = [
-        Job(union_profile_id="12195565-18e5-4b2f-9d87-4fdfc63ed039", title="シニア向けプログラミング教室講師", job_title="講師", description="シニア向けのプログラミング教室で講師を募集します。", location="東京都", salary=3000.00, status="available", industry="教育"),
-        Job(union_profile_id="160a5dd2-aee4-411c-ba8f-985fbb8272d9", title="英会話講師", job_title="講師", description="初心者向けの英会話講座の講師を募集します。", location="神奈川県", salary=3500.00, status="available", industry="教育"),
-        Job(union_profile_id="c5d92b23-4afe-4da7-a48d-46bf030c9bb9", title="料理教室講師", job_title="講師", description="料理を教える教室の講師を募集しています。", location="大阪府", salary=2500.00, status="available", industry="料理"),
-        Job(union_profile_id="38c64314-219d-4230-b6e3-1128c1f8fe70", title="ガーデニング指導", job_title="指導者", description="ガーデニングの技術を教える指導者を募集中。", location="愛知県", salary=2000.00, status="available", industry="農業"),
-        Job(union_profile_id="dc9b95ba-ac69-4a2a-8a1f-e66ef9065e87", title="ヨガ教室インストラクター", job_title="インストラクター", description="リラックスしたヨガ教室のインストラクターを探しています。", location="福岡県", salary=4000.00, status="available", industry="健康"),
-        Job(union_profile_id="12195565-18e5-4b2f-9d87-4fdfc63ed039", title="ITサポート", job_title="スタッフ", description="シニア向けのITサポートを提供するスタッフを募集。", location="東京都", salary=2800.00, status="available", industry="IT"),
-        Job(union_profile_id="160a5dd2-aee4-411c-ba8f-985fbb8272d9", title="音楽教室講師", job_title="講師", description="音楽を教える講師を募集します。", location="北海道", salary=3000.00, status="available", industry="音楽"),
-        Job(union_profile_id="c5d92b23-4afe-4da7-a48d-46bf030c9bb9", title="アート教室講師", job_title="講師", description="アートを教える教室の講師を募集しています。", location="埼玉県", salary=3200.00, status="available", industry="アート"),
-        Job(union_profile_id="38c64314-219d-4230-b6e3-1128c1f8fe70", title="健康相談員", job_title="相談員", description="シニア向けの健康相談を行うスタッフを募集中。", location="東京都", salary=3500.00, status="available", industry="健康"),
-        Job(union_profile_id="dc9b95ba-ac69-4a2a-8a1f-e66ef9065e87", title="フィットネスインストラクター", job_title="インストラクター", description="シニア向けのフィットネス教室のインストラクターを探しています。", location="神奈川県", salary=3700.00, status="available", industry="健康")
+        Job(union_profile_id="12195565-18e5-4b2f-9d87-4fdfc63ed039", title="シニア向けプログラミング教室講師", job_title="講師", description="シニア向けのプログラミング教室で講師を募集します。", location="東京都", salary=3000.00, status="available", industry="教育", is_resume_required=True, is_work_history_required=True, is_photo_required=False),
+        Job(union_profile_id="160a5dd2-aee4-411c-ba8f-985fbb8272d9", title="英会話講師", job_title="講師", description="初心者向けの英会話講座の講師を募集します。", location="神奈川県", salary=3500.00, status="available", industry="教育", is_resume_required=True, is_work_history_required=False, is_photo_required=True),
+        Job(union_profile_id="c5d92b23-4afe-4da7-a48d-46bf030c9bb9", title="料理教室講師", job_title="講師", description="料理を教える教室の講師を募集しています。", location="大阪府", salary=2500.00, status="available", industry="料理", is_resume_required=False, is_work_history_required=True, is_photo_required=True),
+        Job(union_profile_id="38c64314-219d-4230-b6e3-1128c1f8fe70", title="ガーデニング指導", job_title="指導者", description="ガーデニングの技術を教える指導者を募集中。", location="愛知県", salary=2000.00, status="available", industry="農業", is_resume_required=True, is_work_history_required=False, is_photo_required=True),
+        Job(union_profile_id="dc9b95ba-ac69-4a2a-8a1f-e66ef9065e87", title="ヨガ教室インストラクター", job_title="インストラクター", description="リラックスしたヨガ教室のインストラクターを探しています。", location="福岡県", salary=4000.00, status="available", industry="健康", is_resume_required=True, is_work_history_required=True, is_photo_required=False),
+        Job(union_profile_id="12195565-18e5-4b2f-9d87-4fdfc63ed039", title="ITサポート", job_title="スタッフ", description="シニア向けのITサポートを提供するスタッフを募集。", location="東京都", salary=2800.00, status="available", industry="IT", is_resume_required=True, is_work_history_required=True, is_photo_required=True),
+        Job(union_profile_id="160a5dd2-aee4-411c-ba8f-985fbb8272d9", title="音楽教室講師", job_title="講師", description="音楽を教える講師を募集します。", location="北海道", salary=3000.00, status="available", industry="音楽", is_resume_required=False, is_work_history_required=True, is_photo_required=False),
+        Job(union_profile_id="c5d92b23-4afe-4da7-a48d-46bf030c9bb9", title="アート教室講師", job_title="講師", description="アートを教える教室の講師を募集しています。", location="埼玉県", salary=3200.00, status="available", industry="アート", is_resume_required=True, is_work_history_required=False, is_photo_required=True),
+        Job(union_profile_id="38c64314-219d-4230-b6e3-1128c1f8fe70", title="健康相談員", job_title="相談員", description="シニア向けの健康相談を行うスタッフを募集中。", location="東京都", salary=3500.00, status="available", industry="健康", is_resume_required=True, is_work_history_required=True, is_photo_required=False),
+        Job(union_profile_id="dc9b95ba-ac69-4a2a-8a1f-e66ef9065e87", title="フィットネスインストラクター", job_title="インストラクター", description="シニア向けのフィットネス教室のインストラクターを探しています。", location="神奈川県", salary=3700.00, status="available", industry="健康", is_resume_required=False, is_work_history_required=True, is_photo_required=True)
     ]
 
     db.session.bulk_save_objects(jobs)

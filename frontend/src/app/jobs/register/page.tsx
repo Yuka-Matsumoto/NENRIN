@@ -5,15 +5,18 @@ import { fetchJobPosting } from "../../../../lib/api";
 
 export default function JobPostingForm() {
   const [formData, setFormData] = useState({
-    union_profile_id: "", // union_profile_id を自動取得するための状態
+
+    union_profile_id: "",
+
     title: "",
     description: "",
     location: "",
-    salary: "", // salary の型は string
+    salary: "",
+    requireResume: false,
+    requireWorkHistory: false,
+    requirePhoto: false,
   });
-  const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
+  const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -37,11 +40,12 @@ export default function JobPostingForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("loading");
 
     try {
+
       await fetchJobPosting(formData); // API関数を呼び出して求人を登録
       setStatus("success");
       setMessage("求人が正常に登録されました");
@@ -51,6 +55,9 @@ export default function JobPostingForm() {
         description: "",
         location: "",
         salary: "",
+        requireResume: false,
+        requireWorkHistory: false,
+        requirePhoto: false,
       });
     } catch (error) {
       setStatus("error");
@@ -69,16 +76,26 @@ export default function JobPostingForm() {
         boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
       }}
     >
-      <h1
-        style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "24px" }}
-      >
-        シニア向け求人登録
-      </h1>
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "16px" }}
-      >
+      <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "24px" }}>シニア向け求人登録</h1>
+      
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        
         <div>
+
+          <label htmlFor="union_profile_id" style={{ display: "block", marginBottom: "8px" }}>団体ID</label>
+          <input
+            id="union_profile_id"
+            name="union_profile_id"
+            value={formData.union_profile_id}
+            onChange={handleChange}
+            required
+            style={{ width: "100%", padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }}
+          />
+        </div>
+
+        {/* その他の基本項目 */}
+        <div>
+          <label htmlFor="title" style={{ display: "block", marginBottom: "8px" }}>募集求人のタイトル</label
           <label
             htmlFor="title"
             style={{ display: "block", marginBottom: "8px" }}
@@ -91,64 +108,36 @@ export default function JobPostingForm() {
             value={formData.title}
             onChange={handleChange}
             required
-            style={{
-              width: "100%",
-              padding: "8px",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-            }}
+            style={{ width: "100%", padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }}
           />
         </div>
+
         <div>
-          <label
-            htmlFor="description"
-            style={{ display: "block", marginBottom: "8px" }}
-          >
-            詳細
-          </label>
+          <label htmlFor="description" style={{ display: "block", marginBottom: "8px" }}>詳細</label>
           <textarea
             id="description"
             name="description"
             value={formData.description}
             onChange={handleChange}
             required
-            style={{
-              width: "100%",
-              padding: "8px",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-              minHeight: "100px",
-            }}
+            style={{ width: "100%", padding: "8px", borderRadius: "4px", border: "1px solid #ccc", minHeight: "100px" }}
           />
         </div>
+
         <div>
-          <label
-            htmlFor="location"
-            style={{ display: "block", marginBottom: "8px" }}
-          >
-            場所
-          </label>
+          <label htmlFor="location" style={{ display: "block", marginBottom: "8px" }}>場所</label>
           <input
             id="location"
             name="location"
             value={formData.location}
             onChange={handleChange}
             required
-            style={{
-              width: "100%",
-              padding: "8px",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-            }}
+            style={{ width: "100%", padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }}
           />
         </div>
+
         <div>
-          <label
-            htmlFor="salary"
-            style={{ display: "block", marginBottom: "8px" }}
-          >
-            給与
-          </label>
+          <label htmlFor="salary" style={{ display: "block", marginBottom: "8px" }}>給与</label>
           <input
             id="salary"
             name="salary"
@@ -156,25 +145,46 @@ export default function JobPostingForm() {
             value={formData.salary}
             onChange={handleChange}
             required
-            style={{
-              width: "100%",
-              padding: "8px",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-            }}
+            style={{ width: "100%", padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }}
           />
         </div>
+
+        {/* 必須項目のチェックボックス */}
+        <div style={{ marginTop: "16px" }}>
+          <p style={{ marginBottom: "8px", fontWeight: "bold" }}>提出を必須にする場合はチェックを入れてください</p>
+          <div>
+            <input
+              type="checkbox"
+              name="requireResume"
+              checked={formData.requireResume}
+              onChange={handleChange}
+            />
+            <label>履歴書</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name="requireWorkHistory"
+              checked={formData.requireWorkHistory}
+              onChange={handleChange}
+            />
+            <label>職務経歴書</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name="requirePhoto"
+              checked={formData.requirePhoto}
+              onChange={handleChange}
+            />
+            <label>顔写真</label>
+          </div>
+        </div>
+
         <button
           type="submit"
           disabled={status === "loading"}
-          style={{
-            padding: "12px",
-            backgroundColor: "#4caf50",
-            color: "white",
-            borderRadius: "4px",
-            border: "none",
-            cursor: "pointer",
-          }}
+          style={{ padding: "12px", backgroundColor: "#4caf50", color: "white", borderRadius: "4px", border: "none", cursor: "pointer" }}
         >
           {status === "loading" ? "送信中..." : "求人を登録"}
         </button>
@@ -182,13 +192,7 @@ export default function JobPostingForm() {
 
       {status === "success" && (
         <div
-          style={{
-            marginTop: "16px",
-            padding: "12px",
-            backgroundColor: "#d4edda",
-            color: "#155724",
-            borderRadius: "4px",
-          }}
+          style={{ marginTop: "16px", padding: "12px", backgroundColor: "#d4edda", color: "#155724", borderRadius: "4px", display: "flex", alignItems: "center" }}
         >
           <strong>成功</strong>
           <p>{message}</p>
@@ -197,14 +201,7 @@ export default function JobPostingForm() {
 
       {status === "error" && (
         <div
-          style={{
-            marginTop: "16px",
-            padding: "12px",
-            backgroundColor: "#f8d7da",
-            color: "#721c24",
-            borderRadius: "4px",
-          }}
-        >
+          style={{ marginTop: "16px", padding: "12px", backgroundColor: "#f8d7da", color: "#721c24", borderRadius: "4px", display: "flex", alignItems: "center" }}>
           <strong>エラー</strong>
           <p>{message}</p>
         </div>

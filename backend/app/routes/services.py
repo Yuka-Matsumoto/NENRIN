@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, request, jsonify
 from app.models.service import Service
 from app import db  # app.py からインポート
 
@@ -21,8 +21,8 @@ def get_service(service_id):
             'updated_at': service.updated_at,
         }), 200
     return jsonify({'message': 'Service not found'}), 404
-  
-  # サービス登録APIエンドポイント
+
+# サービス登録APIエンドポイント
 @services_bp.route('/services-posting', methods=['POST'])
 def create_service():
     data = request.json

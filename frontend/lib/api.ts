@@ -1,3 +1,27 @@
+import axios from 'axios';
+
+// kino
+// frontend/lib/api.ts
+
+export const apiClient = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:4000',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// 認証トークンを付与してリクエストを行うヘルパー関数
+export const fetchWithAuth = async (url: string, token: string, options = {}) => {
+  return apiClient.get(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    ...options,
+  });
+};
+
+// ---------------------------------------------------------------------------------
+
 // BASE_URL の定義
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
@@ -76,7 +100,7 @@ export const fetchSeniorProfile = async (payload) => {
   return response.json();
 };
 
-//ユニオンユーザープロフィールを登録するためのAPI呼び出し
+// ユニオンユーザープロフィールを登録するためのAPI呼び出し
 export const fetchUnionProfile = async (data) => {
   const response = await fetch(`${BASE_URL}/register-union`, {
     method: "POST",
@@ -93,7 +117,7 @@ export const fetchUnionProfile = async (data) => {
   return response.json();
 };
 
-//シニアサービス登録のAPI呼び出し
+// シニアサービス登録のAPI呼び出し
 export const fetchServicePosting = async (data) => {
   const response = await fetch(`${BASE_URL}/services-posting`, {
     method: "POST",
@@ -136,6 +160,42 @@ export const fetchUserServices = async (userId: string) => {
   return response.json();
 };
 
+
+// 応募データを送信するためのAPI呼び出し
+export const submitApplication = async (formData: FormData) => {
+  const response = await fetch(`${BASE_URL}/applications/apply`, {
+    method: 'POST',
+    body: formData, // フォームデータをそのまま送信
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to submit application");
+  }
+
+  return response.json();
+};
+
+// シニアプロフィールの情報を応募フォームに取得するAPI
+export const fetchSeniorProfileForApplication = async (userId: string) => {
+  const response = await fetch(`http://localhost:4000/api/senior-profile/${userId}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch senior profile");
+  }
+  return response.json();
+};
+
+
+// シニアが求人に応募するとき応募情報を送信するAPI
+export const submitSeniorApplication = async (data: FormData) => {
+  const response = await fetch(`http://localhost:4000/applications`, {
+    method: "POST",
+    body: data,
+  });
+  if (!response.ok) {
+    throw new Error("Failed to submit application");
+  }
+  return response.json();
+
 // ユーザー求人取得エンドポイント（求人Aが自分で登録した求人を見る）
 export const fetchUserJobs = async (userId: string) => {
   const response = await fetch(`/jobs/user/${userId}`);
@@ -143,4 +203,5 @@ export const fetchUserJobs = async (userId: string) => {
     throw new Error("Failed to fetch jobs");
   }
   return await response.json();
+
 };

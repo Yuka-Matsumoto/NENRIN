@@ -19,6 +19,7 @@ class UnionProfile(db.Model):
 
 # シーディング用関数
 def seed_union_profiles():
+
     try:
         union_profiles = [
             UnionProfile(
@@ -65,6 +66,7 @@ def seed_union_profiles():
 
         # 新しいデータを挿入
         db.session.bulk_save_objects(union_profiles)
+
         db.session.commit()
         print("新しいユニオンプロファイルのシードデータを挿入しました。")
     
@@ -74,6 +76,7 @@ def seed_union_profiles():
 
 # アプリケーションコンテキストでシーディングを実行
 if __name__ == "__main__":
+    from app import create_app
     app = create_app()  # Flaskアプリケーションを作成
     with app.app_context():  # アプリケーションコンテキストを設定
         seed_union_profiles()
