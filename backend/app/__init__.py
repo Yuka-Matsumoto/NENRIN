@@ -42,7 +42,6 @@ def create_app():
 
     app.register_blueprint(search_bp)
     app.register_blueprint(users_bp)
-
     app.register_blueprint(jobs_bp)
     app.register_blueprint(services_bp)  # services_bpを登録
     app.register_blueprint(applications_bp, url_prefix='/applications')  # applications_bpを登録

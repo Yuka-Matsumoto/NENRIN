@@ -30,14 +30,12 @@ const SeniorApplicationForm = () => {
   useEffect(() => {
     const loadProfileAndJobRequirements = async () => {
       try {
-        // プロフィール情報の取得
         const profile = await fetchSeniorProfileForApplication("ce4ac2ba-bfe9-42de-8b67-3e1c56ce769f");
         setFormData((prevData) => ({
           ...prevData,
           ...profile,
         }));
 
-        // 求人の要件の取得
         const response = await fetch(`http://localhost:4000/jobs/${jobId}`);
         const jobData = await response.json();
         setRequiredDocs({
@@ -93,11 +91,47 @@ const SeniorApplicationForm = () => {
         <input type="text" name="job_title" value={formData.job_title} onChange={handleChange} placeholder="職種" required />
         <input type="number" name="years_of_experience" value={formData.years_of_experience} onChange={handleChange} placeholder="経験年数" required />
 
-        {requiredDocs.requireResume && <input type="file" name="resume" onChange={handleFileChange} required />}
-        {requiredDocs.requireWorkHistory && <input type="file" name="work_history" onChange={handleFileChange} required />}
-        {requiredDocs.requirePhoto && <input type="file" name="photo" onChange={handleFileChange} required />}
+        {/* 必須書類のファイル入力 */}
+        <div style={{ marginTop: '16px' }}>
+          <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '4px' }}>
+            履歴書 {requiredDocs.requireResume && <span style={{ color: 'red' }}>(必須)</span>}
+          </label>
+          <input 
+            type="file" 
+            name="resume" 
+            onChange={handleFileChange} 
+            required={requiredDocs.requireResume} 
+            style={requiredDocs.requireResume ? { borderColor: 'red', borderWidth: '2px' } : {}}
+          />
+        </div>
 
-        <button type="submit">応募する</button>
+        <div style={{ marginTop: '16px' }}>
+          <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '4px' }}>
+            職務経歴書 {requiredDocs.requireWorkHistory && <span style={{ color: 'red' }}>(必須)</span>}
+          </label>
+          <input 
+            type="file" 
+            name="work_history" 
+            onChange={handleFileChange} 
+            required={requiredDocs.requireWorkHistory} 
+            style={requiredDocs.requireWorkHistory ? { borderColor: 'red', borderWidth: '2px' } : {}}
+          />
+        </div>
+
+        <div style={{ marginTop: '16px' }}>
+          <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '4px' }}>
+            顔写真 {requiredDocs.requirePhoto && <span style={{ color: 'red' }}>(必須)</span>}
+          </label>
+          <input 
+            type="file" 
+            name="photo" 
+            onChange={handleFileChange} 
+            required={requiredDocs.requirePhoto} 
+            style={requiredDocs.requirePhoto ? { borderColor: 'red', borderWidth: '2px' } : {}}
+          />
+        </div>
+
+        <button type="submit" style={{ marginTop: '24px' }}>応募する</button>
       </form>
     </div>
   );
