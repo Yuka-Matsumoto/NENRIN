@@ -60,13 +60,13 @@ export const fetchServiceById = async (id: string) => {
 };
 
 // シニアユーザープロフィールを登録するためのAPI呼び出し
-export const fetchSeniorProfile = async (data) => {
+export const fetchSeniorProfile = async (payload) => {
   const response = await fetch(`${BASE_URL}/register-senior`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(payload),
   });
 
   if (!response.ok) {
