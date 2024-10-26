@@ -1,16 +1,45 @@
 'use client';
 
-import React from "react";
-import { useParams } from "next/navigation"; // useParams をインポート
-import { useJob } from "../../../../hooks/useJobs"; // useJob フックをインポート
+import React, { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useJob } from "../../../../hooks/useJobs";
+import { fetchSeniorProfileForApplication } from "../../../../lib/api"; // シニアプロフィール取得関数のインポート
 
 const JobDetailPage = () => {
-  const { id } = useParams(); // useParams で ID を取得
-  const { job, loading, error } = useJob(id); // ID に基づいて求人情報を取得
+  const { id } = useParams();
+  const { job, loading, error } = useJob(id);
+  const router = useRouter();
+  
+  const [profile, setProfile] = useState(null);
 
-  if (loading) return <p>Loading...</p>; // ローディング中の表示
-  if (error) return <p>{error}</p>; // エラーがあれば表示
-  if (!job) return <p>No job found</p>; // 求人が見つからない場合
+  // シニアプロフィール情報の取得
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const profileData = await fetchSeniorProfileForApplication("ce4ac2ba-bfe9-42de-8b67-3e1c56ce769f"); // 任意のシニアIDを使用
+        setProfile(profileData);
+      } catch (error) {
+        console.error("Failed to load senior profile", error);
+      }
+    };
+    loadProfile();
+  }, []);
+
+  const handleApplyClick = () => {
+    if (profile) {
+      // プロフィールデータをクエリパラメータで渡す
+      router.push({
+        pathname: `/senior-applications/${id}`,
+        query: { ...profile },
+      });
+    } else {
+      alert("プロフィール情報がありません");
+    }
+  };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+  if (!job) return <p>No job found</p>;
 
   return (
     <div>
@@ -21,6 +50,9 @@ const JobDetailPage = () => {
       <p>Status: {job.status}</p>
       <p>Created at: {new Date(job.created_at).toLocaleDateString()}</p>
       <p>Updated at: {new Date(job.updated_at).toLocaleDateString()}</p>
+
+      {/* 応募ボタン */}
+      <button onClick={handleApplyClick}>応募する</button>
     </div>
   );
 };
