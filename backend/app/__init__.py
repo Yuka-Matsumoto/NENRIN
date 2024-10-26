@@ -9,6 +9,7 @@ from flask_cors import CORS
 from app.utils.firebase_admin import initialize_firebase  # 追加
 from dotenv import load_dotenv
 
+
 # SQLAlchemy と Migrate のインスタンス作成
 # app = Flask(__name__)
 db = SQLAlchemy()
@@ -42,7 +43,6 @@ def create_app():
 
     app.register_blueprint(search_bp)
     app.register_blueprint(users_bp)
-
     app.register_blueprint(jobs_bp)
     app.register_blueprint(services_bp)  # services_bpを登録
     app.register_blueprint(applications_bp, url_prefix='/applications')  # applications_bpを登録

@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchJobPosting } from "../../../../lib/api";
 
 export default function JobPostingForm() {
   const [formData, setFormData] = useState({
+
     union_profile_id: "",
+
     title: "",
     description: "",
     location: "",
@@ -17,12 +19,25 @@ export default function JobPostingForm() {
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+  useEffect(() => {
+    const fetchUnionProfileId = async () => {
+      try {
+        const response = await fetch("/api/union-profile"); // APIエンドポイントを適切に設定
+        const data = await response.json();
+        setFormData((prev) => ({ ...prev, union_profile_id: data.id })); // 取得したIDをフォームデータにセット
+      } catch (err) {
+        setMessage("ユニオンプロフィールIDの取得中にエラーが発生しました。");
+      }
+    };
+
+    fetchUnionProfileId();
+  }, []); // コンポーネントの初回マウント時にプロフィールIDを取得
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -30,7 +45,8 @@ export default function JobPostingForm() {
     setStatus("loading");
 
     try {
-      await fetchJobPosting(formData);
+
+      await fetchJobPosting(formData); // API関数を呼び出して求人を登録
       setStatus("success");
       setMessage("求人が正常に登録されました");
       setFormData({
@@ -65,6 +81,7 @@ export default function JobPostingForm() {
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
         
         <div>
+
           <label htmlFor="union_profile_id" style={{ display: "block", marginBottom: "8px" }}>団体ID</label>
           <input
             id="union_profile_id"
@@ -78,7 +95,13 @@ export default function JobPostingForm() {
 
         {/* その他の基本項目 */}
         <div>
-          <label htmlFor="title" style={{ display: "block", marginBottom: "8px" }}>募集求人のタイトル</label>
+          <label htmlFor="title" style={{ display: "block", marginBottom: "8px" }}>募集求人のタイトル</label
+          <label
+            htmlFor="title"
+            style={{ display: "block", marginBottom: "8px" }}
+          >
+            募集求人のタイトル
+          </label>
           <input
             id="title"
             name="title"
@@ -178,8 +201,7 @@ export default function JobPostingForm() {
 
       {status === "error" && (
         <div
-          style={{ marginTop: "16px", padding: "12px", backgroundColor: "#f8d7da", color: "#721c24", borderRadius: "4px", display: "flex", alignItems: "center" }}
-        >
+          style={{ marginTop: "16px", padding: "12px", backgroundColor: "#f8d7da", color: "#721c24", borderRadius: "4px", display: "flex", alignItems: "center" }}>
           <strong>エラー</strong>
           <p>{message}</p>
         </div>

@@ -1,6 +1,7 @@
 from app import db
 import uuid
 from datetime import datetime, timezone
+from app import create_app
 
 class SeniorProfile(db.Model):
     __tablename__ = 'senior_profiles'
@@ -124,6 +125,5 @@ if __name__ == "__main__":
     app = create_app()
     with app.app_context():
         seed_senior_profiles() 
-
 
 

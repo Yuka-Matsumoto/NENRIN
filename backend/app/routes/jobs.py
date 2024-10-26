@@ -44,6 +44,7 @@ def get_job(job_id):
         }), 200
     return jsonify({'message': 'Job not found'}), 404
 
+
 # 特定の団体が登録した求人を取得するエンドポイント
 @jobs_bp.route('/jobs/union/<union_profile_id>', methods=['GET'])
 def get_jobs_by_union(union_profile_id):
@@ -62,3 +63,19 @@ def get_jobs_by_union(union_profile_id):
             'created_at': job.created_at,
         })
     return jsonify(jobs_list), 200
+
+# ユーザーの求人情報を取得するエンドポイント
+@jobs_bp.route('/jobs/user/<user_id>', methods=['GET'])
+def get_user_jobs(user_id):
+    jobs = Job.query.filter_by(union_profile_id=user_id).all()  # union_profile_idでフィルタリング
+    jobs_list = [
+        {
+            "id": job.id,
+            "title": job.title,
+            "description": job.description,
+            "location": job.location,
+            "salary": str(job.salary),  # 数値を文字列に変換
+            "status": job.status
+        }
+        for job in jobs
+    ]

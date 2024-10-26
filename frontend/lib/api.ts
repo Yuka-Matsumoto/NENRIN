@@ -84,13 +84,13 @@ export const fetchServiceById = async (id: string) => {
 };
 
 // シニアユーザープロフィールを登録するためのAPI呼び出し
-export const fetchSeniorProfile = async (data) => {
+export const fetchSeniorProfile = async (payload) => {
   const response = await fetch(`${BASE_URL}/register-senior`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(payload),
   });
 
   if (!response.ok) {
@@ -160,6 +160,7 @@ export const fetchUserServices = async (userId: string) => {
   return response.json();
 };
 
+
 // 応募データを送信するためのAPI呼び出し
 export const submitApplication = async (formData: FormData) => {
   const response = await fetch(`${BASE_URL}/applications/apply`, {
@@ -194,4 +195,13 @@ export const submitSeniorApplication = async (data: FormData) => {
     throw new Error("Failed to submit application");
   }
   return response.json();
+
+// ユーザー求人取得エンドポイント（求人Aが自分で登録した求人を見る）
+export const fetchUserJobs = async (userId: string) => {
+  const response = await fetch(`/jobs/user/${userId}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch jobs");
+  }
+  return await response.json();
+
 };
