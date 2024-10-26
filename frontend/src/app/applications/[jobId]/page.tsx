@@ -1,5 +1,3 @@
-// 特定の求人の応募者一覧ページ
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -13,7 +11,7 @@ const JobApplicationsPage = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/applications/jobs/${jobId}/ranked-applications`);  // 特定の求人の応募者を取得
+        const response = await fetch(`http://localhost:4000/applications/jobs/${jobId}/ranked-applications`);
         if (!response.ok) {
           throw new Error("応募者データの取得に失敗しました");
         }
