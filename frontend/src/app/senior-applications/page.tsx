@@ -1,12 +1,11 @@
 // src/app/senior-applications/[id]/page.tsx
 'use client';
 
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 import SeniorApplicationForm from '../../../components/Jobs/SeniorApplicationForm';
 
 const Page = () => {
-  const router = useRouter();
-  const { id: jobId } = router.query;  // URLパラメータから jobId を取得
+  const { id: jobId } = useParams(); // useParamsでURLパラメータからjobIdを取得
 
   return (
     <div>

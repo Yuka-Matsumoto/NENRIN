@@ -8,80 +8,80 @@ import uuid
 
 apply_bp = Blueprint('apply', __name__)
 
-# # ファイル保存に使用するフォルダの設定
-# UPLOAD_FOLDER = 'uploads/'
+# ファイル保存に使用するフォルダの設定
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'uploads/')
 
-# # ファイルを保存する関数
-# def save_file(file):
-#     filename = secure_filename(file.filename)
-#     # ファイル名にUUIDを追加して一意にする
-#     unique_filename = f"{uuid.uuid4()}_{filename}"
-#     file_path = os.path.join(UPLOAD_FOLDER, unique_filename)
+# ファイルを保存する関数
+def save_file(file):
+    filename = secure_filename(file.filename)
+    # ファイル名にUUIDを追加して一意にする
+    unique_filename = f"{uuid.uuid4()}_{filename}"
+    file_path = os.path.join(UPLOAD_FOLDER, unique_filename)
 
-#     # アップロードフォルダが存在しない場合は作成
-#     if not os.path.exists(UPLOAD_FOLDER):
-#         os.makedirs(UPLOAD_FOLDER)
+    # アップロードフォルダが存在しない場合は作成
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.makedirs(UPLOAD_FOLDER)
 
-#     # ファイルを保存
-#     file.save(file_path)
-#     return file_path
+    # ファイルを保存
+    file.save(file_path)
+    return file_path
 
-# @apply_bp.route('/api/apply', methods=['POST'])
-# def apply_for_job():
-#     data = request.form
-#     resume = request.files.get('resume')
-#     work_history = request.files.get('work_history')
-#     photo = request.files.get('photo')
+@apply_bp.route('/api/apply', methods=['POST'])
+def apply_for_job():
+    data = request.form
+    resume = request.files.get('resume')
+    work_history = request.files.get('work_history')
+    photo = request.files.get('photo')
 
-#     # ファイルをサーバーに保存
-#     resume_path = save_file(resume) if resume else None
-#     work_history_path = save_file(work_history) if work_history else None
-#     photo_path = save_file(photo) if photo else None
+    # ファイルをサーバーに保存
+    resume_path = save_file(resume) if resume else None
+    work_history_path = save_file(work_history) if work_history else None
+    photo_path = save_file(photo) if photo else None
 
-#     # 応募情報をデータベースに保存
-#     new_application = Application(
-#         senior_profile_id=data['senior_profile_id'],
-#         job_id=data['job_id'],
-#         resume=resume_path,
-#         work_history=work_history_path,
-#         photo=photo_path
-#     )
-#     db.session.add(new_application)
-#     db.session.commit()
+    # 応募情報をデータベースに保存
+    new_application = Application(
+        senior_profile_id=data['senior_profile_id'],
+        job_id=data['job_id'],
+        resume=resume_path,
+        work_history=work_history_path,
+        photo=photo_path
+    )
+    db.session.add(new_application)
+    db.session.commit()
 
-#     return jsonify({"message": "応募が完了しました"}), 201
+    return jsonify({"message": "応募が完了しました"}), 201
 
-# # 求人データの保存のエンドポイント
-# @apply_bp.route('/jobs/register', methods=['POST'])
-# def register_job():
-#     data = request.json
-#     new_job = Job(
-#         title=data['title'],
-#         description=data['description'],
-#         require_resume=data.get('requireResume', False),
-#         require_work_history=data.get('requireWorkHistory', False),
-#         require_photo=data.get('requirePhoto', False)
-#     )
-#     db.session.add(new_job)
-#     db.session.commit()
+# 求人データの保存のエンドポイント
+@apply_bp.route('/jobs/register', methods=['POST'])
+def register_job():
+    data = request.json
+    new_job = Job(
+        title=data['title'],
+        description=data['description'],
+        require_resume=data.get('requireResume', False),
+        require_work_history=data.get('requireWorkHistory', False),
+        require_photo=data.get('requirePhoto', False)
+    )
+    db.session.add(new_job)
+    db.session.commit()
 
-#     return jsonify({"message": "求人が登録されました"}), 201
+    return jsonify({"message": "求人が登録されました"}), 201
 
-# # ジョブ詳細データ取得エンドポイント
-# @apply_bp.route('/jobs/<job_id>', methods=['GET'])
-# def get_job(job_id):
-#     job = Job.query.get(job_id)
-#     if not job:
-#         return jsonify({"message": "ジョブデータが見つかりません"}), 404
+# ジョブ詳細データ取得エンドポイント
+@apply_bp.route('/jobs/<job_id>', methods=['GET'])
+def get_job(job_id):
+    job = Job.query.get(job_id)
+    if not job:
+        return jsonify({"message": "ジョブデータが見つかりません"}), 404
 
-#     return jsonify({
-#         "id": job.id,
-#         "title": job.title,
-#         "description": job.description,
-#         "requireResume": job.require_resume,
-#         "requireWorkHistory": job.require_work_history,
-#         "requirePhoto": job.require_photo
-#     }), 200
+    return jsonify({
+        "id": job.id,
+        "title": job.title,
+        "description": job.description,
+        "requireResume": job.require_resume,
+        "requireWorkHistory": job.require_work_history,
+        "requirePhoto": job.require_photo
+    }), 200
 
 # シニアプロフィール取得エンドポイント
 @apply_bp.route('/api/senior-profile/<senior_profile_id>', methods=['GET'])

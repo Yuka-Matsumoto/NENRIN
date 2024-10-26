@@ -36,7 +36,7 @@ def create_app():
     app.register_blueprint(jobs_bp)
     app.register_blueprint(services_bp)  # services_bpを登録
     app.register_blueprint(applications_bp, url_prefix='/applications')  # applications_bpを登録
-    app.register_blueprint(apply_bp, url_prefix='/apply')  # apply_bpを登録
+    app.register_blueprint(apply_bp)
     app.register_blueprint(unions_bp, url_prefix='/unions')
 
     return app

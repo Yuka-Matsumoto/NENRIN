@@ -149,3 +149,26 @@ export const submitApplication = async (formData: FormData) => {
 
   return response.json();
 };
+
+// シニアプロフィールの情報を応募フォームに取得するAPI
+export const fetchSeniorProfileForApplication = async (userId: string) => {
+  const response = await fetch(`http://localhost:4000/api/senior-profile/${userId}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch senior profile");
+  }
+  return response.json();
+};
+
+
+// シニアが求人に応募するとき応募情報を送信するAPI
+export const submitSeniorApplication = async (data: FormData) => {
+  const response = await fetch(`http://localhost:4000/applications`, {
+    method: "POST",
+    body: data,
+  });
+  if (!response.ok) {
+    throw new Error("Failed to submit application");
+  }
+  return response.json();
+};
+
