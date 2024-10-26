@@ -30,8 +30,8 @@ const SeniorApplicationForm = () => {
   useEffect(() => {
     const loadProfileAndJobRequirements = async () => {
       try {
-        // プロフィール情報の取得　senior_profile_id(ce4ac2ba-bfe9-42de-8b67-3e1c56ce769f)から取得
-        const profile = await fetchSeniorProfileForApplication("ce4ac2ba-bfe9-42de-8b67-3e1c56ce769f");  // シニアIDに対応するデータを取得
+        // プロフィール情報の取得
+        const profile = await fetchSeniorProfileForApplication("ce4ac2ba-bfe9-42de-8b67-3e1c56ce769f");
         setFormData((prevData) => ({
           ...prevData,
           ...profile,

@@ -51,22 +51,6 @@ def apply_for_job():
 
     return jsonify({"message": "応募が完了しました"}), 201
 
-# 求人データの保存のエンドポイント
-@apply_bp.route('/jobs/register', methods=['POST'])
-def register_job():
-    data = request.json
-    new_job = Job(
-        title=data['title'],
-        description=data['description'],
-        require_resume=data.get('requireResume', False),
-        require_work_history=data.get('requireWorkHistory', False),
-        require_photo=data.get('requirePhoto', False)
-    )
-    db.session.add(new_job)
-    db.session.commit()
-
-    return jsonify({"message": "求人が登録されました"}), 201
-
 # ジョブ詳細データ取得エンドポイント
 @apply_bp.route('/jobs/<job_id>', methods=['GET'])
 def get_job(job_id):
@@ -99,5 +83,3 @@ def get_senior_profile(senior_profile_id):
         }), 200
     else:
         return jsonify({'message': 'プロフィールが見つかりません'}), 404
-
-
