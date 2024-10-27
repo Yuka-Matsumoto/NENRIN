@@ -58,7 +58,7 @@ export default function Dashboard() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                         {[
                             { icon: FileTextIcon, text: "求人登録", path: "/jobs/create" },
-                            { icon: UserIcon, text: "プロフィール", path: "/profile" },
+                            { icon: UserIcon, text: "プロフィール", path: "/profile/union" },
                             { icon: ListIcon, text: "依頼済みのサービス一覧", path: "/services/requests" },
                             { icon: BriefcaseIcon, text: "サービスの一覧", path: "/services" },
                         ].map((item, index) => (

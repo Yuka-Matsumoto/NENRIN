@@ -59,7 +59,7 @@ export default function Dashboard() {
                         {[
                             { icon: FileTextIcon, text: "サービス登録", path: "/services/create" },
                             { icon: BriefcaseIcon, text: "求人を見る", path: "/jobs" },
-                            { icon: UserIcon, text: "プロフィール", path: "/profile" },
+                            { icon: UserIcon, text: "プロフィール", path: "/profile/senior" },
                             { icon: ListIcon, text: "サービス依頼の一覧", path: "/services/requests" },
                             { icon: ListIcon, text: "応募求人の一覧", path: "/jobs/applications" },
                         ].map((item, index) => (
