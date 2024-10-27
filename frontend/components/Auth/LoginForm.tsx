@@ -1,5 +1,3 @@
-// frontend/components/Auth/LoginForm.tsx
-
 'use client';
 
 import { useState } from 'react';
@@ -17,11 +15,15 @@ const LoginForm = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            // Firebaseでログイン
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const token = await userCredential.user.getIdToken();
 
-            // バックエンドからユーザータイプを取得（トークンをヘッダーに含める）
+            if (!token) {
+                setError("トークンの取得に失敗しました。");
+                return;
+            }
+
+            // バックエンドからユーザータイプを取得
             const response = await apiClient.post(
                 '/api/get-user-type',
                 {},
@@ -31,12 +33,23 @@ const LoginForm = () => {
                     },
                 }
             );
-            const userType = response.data.userType;
 
-            // ユーザータイプに応じてリダイレクト
-            router.push(userType === 'senior' ? '/dashboard/senior' : '/dashboard/union');
+            const userType = response.data?.userType;
+
+            if (!userType) {
+                setError("ユーザータイプの取得に失敗しました。");
+                return;
+            }
+
+            // userType に基づいてリダイレクト
+            router.push(userType === 'senior_user' ? '/dashboard/senior' : '/dashboard/union');
         } catch (error: any) {
-            setError(error.message);
+            if (error.response?.status === 401) {
+                setError("認証エラー: トークンが無効です。再度ログインしてください。");
+            } else {
+                setError("ログインまたはユーザータイプ取得に失敗しました。再試行してください。");
+            }
+            console.error("Error during login:", error);
         }
     };
 
