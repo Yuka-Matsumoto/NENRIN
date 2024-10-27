@@ -6,4 +6,5 @@ from .job import Job
 from .service import Service
 from .application import Application
 from .scoring import Scoring
-
+from .message import Message
+from app import db
