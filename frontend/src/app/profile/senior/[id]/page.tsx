@@ -1,15 +1,24 @@
-// frontend/src/app/profile/senior/[id]/page.tsx
-
 "use client"; // クライアントコンポーネントを指定
 
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 import ProfileForm from "../../../../../components/Profile/ProfileForm";
-import { fetchSeniorProfile } from "../../../../../lib/api";
+import {
+  fetchSeniorProfile,
+  fetchSeniorProfiles,
+} from "../../../../../lib/api";
 
 const SeniorProfile = () => {
-  const router = useRouter();
-  const { id } = router.query;
+  const { id } = useParams(); // useParamsでIDを取得
+
+  console.log("Received user ID:", id);
+
+  // IDが未定義の場合はローディングを表示
+  if (!id) {
+    console.log("ID is not available yet.");
+    return <div>Loading...</div>;
+  }
+
   const [formData, setFormData] = useState({
     name: "",
     prefecture: "",
@@ -25,6 +34,24 @@ const SeniorProfile = () => {
     lives_alone: "",
     goes_out_once_a_week: "",
   });
+
+  // プロフィールデータを取得
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      if (id) {
+        try {
+          const profile = await fetchSeniorProfiles(id);
+          console.log("Profile data received", profile);
+          setFormData(profile);
+        } catch (error) {
+          console.log("Profile not found, ready to create a new one:", error);
+          alert("プロフィールが見つかりませんでした。新規作成します。");
+        }
+      }
+    };
+
+    fetchProfileData();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,18 +76,13 @@ const SeniorProfile = () => {
     console.log("Submitting payload:", payload);
 
     try {
-      const response = await fetchSeniorProfile("/register-senior", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...formData, user_id: id }),
-      });
-
+      const response = await fetchSeniorProfile(payload);
       const data = await response.json();
       console.log("Profile created:", data); //登録完了メッセージを表示
+      alert("プロフィールが登録されました");
     } catch (error) {
       console.log("Error:", error); //エラーメッセージを表示
+      alert("登録に失敗しました");
     }
   };
 

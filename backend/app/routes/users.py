@@ -8,13 +8,39 @@ from app.models.user import User
 
 users_bp = Blueprint('users', __name__)
 
-@users_bp.route('/user/<user_id>', methods=['GET'])
+@users_bp.route('/user/<string:user_id>', methods=['GET'])
 def get_user(user_id):
     user = User.query.get(user_id)
     if user:
         return jsonify({"id": user.id, "name": user.name, "role": user.role}), 200
     else:
         return jsonify({"message": "User not found"}), 404
+    
+# シニアプロフィール取得エンドポイント
+@users_bp.route('/senior-profile/<string:user_id>', methods=['GET'])
+def get_senior_profile(user_id):
+    profile = SeniorProfile.query.filter_by(user_id=user_id).first()
+    if profile:
+        return jsonify({
+            "id": profile.id,
+            "user_id": profile.user_id,
+            "name": profile.name,
+            "address": profile.address,
+            "age": profile.age,
+            "gender": profile.gender,
+            "industry": profile.industry,
+            "job_title": profile.job_title,
+            "years_of_experience": profile.years_of_experience,
+            "currently_employed": profile.currently_employed,
+            "currently_studying": profile.currently_studying,
+            "has_hobby": profile.has_hobby,
+            "lives_alone": profile.lives_alone,
+            "goes_out_once_a_week": profile.goes_out_once_a_week,
+            "created_at": profile.created_at,
+            "updated_at": profile.updated_at
+        }), 200
+    else:
+        return jsonify({"message": "Senior profile not found"}), 404
 
 # シニアユーザープロフィール
 @users_bp.route('/register-senior', methods=['POST', 'OPTIONS'])
