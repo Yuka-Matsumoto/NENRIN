@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchUserServices } from "../../../lib/api"; // API関数をインポート
+import { fetchUserServices } from "../../../../lib/api"; // API関数をインポート
 
 export default function ServiceList() {
   const [services, setServices] = useState([]);

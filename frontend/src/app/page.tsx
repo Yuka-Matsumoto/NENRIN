@@ -33,6 +33,7 @@ export default function HomePage() {
         <p className="text-3xl"><span className="text-brown-700 font-bold">N E N R I N</span>は、シニアユーザーがこれまで培ったスキルや経験を活かして新たなサービスを提供できる場です。</p>
         <p className="text-3xl">団体ユーザーはシニア向けの求人を掲載し、シニアの力を活用して地域や社会に貢献できます。</p>
         <p className="text-3xl">シニアと団体をつなげることで、退職後も社会と繋がり続けられる新しい機会を提供します。</p>
+        {/* <img src="" alt="" /> */}
         <p className="text-2xl font-semibold">ご利用はこちらから</p>
         <SeniorUseButton onClick={handleSeniorClick} />
         {/* <p className="text-xl font-semibold">団体、自治体、企業の方はこちら</p>
