@@ -155,14 +155,14 @@ export const submitApplication = async (formData: FormData) => {
   return response.json();
 };
 
-// シニアプロフィールの情報を応募フォームに取得するAPI
-export const fetchSeniorProfileForApplication = async (userId: string) => {
-  const response = await fetch(`${BASE_URL}/api/senior-profile/${userId}`);
-  if (!response.ok) {
-    throw new Error("Failed to fetch senior profile");
-  }
-  return response.json();
-};
+// // シニアプロフィールの情報を応募フォームに取得するAPI
+// export const fetchSeniorProfileForApplication = async (userId: string) => {
+//   const response = await fetch(`${BASE_URL}/api/senior-profile/${userId}`);
+//   if (!response.ok) {
+//     throw new Error("Failed to fetch senior profile");
+//   }
+//   return response.json();
+// };
 
 // シニアが求人に応募するとき応募情報を送信するAPI
 export const submitSeniorApplication = async (data: FormData) => {
@@ -174,4 +174,13 @@ export const submitSeniorApplication = async (data: FormData) => {
     throw new Error("Failed to submit application");
   }
   return response.json();
+};
+
+// シニアユーザープロフィールを取得するためのAPI呼び出し
+export const fetchSeniorProfileForApplication = async (uid: string) => {
+  const response = await apiClient.get(`/api/profile/${uid}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch senior profile");
+  }
+  return response.data;
 };

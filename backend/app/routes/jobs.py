@@ -38,9 +38,9 @@ def get_job(job_id):
             'status': job.status,
             'created_at': job.created_at,
             'updated_at': job.updated_at,
-            'requireResume': job.require_resume,
-            'requireWorkHistory': job.require_work_history,
-            'requirePhoto': job.require_photo
+            'requireResume': job.is_resume_required,
+            'workHistoryRequired': job.is_work_history_required,
+            'photoRequired': job.is_photo_required,
         }), 200
     return jsonify({'message': 'Job not found'}), 404
 
