@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
 import { useRouter } from 'next/navigation';
 import { apiClient } from '../../lib/api';
@@ -43,11 +43,11 @@ const SignupForm = () => {
                 }
             );
 
-            // ログ確認
-        console.log("Redirecting to login page after signup");
 
-            // アカウント作成後、ログイン画面にリダイレクト
-            router.push('/login');
+            // Firebaseからサインアウトして、ログインページにリダイレクト
+            console.log("Signing out and redirecting to login page...");
+            await signOut(auth);
+            router.push('/account/login');
         } catch (error: any) {
             setError(error.message || "アカウント作成に失敗しました。");
             console.error("Error during signup:", error);
