@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchJobPosting } from "../../../../lib/api";
 
 export default function JobPostingForm() {
   const [formData, setFormData] = useState({
+
     union_profile_id: "",
+
     title: "",
     description: "",
     location: "",
@@ -17,12 +19,25 @@ export default function JobPostingForm() {
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+  useEffect(() => {
+    const fetchUnionProfileId = async () => {
+      try {
+        const response = await fetch("/api/union-profile"); // APIエンドポイントを適切に設定
+        const data = await response.json();
+        setFormData((prev) => ({ ...prev, union_profile_id: data.id })); // 取得したIDをフォームデータにセット
+      } catch (err) {
+        setMessage("ユニオンプロフィールIDの取得中にエラーが発生しました。");
+      }
+    };
+
+    fetchUnionProfileId();
+  }, []); // コンポーネントの初回マウント時にプロフィールIDを取得
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -30,7 +45,8 @@ export default function JobPostingForm() {
     setStatus("loading");
 
     try {
-      await fetchJobPosting(formData);
+
+      await fetchJobPosting(formData); // API関数を呼び出して求人を登録
       setStatus("success");
       setMessage("求人が正常に登録されました");
       setFormData({
@@ -59,6 +75,7 @@ export default function JobPostingForm() {
           </svg>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
+
           <div>
             <label htmlFor="union_profile_id" className="block text-sm font-medium text-gray-700 mb-1">団体ID</label>
             <input
