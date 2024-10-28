@@ -63,24 +63,69 @@ const LoginForm = () => {
     };
 
     return (
-        <form onSubmit={handleLogin}>
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="メールアドレス"
-                required
-            />
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="パスワード"
-                required
-            />
-            {error && <p>{error}</p>}
-            <button type="submit">ログイン</button>
-        </form>
+        // <form onSubmit={handleLogin}>
+        //     <input
+        //         type="email"
+        //         value={email}
+        //         onChange={(e) => setEmail(e.target.value)}
+        //         placeholder="メールアドレス"
+        //         required
+        //     />
+        //     <input
+        //         type="password"
+        //         value={password}
+        //         onChange={(e) => setPassword(e.target.value)}
+        //         placeholder="パスワード"
+        //         required
+        //     />
+        //     {error && <p>{error}</p>}
+        //     <button type="submit">ログイン</button>
+        // </form>
+        <div className="min-h-screen bg-[#e6f3ef] flex items-center justify-center p-4">
+            <div className="w-full max-w-md">
+                <h2 className="text-2xl font-bold text-[#2e8b57] mb-6 text-center">ログイン</h2>
+                <div className="bg-white rounded-lg shadow-md p-6">
+                    <form onSubmit={handleLogin} className="space-y-4">
+                        <div>
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">メールアドレス</label>
+                            <input
+                                id="email"
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2e8b57] focus:border-transparent"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">パスワード</label>
+                            <input
+                                id="password"
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2e8b57] focus:border-transparent"
+                            />
+                        </div>
+                        {error && <p className="text-red-500 text-sm">{error}</p>}
+                        <button
+                            type="submit"
+                            className="w-full bg-[#2e8b57] hover:bg-[#236b44] text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
+                        >
+                            ログイン
+                        </button>
+                    </form>
+                </div>
+                <p className="mt-4 text-center text-sm text-gray-600">
+                    アカウントをお持ちでない方は
+                    <a href="/signup" className="font-medium text-[#2e8b57] hover:text-[#236b44]">
+                        こちら
+                    </a>
+                    から新規登録
+                </p>
+            </div>
+        </div>
     );
 };
 
