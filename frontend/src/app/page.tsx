@@ -34,7 +34,19 @@ export default function HomePage() {
         <p className="text-3xl">団体ユーザーはシニア向けの求人を掲載し、シニアの力を活用して地域や社会に貢献できます。</p>
         <p className="text-3xl">シニアと団体をつなげることで、退職後も社会と繋がり続けられる新しい機会を提供します。</p>
         {/* <img src="" alt="" /> */}
-        <p className="text-2xl font-semibold">ご利用はこちらから</p>
+        <div className="flex flex-wrap justify-between mt-12">
+          <div className="w-full md:w-1/2 text-left md:pr-8 mb-8 md:mb-0">
+            <h2 className="text-2xl font-bold mb-4 text-primary">シニアの知識と経験が地域に貢献する力に。</h2>
+            <p className="mb-4">本サービスは、地域社会に貢献したいシニア世代とつながることで、地域の課題を解決し、活力あるコミュニティを作りたい団体・組織のためのプラットフォームです。</p>
+            <p>社会経験豊富なシニアの力を活用し、地域の活動に新しい視点や知識を取り入れることができます。</p>
+          </div>
+
+          {/* <div className="w-full md:w-1/2 text-right md:pl-8">
+            <h2 className="text-2xl font-bold mb-4 text-primary">退職後も、あなたのスキルと人生経験が輝く場所がここにあります。</h2>
+            <p className="mb-4">本サービスは、退職後の新しいつながりと役割を見つけたいシニア世代のためのプラットフォームです。</p>
+            <p>自分の経験や得意分野を活かして、地域や団体と繋がり、社会参加を通じて新たな生きがいを感じることができます。</p>
+          </div> */}
+        </div>
         <SeniorUseButton onClick={handleSeniorClick} />
         {/* <p className="text-xl font-semibold">団体、自治体、企業の方はこちら</p>
         <UnionUseButton onClick={handleUnionClick} /> */}
