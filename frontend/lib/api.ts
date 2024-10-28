@@ -1,13 +1,15 @@
+
 import axios from 'axios';
 
 // BASE_URL の定義を統一
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:4000';
 
+
 // axiosインスタンスの作成
 export const apiClient = axios.create({
   baseURL: BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
@@ -75,6 +77,18 @@ export const fetchServiceById = async (id: string) => {
 };
 
 // シニアユーザープロフィールを登録するためのAPI呼び出し
+export const fetchSeniorProfiles = async (id: string) => {
+  const response = await fetch(`${BASE_URL}/senior-profile/${id}`);
+
+  if (!response.ok) {
+    throw new Error("Failes to fetch senior profile");
+  }
+
+  console.log("Succes to fetch");
+
+  return response.json();
+};
+
 export const fetchSeniorProfile = async (payload) => {
   const response = await fetch(`${BASE_URL}/register-senior`, {
     method: "POST",
@@ -90,13 +104,26 @@ export const fetchSeniorProfile = async (payload) => {
 };
 
 // ユニオンユーザープロフィールを登録するためのAPI呼び出し
-export const fetchUnionProfile = async (data) => {
+
+export const fetchUnionProfiles = async (id: string) => {
+  const response = await fetch(`${BASE_URL}/union-profile/${id}`);
+
+  if (!response.ok) {
+    throw new Error("Failes to fetch union profile");
+  }
+
+  console.log("Succes to fetch");
+
+  return response.json();
+};
+
+export const fetchUnionProfile = async (payload) => {
   const response = await fetch(`${BASE_URL}/register-union`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(payload),
   });
   if (!response.ok) {
     throw new Error("Failed to register union profile");
@@ -143,7 +170,6 @@ export const fetchUserServices = async (userId: string) => {
   return response.json();
 };
 
-
 // 応募データを送信するためのAPI呼び出し
 export const submitApplication = async (formData: FormData) => {
   const response = await fetch(`${BASE_URL}/applications/apply`, {
@@ -165,6 +191,8 @@ export const submitApplication = async (formData: FormData) => {
 //   return response.json();
 // };
 
+
+
 // シニアが求人に応募するとき応募情報を送信するAPI
 export const submitSeniorApplication = async (data: FormData) => {
   const response = await fetch(`${BASE_URL}/applications`, {
@@ -177,6 +205,7 @@ export const submitSeniorApplication = async (data: FormData) => {
   return response.json();
 }
 
+
 // ユーザー求人取得エンドポイント（求人Aが自分で登録した求人を見る）
 export const fetchUserJobs = async (userId: string) => {
   const response = await fetch(`/jobs/user/${userId}`);
@@ -184,7 +213,6 @@ export const fetchUserJobs = async (userId: string) => {
     throw new Error("Failed to fetch jobs");
   }
   return await response.json();
-
 };
 
 // シニアユーザープロフィールを取得するためのAPI呼び出し

@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const UserIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
@@ -7,7 +8,37 @@ const UserIcon = () => (
   </svg>
 )
 
-export default function Component() {
+
+interface FormData {
+  name: string;
+  prefecture: string;
+  city: string;
+  age: string;
+  gender: string;
+  industry: string;
+  job_title: string;
+  years_of_experience: string;
+  currently_employed: string;
+  currently_studying: string;
+  has_hobby: string;
+  lives_alone: string;
+  goes_out_once_a_week: string;
+}
+
+interface ProfileFormProps {
+  formData: FormData;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
+  handleSubmit: (e: React.FormEvent) => void;
+}
+
+export default function ProfileForm({
+  formData,
+  handleChange,
+  handleSubmit,
+}: ProfileFormProps) {
+  
   const industries = [
     "IT",
     "教育",
@@ -63,7 +94,6 @@ export default function Component() {
               </select>
             </div>
           </div>
-
           <div className="space-y-4">
             <h2 className="text-xl font-semibold text-[#2e8b57]">アピールしたい職種と業種</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
