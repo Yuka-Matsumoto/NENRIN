@@ -119,7 +119,7 @@ const LoginForm = () => {
                 </div>
                 <p className="mt-4 text-center text-sm text-gray-600">
                     アカウントをお持ちでない方は
-                    <a href="/signup" className="font-medium text-[#2e8b57] hover:text-[#236b44]">
+                    <a href="/account/create" className="font-medium text-[#2e8b57] hover:text-[#236b44]">
                         こちら
                     </a>
                     から新規登録
