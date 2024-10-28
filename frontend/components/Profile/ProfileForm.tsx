@@ -1,6 +1,34 @@
 import React from "react";
 
-export default function Component() {
+interface FormData {
+  name: string;
+  prefecture: string;
+  city: string;
+  age: string;
+  gender: string;
+  industry: string;
+  job_title: string;
+  years_of_experience: string;
+  currently_employed: string;
+  currently_studying: string;
+  has_hobby: string;
+  lives_alone: string;
+  goes_out_once_a_week: string;
+}
+
+interface ProfileFormProps {
+  formData: FormData;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
+  handleSubmit: (e: React.FormEvent) => void;
+}
+
+export default function ProfileForm({
+  formData,
+  handleChange,
+  handleSubmit,
+}: ProfileFormProps) {
   const industries = [
     "IT",
     "教育",
@@ -21,7 +49,10 @@ export default function Component() {
   ];
 
   return (
-    <form className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md space-y-6">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md space-y-6"
+    >
       <div>
         <label
           htmlFor="name"
@@ -32,6 +63,8 @@ export default function Component() {
         <input
           id="name"
           name="name"
+          value={formData.name}
+          onChange={handleChange}
           required
           className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
         />
@@ -46,6 +79,8 @@ export default function Component() {
         <input
           id="prefecture"
           name="prefecture"
+          value={formData.prefecture}
+          onChange={handleChange}
           required
           className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
         />
@@ -60,6 +95,8 @@ export default function Component() {
         <input
           id="city"
           name="city"
+          value={formData.city}
+          onChange={handleChange}
           required
           className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
         />
@@ -75,6 +112,8 @@ export default function Component() {
           id="age"
           name="age"
           type="number"
+          value={formData.age}
+          onChange={handleChange}
           required
           className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
         />
@@ -89,6 +128,8 @@ export default function Component() {
         <select
           id="gender"
           name="gender"
+          value={formData.gender}
+          onChange={handleChange}
           required
           className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
         >
@@ -113,6 +154,8 @@ export default function Component() {
         <select
           id="industry"
           name="industry"
+          value={formData.industry}
+          onChange={handleChange}
           required
           className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
         >
@@ -135,6 +178,8 @@ export default function Component() {
         <select
           id="job_title"
           name="job_title"
+          value={formData.job_title}
+          onChange={handleChange}
           required
           className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
         >
@@ -158,6 +203,8 @@ export default function Component() {
           id="years_of_experience"
           name="years_of_experience"
           type="number"
+          value={formData.years_of_experience}
+          onChange={handleChange}
           required
           className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
         />
@@ -173,6 +220,8 @@ export default function Component() {
         <select
           id="currently_employed"
           name="currently_employed"
+          value={formData.currently_employed}
+          onChange={handleChange}
           required
           className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
         >
@@ -192,6 +241,8 @@ export default function Component() {
         <select
           id="currently_studying"
           name="currently_studying"
+          value={formData.currently_studying}
+          onChange={handleChange}
           required
           className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
         >
@@ -211,6 +262,8 @@ export default function Component() {
         <select
           id="has_hobby"
           name="has_hobby"
+          value={formData.has_hobby}
+          onChange={handleChange}
           required
           className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
         >
@@ -230,6 +283,8 @@ export default function Component() {
         <select
           id="lives_alone"
           name="lives_alone"
+          value={formData.lives_alone}
+          onChange={handleChange}
           required
           className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
         >
@@ -249,6 +304,8 @@ export default function Component() {
         <select
           id="goes_out_once_a_week"
           name="goes_out_once_a_week"
+          value={formData.goes_out_once_a_week}
+          onChange={handleChange}
           required
           className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
         >
