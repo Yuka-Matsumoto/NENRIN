@@ -27,15 +27,15 @@ class Application(db.Model):
     # SeniorProfileとのリレーション
     senior_profile = db.relationship('SeniorProfile', backref=db.backref('applications', lazy=True))
 
-def upgrade():
-    # applicationsテーブルにstatusカラムを追加
-    with op.batch_alter_table('applications', schema=None) as batch_op:
-        batch_op.add_column(sa.Column('status', sa.String(length=20), nullable=False, server_default='選考中'))
+# def upgrade():
+#     # applicationsテーブルにstatusカラムを追加
+#     with op.batch_alter_table('applications', schema=None) as batch_op:
+#         batch_op.add_column(sa.Column('status', sa.String(length=20), nullable=False, server_default='選考中'))
 
-def downgrade():
-    # applicationsテーブルからstatusカラムを削除
-    with op.batch_alter_table('applications', schema=None) as batch_op:
-        batch_op.drop_column('status')
+# def downgrade():
+#     # applicationsテーブルからstatusカラムを削除
+#     with op.batch_alter_table('applications', schema=None) as batch_op:
+#         batch_op.drop_column('status')
 
 # シーディング用関数
 def seed_applications():
