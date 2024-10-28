@@ -76,7 +76,7 @@ def seed_union_profiles():
 
 # アプリケーションコンテキストでシーディングを実行
 if __name__ == "__main__":
-    from app import create_app
+    # from app import create_app
     app = create_app()  # Flaskアプリケーションを作成
     with app.app_context():  # アプリケーションコンテキストを設定
         seed_union_profiles()

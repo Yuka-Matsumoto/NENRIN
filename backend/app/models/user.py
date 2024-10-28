@@ -6,10 +6,12 @@ class User(db.Model):
     __tablename__ = 'users'
     
     id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    uid = db.Column(db.String(255), unique=True, nullable=False)
     role = db.Column(db.String(50), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     address = db.Column(db.String(200))
     phone_number = db.Column(db.String(20))
+    email = db.Column(db.String(255), unique=True, nullable=False)  # emailを必須フィールドとして追加
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 

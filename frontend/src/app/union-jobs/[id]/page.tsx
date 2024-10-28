@@ -53,7 +53,7 @@ const UnionJobsPage = () => {
 
   return (
     <div>
-      <h1> {unionName} の求人一覧</h1>
+      <h1>{unionName} の求人一覧</h1>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {jobs.map((job) => (
           <div key={job.id} style={{ border: '1px solid #ccc', padding: '16px', borderRadius: '8px' }}>
@@ -64,7 +64,7 @@ const UnionJobsPage = () => {
             
             {/* 各求人の詳細ページリンク */}
             <Link href={`/jobs/${job.id}`}>
-              <button style={{ marginRight: '8px' }}>この求人の詳細</button>
+              <button style={{ marginRight: '8px' }}>この求人の詳細を見る</button>
             </Link>
 
             {/* 各求人の応募者一覧ページリンク */}

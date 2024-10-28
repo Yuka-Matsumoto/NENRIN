@@ -63,7 +63,7 @@ def seed_jobs():
 
 # アプリケーションコンテキストで削除とシーディングを実行
 if __name__ == "__main__":
-    app = create_app()
+    # app = create_app()
     with app.app_context():
         fill_industry_for_null_jobs()  # industryがNULLのレコードにデフォルト値を設定
         fill_job_title_for_null_or_empty_jobs()  # job_titleがNULLまたは空のレコードにデフォルト値を設定

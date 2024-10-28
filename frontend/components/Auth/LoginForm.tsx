@@ -1,5 +1,3 @@
-// frontend/components/Auth/LoginForm.tsx
-
 'use client';
 
 import { useState } from 'react';
@@ -17,13 +15,17 @@ const LoginForm = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            // Firebaseでログイン
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const token = await userCredential.user.getIdToken();
 
-            // バックエンドからユーザータイプを取得（トークンをヘッダーに含める）
-            const response = await apiClient.post(
-                '/api/get-user-type',
+            if (!token) {
+                setError("トークンの取得に失敗しました。");
+                return;
+            }
+
+            // バックエンドからユーザー情報を取得
+            const userInfoResponse = await apiClient.post(
+                '/api/get-user-info',
                 {},
                 {
                     headers: {
@@ -31,12 +33,32 @@ const LoginForm = () => {
                     },
                 }
             );
-            const userType = response.data.userType;
 
-            // ユーザータイプに応じてリダイレクト
-            router.push(userType === 'senior' ? '/dashboard/senior' : '/dashboard/union');
+            console.log("User info response:", userInfoResponse.data); // デバッグ用
+
+            const userInfo = userInfoResponse.data;
+
+            if (!userInfo || !userInfo.success || !userInfo.userInfo) {
+                setError("ユーザー情報の取得に失敗しました。");
+                console.error("User info response:", userInfoResponse.data); // デバッグ用
+                return;
+            }
+
+            // ユーザー情報の取得
+            const { name, role, uid } = userInfo.userInfo; // userInfoから必要な情報を取得
+
+            // ユーザータイプを取得
+            const userType = role; // userInfoからroleを取得
+
+            // ユーザーIDをURLに含めてリダイレクト
+            router.push(userType === 'senior_user' ? `/dashboard/senior/${uid}` : `/dashboard/union/${uid}`);
         } catch (error: any) {
-            setError(error.message);
+            if (error.response?.status === 401) {
+                setError("認証エラー: トークンが無効です。再度ログインしてください。");
+            } else {
+                setError("ログインまたはユーザー情報取得に失敗しました。再試行してください。");
+            }
+            console.error("Error during login:", error);
         }
     };
 
