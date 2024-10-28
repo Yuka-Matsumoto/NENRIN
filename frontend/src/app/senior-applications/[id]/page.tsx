@@ -3,18 +3,19 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { fetchSeniorProfileForApplication, submitSeniorApplication } from '../../../../lib/api';
+import { auth } from '../../../../lib/firebase'; // Firebase authをインポート
 
 const SeniorApplicationForm = () => {
   const { id: jobId } = useParams();
-  
+
   const [formData, setFormData] = useState({
-    name: "",
-    address: "",
-    age: "",
-    gender: "",
-    industry: "",
-    job_title: "",
-    years_of_experience: "",
+    name: '',
+    address: '',
+    age: '',
+    gender: '',
+    industry: '',
+    job_title: '',
+    years_of_experience: '',
     resume: null,
     work_history: null,
     photo: null,
@@ -26,18 +27,20 @@ const SeniorApplicationForm = () => {
     requirePhoto: false,
   });
 
-  // プロフィール情報と求人の要件をロード
   useEffect(() => {
     const loadProfileAndJobRequirements = async () => {
       try {
-        // プロフィール情報の取得
-        const profile = await fetchSeniorProfileForApplication("ce4ac2ba-bfe9-42de-8b67-3e1c56ce769f");
-        setFormData((prevData) => ({
-          ...prevData,
-          ...profile,
-        }));
+        // 現在のユーザーUIDを取得
+        const user = auth.currentUser;
+        if (user) {
+          const profile = await fetchSeniorProfileForApplication(user.uid); // UIDでプロフィール情報を取得
+          setFormData((prevData) => ({
+            ...prevData,
+            ...profile,
+          }));
+        }
 
-        // 求人の要件の取得
+        // 必須の書類項目を取得
         const response = await fetch(`http://localhost:4000/jobs/${jobId}`);
         const jobData = await response.json();
         setRequiredDocs({
@@ -46,7 +49,7 @@ const SeniorApplicationForm = () => {
           requirePhoto: jobData.requirePhoto,
         });
       } catch (error) {
-        console.error("プロフィールまたは求人情報の取得に失敗しました", error);
+        console.error('プロフィールまたは求人情報の取得に失敗しました', error);
       }
     };
 
@@ -70,36 +73,46 @@ const SeniorApplicationForm = () => {
     Object.entries(formData).forEach(([key, value]) => {
       data.append(key, value);
     });
-    data.append("job_id", jobId);
+    data.append('job_id', jobId);
 
     try {
       await submitSeniorApplication(data);
-      alert("応募が完了しました");
+      alert('応募が完了しました');
     } catch (error) {
-      console.error("応募の送信に失敗しました", error);
-      alert("応募の送信に失敗しました");
+      console.error('応募の送信に失敗しました', error);
+      alert('応募の送信に失敗しました');
     }
   };
 
   return (
-    <div>
-      <h1>応募フォーム</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="名前" required />
-        <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="住所" required />
-        <input type="number" name="age" value={formData.age} onChange={handleChange} placeholder="年齢" required />
-        <input type="text" name="gender" value={formData.gender} onChange={handleChange} placeholder="性別" required />
-        <input type="text" name="industry" value={formData.industry} onChange={handleChange} placeholder="業種" required />
-        <input type="text" name="job_title" value={formData.job_title} onChange={handleChange} placeholder="職種" required />
-        <input type="number" name="years_of_experience" value={formData.years_of_experience} onChange={handleChange} placeholder="経験年数" required />
+    <form onSubmit={handleSubmit}>
+      <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="名前" required />
+      <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="住所" required />
+      <input type="number" name="age" value={formData.age} onChange={handleChange} placeholder="年齢" required />
+      <input type="text" name="gender" value={formData.gender} onChange={handleChange} placeholder="性別" required />
+      <input type="text" name="industry" value={formData.industry} onChange={handleChange} placeholder="業種" required />
+      <input type="text" name="job_title" value={formData.job_title} onChange={handleChange} placeholder="職種" required />
+      <input type="number" name="years_of_experience" value={formData.years_of_experience} onChange={handleChange} placeholder="経験年数" required />
 
-        {requiredDocs.requireResume && <input type="file" name="resume" onChange={handleFileChange} required />}
-        {requiredDocs.requireWorkHistory && <input type="file" name="work_history" onChange={handleFileChange} required />}
-        {requiredDocs.requirePhoto && <input type="file" name="photo" onChange={handleFileChange} required />}
+      {/* ファイル入力フィールド（履歴書、職務経歴書、顔写真） */}
+      <div>
+        <label>履歴書 {requiredDocs.requireResume && <span>(必須)</span>}
+          <input type="file" name="resume" onChange={handleFileChange} required={requiredDocs.requireResume} />
+        </label>
+      </div>
+      <div>
+        <label>職務経歴書 {requiredDocs.requireWorkHistory && <span>(必須)</span>}
+          <input type="file" name="work_history" onChange={handleFileChange} required={requiredDocs.requireWorkHistory} />
+        </label>
+      </div>
+      <div>
+        <label>顔写真 {requiredDocs.requirePhoto && <span>(必須)</span>}
+          <input type="file" name="photo" onChange={handleFileChange} required={requiredDocs.requirePhoto} />
+        </label>
+      </div>
 
-        <button type="submit">応募する</button>
-      </form>
-    </div>
+      <button type="submit">応募する</button>
+    </form>
   );
 };
 

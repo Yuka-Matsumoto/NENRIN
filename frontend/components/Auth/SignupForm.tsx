@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
 import { useRouter } from 'next/navigation';
 import { apiClient } from '../../lib/api';
@@ -11,8 +11,8 @@ const SignupForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
-    const [address, setAddress] = useState(''); // 追加
-    const [phoneNumber, setPhoneNumber] = useState(''); // 追加
+    const [address, setAddress] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
     const [userType, setUserType] = useState<'senior_user' | 'union_user'>('senior_user');
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
@@ -23,16 +23,18 @@ const SignupForm = () => {
             // Firebaseでユーザー作成
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const token = await userCredential.user.getIdToken();
-            const uid = await userCredential.user.uid
+            const uid = userCredential.user.uid;
+
             // バックエンドにユーザー情報を送信（トークンをヘッダーに含める）
             await apiClient.post(
                 '/api/register',
                 {
+                    uid,
+                    email,
                     userType,
                     name,
                     address,
                     phoneNumber,
-                    uid
                 },
                 {
                     headers: {
@@ -41,10 +43,14 @@ const SignupForm = () => {
                 }
             );
 
-            // ユーザータイプに応じてリダイレクト
-            router.push(userType === 'senior_user' ? '/dashboard/senior' : '/dashboard/union');
+
+            // Firebaseからサインアウトして、ログインページにリダイレクト
+            console.log("Signing out and redirecting to login page...");
+            await signOut(auth);
+            router.push('/account/login');
         } catch (error: any) {
-            setError(error.message);
+            setError(error.message || "アカウント作成に失敗しました。");
+            console.error("Error during signup:", error);
         }
     };
 
@@ -115,5 +121,3 @@ const SignupForm = () => {
 };
 
 export default SignupForm;
-
-
