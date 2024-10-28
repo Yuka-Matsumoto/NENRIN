@@ -38,7 +38,7 @@ def seed_services():
 
 # アプリケーションコンテキストでシーディングを実行
 if __name__ == "__main__":
-    from app import create_app
+    # from app import create_app
     app = create_app()
     with app.app_context():
         seed_services()

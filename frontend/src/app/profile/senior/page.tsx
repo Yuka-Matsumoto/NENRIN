@@ -57,6 +57,19 @@
 //   }, []); // 空の依存配列で一度だけ実行
 
 
+// <<<<<<< feature-kino-css
+//   return (
+//     <>
+//       {/* <h1>プロフィール登録</h1> */}
+//       <ProfileForm
+//         formData={formData}
+//         handleChange={handleChange}
+//         handleSubmit={handleSubmit}
+//       />
+//     </>
+//   );
+// }
+// =======
 //   const handleChange = (e) => {
 //     const { name, value } = e.target;
 //     setFormData((prevState) => ({

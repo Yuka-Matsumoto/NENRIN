@@ -1,5 +1,12 @@
 import React from "react";
 
+const UserIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </svg>
+)
+
 export default function Component() {
   const industries = [
     "IT",
@@ -21,249 +28,112 @@ export default function Component() {
   ];
 
   return (
-    <form className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md space-y-6">
-      <div>
-        <label
-          htmlFor="name"
-          className="block text-lg font-medium text-gray-700"
-        >
-          名前
-        </label>
-        <input
-          id="name"
-          name="name"
-          required
-          className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="prefecture"
-          className="block text-lg font-medium text-gray-700"
-        >
-          都道府県
-        </label>
-        <input
-          id="prefecture"
-          name="prefecture"
-          required
-          className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="city"
-          className="block text-lg font-medium text-gray-700"
-        >
-          市区町村
-        </label>
-        <input
-          id="city"
-          name="city"
-          required
-          className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="age"
-          className="block text-lg font-medium text-gray-700"
-        >
-          年齢
-        </label>
-        <input
-          id="age"
-          name="age"
-          type="number"
-          required
-          className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="gender"
-          className="block text-lg font-medium text-gray-700"
-        >
-          性別
-        </label>
-        <select
-          id="gender"
-          name="gender"
-          required
-          className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
-        >
-          <option value="">選択してください</option>
-          <option value="male">男性</option>
-          <option value="female">女性</option>
-          <option value="other">その他</option>
-        </select>
-      </div>
+    <div className="min-h-screen bg-[#e6f3ef] p-6">
+      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold text-[#2e8b57]">プロフィール登録</h1>
+          <UserIcon className="w-6 h-6 text-[#2e8b57]" />
+        </div>
 
-      <p className="text-lg text-gray-600 text-center">
-        アピールしたい職種と業種を選択してください
-      </p>
+        <form className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label htmlFor="name" className="block text-sm font-medium text-[#2e8b57]">名前</label>
+              <input type="text" id="name" name="name" required className="mt-1 block w-full rounded-md border-[#2e8b57] shadow-sm focus:border-[#2e8b57] focus:ring focus:ring-[#3da577] focus:ring-opacity-50 bg-[#ecf7f2] text-black placeholder-gray-500" />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="prefecture" className="block text-sm font-medium text-[#2e8b57]">都道府県</label>
+              <input type="text" id="prefecture" name="prefecture" required className="mt-1 block w-full rounded-md border-[#2e8b57] shadow-sm focus:border-[#2e8b57] focus:ring focus:ring-[#3da577] focus:ring-opacity-50 bg-[#ecf7f2] text-black placeholder-gray-500" />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="city" className="block text-sm font-medium text-[#2e8b57]">市区町村</label>
+              <input type="text" id="city" name="city" required className="mt-1 block w-full rounded-md border-[#2e8b57] shadow-sm focus:border-[#2e8b57] focus:ring focus:ring-[#3da577] focus:ring-opacity-50 bg-[#ecf7f2] text-black placeholder-gray-500" />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="age" className="block text-sm font-medium text-[#2e8b57]">年齢</label>
+              <input type="number" id="age" name="age" required className="mt-1 block w-full rounded-md border-[#2e8b57] shadow-sm focus:border-[#2e8b57] focus:ring focus:ring-[#3da577] focus:ring-opacity-50 bg-[#ecf7f2] text-black placeholder-gray-500" />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="gender" className="block text-sm font-medium text-[#2e8b57]">性別</label>
+              <select id="gender" name="gender" required className="mt-1 block w-full rounded-md border-[#2e8b57] shadow-sm focus:border-[#2e8b57] focus:ring focus:ring-[#3da577] focus:ring-opacity-50 bg-[#ecf7f2] text-black">
+                <option value="">選択してください</option>
+                <option value="male">男性</option>
+                <option value="female">女性</option>
+                <option value="other">その他</option>
+              </select>
+            </div>
+          </div>
 
-      <div>
-        <label
-          htmlFor="industry"
-          className="block text-lg font-medium text-gray-700"
-        >
-          業種
-        </label>
-        <select
-          id="industry"
-          name="industry"
-          required
-          className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
-        >
-          <option value="">選択してください</option>
-          {industries.map((industry) => (
-            <option key={industry} value={industry}>
-              {industry}
-            </option>
-          ))}
-        </select>
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold text-[#2e8b57]">アピールしたい職種と業種</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="space-y-2">
+                <label htmlFor="industry" className="block text-sm font-medium text-[#2e8b57]">業種</label>
+                <select id="industry" name="industry" required className="mt-1 block w-full rounded-md border-[#2e8b57] shadow-sm focus:border-[#2e8b57] focus:ring focus:ring-[#3da577] focus:ring-opacity-50 bg-[#ecf7f2] text-black">
+                  <option value="">選択してください</option>
+                  {industries.map((industry) => (
+                    <option key={industry} value={industry}>{industry}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="job_title" className="block text-sm font-medium text-[#2e8b57]">職種</label>
+                <select id="job_title" name="job_title" required className="mt-1 block w-full rounded-md border-[#2e8b57] shadow-sm focus:border-[#2e8b57] focus:ring focus:ring-[#3da577] focus:ring-opacity-50 bg-[#ecf7f2] text-black">
+                  <option value="">選択してください</option>
+                  {jobTitles.map((jobTitle) => (
+                    <option key={jobTitle} value={jobTitle}>{jobTitle}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="years_of_experience" className="block text-sm font-medium text-[#2e8b57]">経験年数</label>
+                <input type="number" id="years_of_experience" name="years_of_experience" required className="mt-1 block w-full rounded-md border-[#2e8b57] shadow-sm focus:border-[#2e8b57] focus:ring focus:ring-[#3da577] focus:ring-opacity-50 bg-[#ecf7f2] text-black placeholder-gray-500" />
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold text-[#2e8b57]">その他の情報</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                { id: "currently_employed", label: "現在仕事をしていますか？" },
+                { id: "currently_studying", label: "現在勉強をしていますか？" },
+                { id: "has_hobby", label: "趣味はありますか？" },
+                { id: "lives_alone", label: "一人暮らしですか？" },
+                { id: "goes_out_once_a_week", label: "週一日以上外出しますか？" },
+              ].map((item) => (
+                <div key={item.id} className="space-y-2">
+                  <label className="block text-sm font-medium text-[#2e8b57]">{item.label}</label>
+                  <div className="flex space-x-4">
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        name={item.id}
+                        value="yes"
+                        className="form-radio h-4 w-4 text-[#2e8b57] border-[#2e8b57] focus:ring-[#3da577]"
+                      />
+                      <span className="ml-2 text-sm text-[#2e8b57]">はい</span>
+                    </label>
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        name={item.id}
+                        value="no"
+                        className="form-radio h-4 w-4 text-[#2e8b57] border-[#2e8b57] focus:ring-[#3da577]"
+                      />
+                      <span className="ml-2 text-sm text-[#2e8b57]">いいえ</span>
+                    </label>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <button type="submit" className="w-full bg-[#2e8b57] hover:bg-[#236b44] text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">
+            登録
+          </button>
+        </form>
       </div>
-
-      <div>
-        <label
-          htmlFor="job_title"
-          className="block text-lg font-medium text-gray-700"
-        >
-          職種
-        </label>
-        <select
-          id="job_title"
-          name="job_title"
-          required
-          className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
-        >
-          <option value="">選択してください</option>
-          {jobTitles.map((jobTitle) => (
-            <option key={jobTitle} value={jobTitle}>
-              {jobTitle}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <label
-          htmlFor="years_of_experience"
-          className="block text-lg font-medium text-gray-700"
-        >
-          経験年数
-        </label>
-        <input
-          id="years_of_experience"
-          name="years_of_experience"
-          type="number"
-          required
-          className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
-        />
-      </div>
-
-      <div>
-        <label
-          htmlFor="currently_employed"
-          className="block text-lg font-medium text-gray-700"
-        >
-          現在仕事をしていますか？
-        </label>
-        <select
-          id="currently_employed"
-          name="currently_employed"
-          required
-          className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
-        >
-          <option value="">選択してください</option>
-          <option value="true">はい</option>
-          <option value="false">いいえ</option>
-        </select>
-      </div>
-
-      <div>
-        <label
-          htmlFor="currently_studying"
-          className="block text-lg font-medium text-gray-700"
-        >
-          現在勉強をしていますか？
-        </label>
-        <select
-          id="currently_studying"
-          name="currently_studying"
-          required
-          className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
-        >
-          <option value="">選択してください</option>
-          <option value="true">はい</option>
-          <option value="false">いいえ</option>
-        </select>
-      </div>
-
-      <div>
-        <label
-          htmlFor="has_hobby"
-          className="block text-lg font-medium text-gray-700"
-        >
-          趣味はありますか？
-        </label>
-        <select
-          id="has_hobby"
-          name="has_hobby"
-          required
-          className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
-        >
-          <option value="">選択してください</option>
-          <option value="true">はい</option>
-          <option value="false">いいえ</option>
-        </select>
-      </div>
-
-      <div>
-        <label
-          htmlFor="lives_alone"
-          className="block text-lg font-medium text-gray-700"
-        >
-          一人暮らしですか？
-        </label>
-        <select
-          id="lives_alone"
-          name="lives_alone"
-          required
-          className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
-        >
-          <option value="">選択してください</option>
-          <option value="true">はい</option>
-          <option value="false">いいえ</option>
-        </select>
-      </div>
-
-      <div>
-        <label
-          htmlFor="goes_out_once_a_week"
-          className="block text-lg font-medium text-gray-700"
-        >
-          週一日以上外出しますか？
-        </label>
-        <select
-          id="goes_out_once_a_week"
-          name="goes_out_once_a_week"
-          required
-          className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm text-lg"
-        >
-          <option value="">選択してください</option>
-          <option value="true">はい</option>
-          <option value="false">いいえ</option>
-        </select>
-      </div>
-
-      <button
-        type="submit"
-        className="w-full py-2 px-4 bg-blue-600 text-white font-bold rounded-md"
-      >
-        登録
-      </button>
-    </form>
+    </div>
   );
 }
