@@ -10,9 +10,9 @@
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "ESNext", //error
-    "target": "ESNext", //error
-    "moduleResolution": "bundler",
+    "module": "ES2020", //error
+    "target": "ES2020", //error
+    "moduleResolution": "node", //error
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
