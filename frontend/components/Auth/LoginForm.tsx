@@ -81,9 +81,10 @@ const LoginForm = () => {
         //     {error && <p>{error}</p>}
         //     <button type="submit">ログイン</button>
         // </form>
-        <div className="min-h-screen bg-[#e6f3ef] flex items-center justify-center p-4">
+        // {min-h-screen}
+        <div className="bg-[#e6f3ef] flex items-center justify-center p-4">
             <div className="w-full max-w-md">
-                <h2 className="text-2xl font-bold text-[#2e8b57] mb-6 text-center">ログイン</h2>
+                <h2 className="text-2xl font-bold text-teal-700 mb-6 text-center">ログイン</h2>
                 <div className="bg-white rounded-lg shadow-md p-6">
                     <form onSubmit={handleLogin} className="space-y-4">
                         <div>
@@ -111,7 +112,7 @@ const LoginForm = () => {
                         {error && <p className="text-red-500 text-sm">{error}</p>}
                         <button
                             type="submit"
-                            className="w-full bg-[#2e8b57] hover:bg-[#236b44] text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
+                            className="w-full bg-teal-500 hover:bg-teal-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
                         >
                             ログイン
                         </button>
