@@ -111,13 +111,26 @@ export const fetchSeniorProfile = async (payload) => {
 };
 
 // ユニオンユーザープロフィールを登録するためのAPI呼び出し
-export const fetchUnionProfile = async (data) => {
+
+export const fetchUnionProfiles = async (id: string) => {
+  const response = await fetch(`${BASE_URL}/union-profile/${id}`);
+
+  if (!response.ok) {
+    throw new Error("Failes to fetch union profile");
+  }
+
+  console.log("Succes to fetch");
+
+  return response.json();
+};
+
+export const fetchUnionProfile = async (payload) => {
   const response = await fetch(`${BASE_URL}/register-union`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(payload),
   });
 
   if (!response.ok) {

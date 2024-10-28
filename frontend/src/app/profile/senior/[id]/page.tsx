@@ -1,19 +1,19 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import ProfileForm from "../../../../../components/Profile/ProfileForm";
+import { useParams } from "next/navigation";
 import { useSeniorProfile } from "../../../../../hooks/useSeniorProfile";
+import ProfileForm from "../../../../../components/Profile/ProfileForm";
 
-export default function SeniorProfilePage() {
-  const searchParams = useSearchParams();
-  const id = searchParams.get("sample_id");
+export default function SeniorProfilePage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const { id } = params;
 
-  const { formData, isLoading, error, handleChange, handleSubmit } =
-    useSeniorProfile(id);
+  console.log(id);
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
+  const { formData, error, handleChange, handleSubmit } = useSeniorProfile(id);
 
   if (error) {
     console.log(error);
