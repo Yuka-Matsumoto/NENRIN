@@ -82,6 +82,7 @@ const LoginForm = () => {
         //     <button type="submit">ログイン</button>
         // </form>
         // {min-h-screen}
+        // style={""}
         <div className="bg-[#e6f3ef] flex items-center justify-center p-4">
             <div className="w-full max-w-md">
                 <h2 className="text-2xl font-bold text-teal-700 mb-6 text-center">ログイン</h2>
