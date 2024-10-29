@@ -20,7 +20,7 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
       <p>Location: {job.location}</p>
       <p>Salary: {job.salary}</p>
       <p>{job.description}</p>
-      
+
       {/* 「この求人の詳細」ボタン */}
       <Link href={`/jobs/${job.id}`}>
         <button style={{ marginRight: '8px' }}>この求人の詳細</button>
