@@ -3,7 +3,8 @@
 import { useParams } from "next/navigation";
 import { useSeniorProfile } from "../../../../../hooks/useSeniorProfile";
 import ProfileForm from "../../../../../components/Profile/ProfileForm";
-import CustomHeader from "../../../../../components/layout/CustomHeader";
+// import CustomHeader from "../../../../../components/layout/CustomHeader";
+// import RootLayout from "../../../layout"; // 正しいパスでインポート
 
 export default function SeniorProfilePage({
   params,
@@ -23,14 +24,14 @@ export default function SeniorProfilePage({
 
   return (
     <>
-      <RootLayout header={<CustomHeader />}>
-        {/* <h1>プロフィール登録</h1> */}
-        <ProfileForm
-          formData={formData}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        />
-      </RootLayout>
+      {/* <RootLayout header={<CustomHeader />}> */}
+      {/* <h1>プロフィール登録</h1> */}
+      <ProfileForm
+        formData={formData}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
+      {/* </RootLayout> */}
     </>
 
   );

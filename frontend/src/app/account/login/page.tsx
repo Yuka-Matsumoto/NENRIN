@@ -1,11 +1,15 @@
+import RootLayout from '../../layout';
+import CustomHeader from "../../../../components/layout/CustomHeader";
 import LoginForm from '../../../../components/Auth/LoginForm';
 
 const LoginPage = () => {
     return (
-        <div>
-            {/* <h1>ログイン</h1> */}
-            <LoginForm />
-        </div>
+        <RootLayout header={<CustomHeader />}>
+            <div>
+                {/* <h1>ログイン</h1> */}
+                <LoginForm />
+            </div>
+        </RootLayout>
     );
 };
 
