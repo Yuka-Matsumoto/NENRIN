@@ -55,7 +55,7 @@ const SignupForm = () => {
     };
 
     return (
-        <div className="flex items-center justify-center bg-[#ecf7f2] pt-8">
+        <div className="flex items-center justify-center bg-[#ecf7f2] pt-8" style={{ paddingTop: '50px' }}>
             <div className="bg-white p-8 rounded-lg shadow-md w-96">
                 <h2 className="text-2xl font-semibold mb-6 text-center text-teal-600">アカウント作成</h2>
                 <form onSubmit={handleSignup} className="space-y-4">

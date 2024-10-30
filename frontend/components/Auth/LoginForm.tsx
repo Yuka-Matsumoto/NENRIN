@@ -83,9 +83,9 @@ const LoginForm = () => {
         // </form>
         // {min-h-screen}
         // style={""}
-        <div className="bg-[#e6f3ef] flex items-center justify-center p-4">
+        <div className="flex items-center justify-center p-4" style={{ paddingTop: '200px' }}>
             <div className="w-full max-w-md">
-                <h2 className="text-2xl font-bold text-teal-700 mb-6 text-center">ログイン</h2>
+                <h2 className="text-2xl font-bold text-teal-700 mb-6 text-center mt-10">ログイン</h2>
                 <div className="bg-white rounded-lg shadow-md p-6">
                     <form onSubmit={handleLogin} className="space-y-4">
                         <div>
