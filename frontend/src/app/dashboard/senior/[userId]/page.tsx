@@ -58,11 +58,11 @@ export default function SeniorDashboard({ params }) {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                         {[
-                             { icon: FileTextIcon, text: "サービス登録", path: "/services/register" }, // 修正済み
-                             { icon: BriefcaseIcon, text: "求人を見る", path: "/jobs" },
-                             { icon: UserIcon, text: "プロフィール", path: "/profile" },
-                             { icon: ListIcon, text: "サービス依頼の一覧", path: "/services/requests" },
-                             { icon: ListIcon, text: "応募求人の一覧", path: "/jobs/applications" },
+                            { icon: FileTextIcon, text: "サービス登録", path: "/services/register" }, // 修正済み
+                            { icon: BriefcaseIcon, text: "求人を見る", path: "/jobs" },
+                            { icon: UserIcon, text: "プロフィール", path: "/profile/senior/${id}" },
+                            { icon: ListIcon, text: "サービス依頼の一覧", path: "/services/requests" },
+                            { icon: ListIcon, text: "応募求人の一覧", path: "/jobs/applications" },
                         ].map((item, index) => (
                             <button
                                 key={index}

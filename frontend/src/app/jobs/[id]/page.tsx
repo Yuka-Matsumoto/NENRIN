@@ -94,14 +94,21 @@ const JobDetailPage: React.FC = () => {
     loadProfile();
   }, []);
 
+  // const handleApplyClick = () => {
+  //   if (profile) {
+  //     router.push({
+  //       pathname: `/senior-applications/${id}`,
+  //       query: { ...profile },
+  //     });
+  //   } else {
+  //     alert("プロフィール情報がありません");
+  //   }
+  // };
   const handleApplyClick = () => {
-    if (profile) {
-      router.push({
-        pathname: `/senior-applications/${id}`,
-        query: { ...profile },
-      });
+    if (id) {
+      router.push(`/senior-applications/${id}`);
     } else {
-      alert("プロフィール情報がありません");
+      alert("ID情報がありません");
     }
   };
 
@@ -110,9 +117,9 @@ const JobDetailPage: React.FC = () => {
   if (!job) return <p>No job found</p>;
 
   return (
-    <div className="min-h-screen bg-[#f0f5f3] py-8">
+    <div className="min-h-screen bg-mint py-8">
       <div className="max-w-2xl mx-auto">
-        <div className="bg-[#f0f5f3] rounded border border-gray-200">
+        <div className="bg-mint rounded border border-gray-200">
           <div className="p-6">
             <h1 className="text-2xl font-normal text-gray-900 mb-2">{job.title}</h1>
             <p className="text-base text-gray-900 mb-6">{job.description}</p>
