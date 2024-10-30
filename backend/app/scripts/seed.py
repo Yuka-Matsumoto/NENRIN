@@ -60,8 +60,8 @@ def seed_senior_profiles(users):
             senior_profiles.append(SeniorProfile(
                 user_id=user.id,
                 name=user.name,
-                 id=str(uuid.uuid4()),
-               address="456 Senior Rd",
+                id=str(uuid.uuid4()),
+                address="456 Senior Rd",
                 age=70,
                 gender="male" if "1" in user.uid else "female",
                 industry="Healthcare",
