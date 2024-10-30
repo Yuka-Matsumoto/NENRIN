@@ -1,9 +1,8 @@
-
-import axios from 'axios';
+import axios from "axios";
 
 // BASE_URL の定義を統一
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:4000';
-
+const BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:4000";
 
 // axiosインスタンスの作成
 export const apiClient = axios.create({
@@ -17,7 +16,7 @@ export const apiClient = axios.create({
 export const fetchWithAuth = async (
   url: string,
   token: string,
-  method: 'get' | 'post' | 'put' | 'delete' = 'get',
+  method: "get" | "post" | "put" | "delete" = "get",
   data: any = {},
   options = {}
 ) => {
@@ -33,7 +32,10 @@ export const fetchWithAuth = async (
 };
 
 // 求人検索API
-export const fetchJobs = async (query: { title?: string; location?: string }) => {
+export const fetchJobs = async (query: {
+  title?: string;
+  location?: string;
+}) => {
   const url = new URL(`${BASE_URL}/search/jobs`);
   if (query.title) url.searchParams.append("title", query.title);
   if (query.location) url.searchParams.append("location", query.location);
@@ -55,7 +57,10 @@ export const fetchJobById = async (id: string) => {
 };
 
 // サービス検索API
-export const fetchServices = async (query: { name?: string; category?: string }) => {
+export const fetchServices = async (query: {
+  name?: string;
+  category?: string;
+}) => {
   const url = new URL(`${BASE_URL}/search/services`);
   if (query.name) url.searchParams.append("name", query.name);
   if (query.category) url.searchParams.append("category", query.category);
@@ -173,7 +178,7 @@ export const fetchUserServices = async (userId: string) => {
 // 応募データを送信するためのAPI呼び出し
 export const submitApplication = async (formData: FormData) => {
   const response = await fetch(`${BASE_URL}/applications/apply`, {
-    method: 'POST',
+    method: "POST",
     body: formData,
   });
   if (!response.ok) {
@@ -191,11 +196,9 @@ export const submitApplication = async (formData: FormData) => {
 //   return response.json();
 // };
 
-
-
 // シニアが求人に応募するとき応募情報を送信するAPI
 export const submitSeniorApplication = async (data: FormData) => {
-  const response = await fetch(`${BASE_URL}/applications`, {
+  const response = await fetch(`${BASE_URL}/api/apply`, {
     method: "POST",
     body: data,
   });
@@ -203,8 +206,7 @@ export const submitSeniorApplication = async (data: FormData) => {
     throw new Error("Failed to submit application");
   }
   return response.json();
-}
-
+};
 
 // ユーザー求人取得エンドポイント（求人Aが自分で登録した求人を見る）
 export const fetchUserJobs = async (userId: string) => {

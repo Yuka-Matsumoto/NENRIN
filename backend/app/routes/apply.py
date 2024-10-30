@@ -40,7 +40,8 @@ def apply_for_job():
 
     # 応募情報をデータベースに保存
     new_application = Application(
-        senior_profile_id=data['senior_profile_id'],
+        # senior_profile_id=data['senior_profile_id'],
+        senior_profile_id="56e1e7a1-48a8-480c-9e0b-dda8f65a26eb",
         job_id=data['job_id'],
         resume=resume_path,
         work_history=work_history_path,

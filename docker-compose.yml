@@ -9,6 +9,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
       - ./frontend/package-lock.json:/app/package-lock.json # TODO: ここを追加した（コンフリクト注）
+    mem_limit: 4g
 
   backend:
     build:
@@ -26,6 +27,7 @@ services:
       # - ./backend/app/serviceAccountKey.json:/app/serviceAccountKey.json
     depends_on:
       - db
+    mem_limit: 4g
 
   db:
     image: postgres:15
