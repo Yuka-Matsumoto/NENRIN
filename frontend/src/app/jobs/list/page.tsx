@@ -1,3 +1,4 @@
+// 元のコード
 // "use client";
 
 // import { useEffect, useState } from "react";
@@ -83,6 +84,8 @@
 //   );
 // }
 
+
+// データモック
 
 "use client";
 
