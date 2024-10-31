@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useJob } from "../../../../hooks/useJobs";
 import { fetchSeniorProfileForApplication } from "../../../../lib/api"; // シニアプロフィール取得関数のインポート
 import { fetchJobPosting } from "../../../../../lib/api";
+import { useJob } from "../../../../../hooks/useJobs";
 
 export default function JobPostingPage({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -61,5 +61,3 @@ export default function JobPostingPage({ params }: { params: { id: string } }) {
     </div>
   );
 }
-
-export default JobDetailPage;
