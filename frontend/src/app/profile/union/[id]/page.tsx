@@ -23,7 +23,7 @@ export default function UnionProfilePage({
 
   return (
     <>
-      <h1>団体プロフィール登録</h1>
+      {/* <h1>団体プロフィール登録</h1> */}
       <UnionProfileForm
         formData={formData}
         handleChange={handleChange}
