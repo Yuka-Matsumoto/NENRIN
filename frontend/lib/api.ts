@@ -198,10 +198,14 @@ export const submitApplication = async (formData: FormData) => {
 // };
 
 // シニアが求人に応募するとき応募情報を送信するAPI
-export const submitSeniorApplication = async (data: FormData) => {
+export const submitSeniorApplication = async (data: any) => {
+  console.log(data)
   const response = await fetch(`${BASE_URL}/api/apply`, {
     method: "POST",
-    body: data,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
   });
   if (!response.ok) {
     throw new Error("Failed to submit application");

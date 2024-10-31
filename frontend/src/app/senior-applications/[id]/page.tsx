@@ -69,11 +69,16 @@ const SeniorApplicationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      data.append(key, value);
-    });
-    data.append('job_id', jobId);
+    // const data = new FormData();
+    // Object.entries(formData).forEach(([key, value]) => {
+    //   data.append(key, value);
+    // });
+    // data.append('job_id', jobId);
+    const data = {
+      ...formData, 'job_id': jobId
+
+    }
+    console.log(data)
 
     try {
       await submitSeniorApplication(data);
