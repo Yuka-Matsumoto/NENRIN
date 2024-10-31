@@ -153,7 +153,8 @@ export const fetchServicePosting = async (data) => {
 
 // ジョブポストを登録するためのAPI呼び出し
 export const fetchJobPosting = async (data: any) => {
-  const response = await fetch(`${BASE_URL}/job-postings`, {
+  console.log("ONIGIRI");
+  const response = await fetch(`${BASE_URL}/jobs/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

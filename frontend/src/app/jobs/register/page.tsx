@@ -12,9 +12,9 @@ export default function JobPostingForm() {
     description: "",
     location: "",
     salary: "",
-    requireResume: false,
-    requireWorkHistory: false,
-    requirePhoto: false,
+    is_resume_required: false,
+    is_work_history_required: false,
+    is_photo_required: false,
   });
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
@@ -55,9 +55,9 @@ export default function JobPostingForm() {
         description: "",
         location: "",
         salary: "",
-        requireResume: false,
-        requireWorkHistory: false,
-        requirePhoto: false,
+        is_resume_required: false,
+        is_work_history_required: false,
+        is_photo_required: false,
       });
     } catch (error) {
       setStatus("error");
