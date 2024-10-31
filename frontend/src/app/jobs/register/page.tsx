@@ -6,7 +6,7 @@ import { fetchJobPosting } from "../../../../lib/api";
 export default function JobPostingForm() {
   const [formData, setFormData] = useState({
 
-    union_profile_id: "",
+    union_profile_id: "696d86cc-c28d-4853-bcbe-fb812acdc350",
 
     title: "",
     description: "",

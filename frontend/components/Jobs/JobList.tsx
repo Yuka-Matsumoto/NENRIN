@@ -28,7 +28,7 @@ const JobList: React.FC<JobListProps> = ({ jobs, loading, error }) => {
           <h2>{job.title}</h2>
           <p>{job.description}</p>
           <p>勤務地：{job.location}</p>
-          <p>給料：時給{job.salary}円</p>
+          <p>給料：時給{Number(job.salary)}円</p>
 
           {/* 「この求人の詳細」ボタン */}
           <Link href={`/jobs/${job.id}`}>

@@ -9,13 +9,13 @@ const SeniorApplicationForm = () => {
   const { id: jobId } = useParams();
 
   const [formData, setFormData] = useState({
-    name: '',
-    address: '',
-    age: '',
-    gender: '',
-    industry: '',
-    job_title: '',
-    years_of_experience: '',
+    name: '佐藤花子',
+    address: '神奈川県横浜市中区桜木町4-5-6',
+    age: '67',
+    gender: '女性',
+    industry: 'IT',
+    job_title: 'ソフトウェアエンジニア',
+    years_of_experience: '20',
     resume: null,
     work_history: null,
     photo: null,

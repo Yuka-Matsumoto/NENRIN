@@ -12,7 +12,7 @@ const ApplicationList = ({ applications }) => {
       {applications.map((app) => (
         <li key={app.application_id}>
           <div>
-            <strong>応募者ID:</strong> {app.application_id}, <strong>スコア:</strong> {app.score}
+            <strong>応募者ID:</strong> {app.application_id}, <strong>名前:</strong> {app.name},<strong>スコア:</strong> {app.score}
             {/* 詳細ページへのリンクを追加 */}
             <Link href={`/applications/${app.job_id}/${app.application_id}`}>
               <button>詳細を見る</button>

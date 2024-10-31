@@ -148,6 +148,12 @@ const JobDetailPage: React.FC = () => {
               >
                 この求人に応募する
               </button>
+              <button
+                onClick={() => router.push(`/applications/${id}`)}
+                className="flex-1 px-4 py-2 text-white bg-[#4F7F58] rounded-md hover:bg-[#446b4c] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#4F7F58] transition-colors"
+              >
+                候補者一覧
+              </button>
             </div>
           </div>
         </div>

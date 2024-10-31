@@ -9,18 +9,24 @@ applications_bp = Blueprint('applications', __name__)
 @applications_bp.route('/jobs/<job_id>/ranked-applications', methods=['GET'])
 def get_ranked_applications(job_id):
     applications = db.session.query(Application).filter_by(job_id=job_id).all()
-    print(f"Job ID: {job_id}, Applications Found: {len(applications)}")  # ログを追加
+    print(applications)
+    print(f"Job ID: {job_id}, Applications Found: {applications}")  # ログを追加
     if not applications:
         return jsonify({"error": "該当する応募者が見つかりません"}), 404
 
     ranked_applications = []
     for application in applications:
+        print(application)
+        print(application.name)
+        print("YAKINIKU")
         scoring_entry = db.session.query(Scoring).filter_by(application_id=application.id).first()
+        print(scoring_entry)
         if scoring_entry:
-            ranked_applications.append({
+                ranked_applications.append({
                 "application_id": application.id,
                 "score": scoring_entry.score,
-                "criteria_met": scoring_entry.criteria_met
+                "name": application.name,
+                # "criteria_met": scoring_entry.criteria_met
             })
 
     ranked_applications.sort(key=lambda x: x['score'], reverse=True)
