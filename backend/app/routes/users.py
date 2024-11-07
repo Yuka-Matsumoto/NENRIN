@@ -88,18 +88,15 @@ def register_union():
     user_id = data['user_id']
     print(user_id)
 
-    response = jsonify({'message': 'Profile created successfully'})
-    return response, 201
-    
-    # new_union = UnionProfile(
-    #     user_id=data['user_id'],  # フロントから送られてくるユーザーID
-    #     union_name=data['organizationName'],  # 団体名
-    #     representative_name=data['representativeName'],  # 代表者名
-    #     address=data['address'],  # フロントエンドで統合された address をそのまま使用
-    #     date_of_foundation=datetime.strptime(data['establishmentDate'], '%Y-%m-%d').date(),  # 設立年月日
-    #     overview=data['organizationOverview']  # 組織概要
-    # )
-    # db.session.add(new_union)
-    # db.session.commit()
-    # return jsonify({"message": "Union user registered successfully"}), 201  # ユニオンユーザー登録が成功しました
+    new_union = UnionProfile(
+        user_id=data['user_id'],  # フロントから送られてくるユーザーID
+        union_name=data['organizationName'],  # 団体名
+        representative_name=data['representativeName'],  # 代表者名
+        address=data['address'],  # フロントエンドで統合された address をそのまま使用
+        date_of_foundation=datetime.strptime(data['establishmentDate'], '%Y-%m-%d').date(),  # 設立年月日
+        overview=data['organizationOverview']  # 組織概要
+    )
+    db.session.add(new_union)
+    db.session.commit()
+    return jsonify({"message": "団体ユーザープロフィール登録が成功しました"}), 201  # ユニオンユーザー登録が成功しました
 
