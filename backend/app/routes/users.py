@@ -49,9 +49,17 @@ def register_senior():
     user_id = data['user_id']
     print(user_id)
 
-    response = jsonify({'message': 'Profile created successfully'})
-    return response, 201
+    new_user = SeniorUser(user_id=user_id)
 
+    try:
+        db.session.add(new_user)
+        db.session.commit()
+        response = jsonify({'message':'プロフィール登録が成功しました'})
+        return response, 201
+    except Exception as e:
+        db.session.rollback()
+        print(e)
+        return jsonify({'message':'プロフィール作成時にエラーが発生しました'}), 500
     
 # ユニオンユーザープロフィール
 
