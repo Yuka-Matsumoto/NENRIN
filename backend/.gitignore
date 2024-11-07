@@ -1,1 +1,4 @@
 .env
+
+# 秘密キー
+serviceAccountKey.json
