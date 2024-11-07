@@ -64,7 +64,9 @@ docker-compose up --build
 ※ポートの競合を避けるための注意  
 docker起動しながらの開発では以下のポートを使います。  
 フロントエンド/localhost:3000  
+
 バックエンド/localhost:4000
+
 データベース/localhost:5433(コンテナ内:5432)  
 
 
