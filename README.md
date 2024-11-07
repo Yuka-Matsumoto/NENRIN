@@ -4,19 +4,25 @@
 # 使用技術
 
 ### フロントエンド
-<img src="https://img.shields.io/badge/-Next.js-000000.svg?logo=next.js&style=for-the-badge">
-<img src="https://img.shields.io/badge/-Typescript-007ACC.svg?logo=typescript&style=for-the-badge">
-<img src="https://img.shields.io/badge/-React-61DAFB.svg?logo=react&style=for-the-badge">
+<div style="display: flex; gap: 10px;">
+    <img src="https://img.shields.io/badge/-Next.js-000000.svg?logo=next.js&style=for-the-badge">
+    <img src="https://img.shields.io/badge/-Typescript-007ACC.svg?logo=typescript&style=for-the-badge">
+    <img src="https://img.shields.io/badge/-React-61DAFB.svg?logo=react&style=for-the-badge">
+</div>
 
 ### バックエンド
-<img src="https://img.shields.io/badge/-Python-3776AB.svg?logo=python&style=for-the-badge">
-<img src="https://img.shields.io/badge/-Flask-000000.svg?logo=flask&style=for-the-badge">
-<img src="https://img.shields.io/badge/-Postgresql-336791.svg?logo=postgresql&style=for-the-badge">
+<div style="display: flex; gap: 10px;">
+    <img src="https://img.shields.io/badge/-Python-3776AB.svg?logo=python&style=for-the-badge">
+    <img src="https://img.shields.io/badge/-Flask-000000.svg?logo=flask&style=for-the-badge">
+    <img src="https://img.shields.io/badge/-Postgresql-336791.svg?logo=postgresql&style=for-the-badge">
+</div>
 
 ### インフラ、その他
-<img src="https://img.shields.io/badge/-Docker-1488C6.svg?logo=docker&style=for-the-badge">
-<img src="https://img.shields.io/badge/-Github-181717.svg?logo=github&style=for-the-badge">
-<img src="https://img.shields.io/badge/-Firebase-FFCA28.svg?logo=firebase&style=for-the-badge">
+<div style="display: flex; gap: 10px;">
+    <img src="https://img.shields.io/badge/-Docker-1488C6.svg?logo=docker&style=for-the-badge">
+    <img src="https://img.shields.io/badge/-Github-181717.svg?logo=github&style=for-the-badge">
+    <img src="https://img.shields.io/badge/-Firebase-FFCA28.svg?logo=firebase&style=for-the-badge">
+</div>
 
 ## ユーザータイプ
 1.シニアユーザー（サービス提供者であるシニア）  
