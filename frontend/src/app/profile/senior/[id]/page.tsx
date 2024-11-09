@@ -22,7 +22,7 @@ export default function SeniorProfilePage({
 
   return (
     <>
-      <h1>プロフィール登録</h1>
+      {/* <h1>プロフィール登録</h1> */}
       <ProfileForm
         formData={formData}
         handleChange={handleChange}

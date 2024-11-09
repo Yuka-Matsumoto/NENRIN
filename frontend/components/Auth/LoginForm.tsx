@@ -45,7 +45,7 @@ const LoginForm = () => {
             }
 
             // ユーザー情報の取得
-            const { name, role, uid } = userInfo.userInfo; // userInfoから必要な情報を取得
+            const { role, uid } = userInfo.userInfo; // userInfoから必要な情報を取得
 
             // ユーザータイプを取得
             const userType = role; // userInfoからroleを取得
@@ -82,7 +82,7 @@ const LoginForm = () => {
         //     <button type="submit">ログイン</button>
         // </form>
         // {min-h-screen}
-        <div className="bg-[#e6f3ef] flex items-center justify-center p-4">
+        <div className="bg-mint flex items-center justify-center p-4" style={{ paddingTop: '250px' }}>
             <div className="w-full max-w-md">
                 <h2 className="text-2xl font-bold text-teal-700 mb-6 text-center">ログイン</h2>
                 <div className="bg-white rounded-lg shadow-md p-6">

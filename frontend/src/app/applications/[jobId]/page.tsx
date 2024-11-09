@@ -29,7 +29,7 @@ const JobApplicationsPage = () => {
 
   return (
     <div>
-      <h1>特定求人の応募者一覧</h1>
+      {/* <h1>特定求人の応募者一覧</h1> */}
       <ApplicationList applications={applications} />
     </div>
   );

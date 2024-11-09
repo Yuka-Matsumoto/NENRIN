@@ -6,15 +6,15 @@ import { fetchJobPosting } from "../../../../lib/api";
 export default function JobPostingForm() {
   const [formData, setFormData] = useState({
 
-    union_profile_id: "",
+    union_profile_id: "696d86cc-c28d-4853-bcbe-fb812acdc350",
 
     title: "",
     description: "",
     location: "",
     salary: "",
-    requireResume: false,
-    requireWorkHistory: false,
-    requirePhoto: false,
+    is_resume_required: false,
+    is_work_history_required: false,
+    is_photo_required: false,
   });
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
@@ -55,9 +55,9 @@ export default function JobPostingForm() {
         description: "",
         location: "",
         salary: "",
-        requireResume: false,
-        requireWorkHistory: false,
-        requirePhoto: false,
+        is_resume_required: false,
+        is_work_history_required: false,
+        is_photo_required: false,
       });
     } catch (error) {
       setStatus("error");

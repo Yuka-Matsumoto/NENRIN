@@ -153,7 +153,8 @@ export const fetchServicePosting = async (data) => {
 
 // ジョブポストを登録するためのAPI呼び出し
 export const fetchJobPosting = async (data: any) => {
-  const response = await fetch(`${BASE_URL}/job-postings`, {
+  console.log("ONIGIRI");
+  const response = await fetch(`${BASE_URL}/jobs/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -197,10 +198,14 @@ export const submitApplication = async (formData: FormData) => {
 // };
 
 // シニアが求人に応募するとき応募情報を送信するAPI
-export const submitSeniorApplication = async (data: FormData) => {
+export const submitSeniorApplication = async (data: any) => {
+  console.log(data)
   const response = await fetch(`${BASE_URL}/api/apply`, {
     method: "POST",
-    body: data,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
   });
   if (!response.ok) {
     throw new Error("Failed to submit application");

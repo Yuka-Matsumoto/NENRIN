@@ -1,6 +1,29 @@
 # NENRIN
 このWEBアプリはシニアユーザーと団体ユーザーを仕事を通じて結ぶプラットフォームです。シニアユーザーは自分のスキルを活かしてサービスを提供でき、団体ユーザーはシニアに対して求人掲載ができます。
 
+# 使用技術
+
+### フロントエンド
+<div style="display: flex; gap: 10px;">
+    <img src="https://img.shields.io/badge/-Next.js-000000.svg?logo=next.js&style=for-the-badge">
+    <img src="https://img.shields.io/badge/-Typescript-007ACC.svg?logo=typescript&style=for-the-badge">
+    <img src="https://img.shields.io/badge/-React-61DAFB.svg?logo=react&style=for-the-badge">
+</div>
+
+### バックエンド
+<div style="display: flex; gap: 10px;">
+    <img src="https://img.shields.io/badge/-Python-3776AB.svg?logo=python&style=for-the-badge">
+    <img src="https://img.shields.io/badge/-Flask-000000.svg?logo=flask&style=for-the-badge">
+    <img src="https://img.shields.io/badge/-Postgresql-336791.svg?logo=postgresql&style=for-the-badge">
+</div>
+
+### インフラ、その他
+<div style="display: flex; gap: 10px;">
+    <img src="https://img.shields.io/badge/-Docker-1488C6.svg?logo=docker&style=for-the-badge">
+    <img src="https://img.shields.io/badge/-Github-181717.svg?logo=github&style=for-the-badge">
+    <img src="https://img.shields.io/badge/-Firebase-FFCA28.svg?logo=firebase&style=for-the-badge">
+</div>
+
 ## ユーザータイプ
 1.シニアユーザー（サービス提供者であるシニア）  
 2.団体ユーザー（団体、企業、学校、地方自治体など）
@@ -40,9 +63,12 @@ docker-compose up --build
 
 ※ポートの競合を避けるための注意  
 docker起動しながらの開発では以下のポートを使います。  
-フロントエンド　localhost:3000  
-バックエンド　　localhost:4000（コンテナ内では5000）  
-DB　　　　　　 localhost:5433 （コンテナ内では5432）  
+フロントエンド/localhost:3000  
+
+バックエンド/localhost:4000
+
+データベース/localhost:5433(コンテナ内:5432)  
+
 
 ## コミットメッセージの統一
 
@@ -50,38 +76,19 @@ DB　　　　　　 localhost:5433 （コンテナ内では5432）
 ・メッセージの最初に絵文字をつけて視覚的にわかりやすくしましょう  
 例：🚧 Work in progress on search functionality  
 
-## 技術スタック
-
-フロントエンド：Next.js, Tailwind CSS, TypeScript  
-バックエンド：Python, Flask  
-データベース：PostgreSQL  
-認証：Firebase  
-決済：Stripe  
-その他ツール：GitHub, Docker  
-
 ## チームメンバーと担当機能
 ＊ゆうな（リーダー）：決済  
 ＊きの：認証・スコアリング  
 ＊ゆか：検索  
 
-↓要検討  
-## コーディング規約
-- 
-
 ## セキュリティ要件
 
 - ユーザー認証とアクセス制御
 - 個人情報の暗号化
-- セキュアな支払い処理
-
-## 非機能要件
-
-- システムの可用性: 99.9%
-- レスポンス時間: 3 秒以内
-- 同時接続ユーザー数: 最大 10,000 人
 
 ## 今後の拡張性
 
+- メッセージ機能
+- 団体側への課金制度
 - 評価システムの導入
 - モバイルアプリの開発
-- 多言語対応

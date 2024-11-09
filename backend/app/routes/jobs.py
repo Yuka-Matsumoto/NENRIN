@@ -11,13 +11,14 @@ def register_job():
     data = request.json
     new_job = Job(
         union_profile_id=data['union_profile_id'],  # フロントから送られる union_profile_id を使用
+        job_title="",
         title=data['title'],
         description=data['description'],
         location=data['location'],
         salary=float(data['salary']),  # salary を数値として処理
-        require_resume=data.get('requireResume', False),
-        require_work_history=data.get('requireWorkHistory', False),
-        require_photo=data.get('requirePhoto', False),
+        is_resume_required=data.get('requireResume', False),
+        is_work_history_required=data.get('requireWorkHistory', False),
+        is_photo_required=data.get('requirePhoto', False),
         status="open"  # デフォルトで "open" 状態に設定
     )
     db.session.add(new_job)

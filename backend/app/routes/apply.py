@@ -28,7 +28,7 @@ def save_file(file):
 
 @apply_bp.route('/api/apply', methods=['POST'])
 def apply_for_job():
-    data = request.form
+    data = request.json
     resume = request.files.get('resume')
     work_history = request.files.get('work_history')
     photo = request.files.get('photo')
@@ -41,7 +41,7 @@ def apply_for_job():
     # 応募情報をデータベースに保存
     new_application = Application(
         # senior_profile_id=data['senior_profile_id'],
-        senior_profile_id="56e1e7a1-48a8-480c-9e0b-dda8f65a26eb",
+        senior_profile_id="2693f9e2-c427-404d-aaf2-1d96bb6619a1",#佐藤花子さん
         job_id=data['job_id'],
         resume=resume_path,
         work_history=work_history_path,
